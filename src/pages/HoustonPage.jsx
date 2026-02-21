@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import LeadGenAnimation from '../components/animations/LeadGenAnimation';
+import SupportAIAnimation from '../components/animations/SupportAIAnimation';
+import FulfillmentAnimation from '../components/animations/FulfillmentAnimation';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -63,29 +66,38 @@ export default function HoustonPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                     {/* Static translation of features for the local page to maintain speed but keep aesthetic */}
-                    <div className="bg-[#15151A] border border-white/5 rounded-[2rem] p-10 hover:-translate-y-2 transition-transform duration-500 shadow-xl group">
+                    <div className="bg-[#15151A] border border-white/5 rounded-[2rem] p-10 hover:-translate-y-2 transition-transform duration-500 shadow-xl group flex flex-col">
+                        <div className="w-full h-64 mb-8 shrink-0">
+                            <LeadGenAnimation />
+                        </div>
                         <h4 className="text-2xl font-semibold mb-4 text-brand-accent">Lead Generation Engine</h4>
-                        <p className="text-white/60 leading-relaxed mb-8">
+                        <p className="text-white/60 leading-relaxed mb-8 flex-grow">
                             We locate homeowners, local B2B targets, and high-intent local searchers. Cold email outreach running 24/7 without manual effort.
                         </p>
-                        <div className="h-1 w-12 bg-white/10 group-hover:bg-brand-accent group-hover:w-full transition-all duration-500" />
+                        <div className="h-1 w-12 bg-white/10 group-hover:bg-brand-accent group-hover:w-full transition-all duration-500 mt-auto" />
                     </div>
 
-                    <div className="bg-[#18181E] border border-brand-accent/20 rounded-[2rem] p-10 hover:-translate-y-2 transition-transform duration-500 shadow-xl group relative overflow-hidden">
+                    <div className="bg-[#18181E] border border-brand-accent/20 rounded-[2rem] p-10 hover:-translate-y-2 transition-transform duration-500 shadow-xl group relative overflow-hidden flex flex-col">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/5 rounded-full blur-2xl group-hover:bg-brand-accent/10 transition-colors" />
-                        <h4 className="text-2xl font-semibold mb-4 text-white">Customer Support AI</h4>
-                        <p className="text-white/60 leading-relaxed mb-8 relative z-10">
+                        <div className="w-full h-64 mb-8 shrink-0 relative z-10">
+                            <SupportAIAnimation />
+                        </div>
+                        <h4 className="text-2xl font-semibold mb-4 text-white relative z-10">Customer Support AI</h4>
+                        <p className="text-white/60 leading-relaxed mb-8 relative z-10 flex-grow">
                             Never miss a booking. Custom voice and text agents handle queries, schedule appointments, and qualify leads while you sleep.
                         </p>
-                        <div className="h-1 w-12 bg-white/10 group-hover:bg-brand-accent group-hover:w-full transition-all duration-500" />
+                        <div className="h-1 w-12 bg-white/10 group-hover:bg-brand-accent group-hover:w-full transition-all duration-500 mt-auto relative z-10" />
                     </div>
 
-                    <div className="bg-[#1A1A22] border border-brand-accent/40 rounded-[2rem] p-10 hover:-translate-y-2 transition-transform duration-500 shadow-xl group">
+                    <div className="bg-[#1A1A22] border border-brand-accent/40 rounded-[2rem] p-10 hover:-translate-y-2 transition-transform duration-500 shadow-xl group flex flex-col">
+                        <div className="w-full h-64 mb-8 shrink-0">
+                            <FulfillmentAnimation />
+                        </div>
                         <h4 className="text-2xl font-semibold mb-4 text-white">Operational Fulfillment</h4>
-                        <p className="text-white/60 leading-relaxed mb-8">
+                        <p className="text-white/60 leading-relaxed mb-8 flex-grow">
                             Zapier/Make automations tying your CRM, invoicing, and fulfillment together. If it's repetitive, it should be automated.
                         </p>
-                        <div className="h-1 w-12 bg-white/10 group-hover:bg-brand-accent group-hover:w-full transition-all duration-500" />
+                        <div className="h-1 w-12 bg-white/10 group-hover:bg-brand-accent group-hover:w-full transition-all duration-500 mt-auto" />
                     </div>
 
                 </div>
