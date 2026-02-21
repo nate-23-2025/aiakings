@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, Suspense } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Network, Search, Zap } from 'lucide-react';
@@ -8,6 +8,8 @@ import CursorProtocol from '../components/features/CursorProtocol';
 import AuditAnimation from '../components/animations/AuditAnimation';
 import TrainingAnimation from '../components/animations/TrainingAnimation';
 import DeploymentAnimation from '../components/animations/DeploymentAnimation';
+
+const HeroCrystal = React.lazy(() => import('../components/animations/HeroCrystal'));
 
 export default function FinancePage() {
     const heroRef = useRef(null);
@@ -24,6 +26,10 @@ export default function FinancePage() {
             gsap.fromTo('.hero-cta',
                 { y: 40, opacity: 0 },
                 { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.8 }
+            );
+            gsap.fromTo('.crystal-wrapper',
+                { opacity: 0, scale: 0.85 },
+                { opacity: 1, scale: 1, duration: 1.8, ease: 'power2.out', delay: 0.2 }
             );
         }, heroRef);
 
@@ -87,21 +93,28 @@ export default function FinancePage() {
                 <div
                     className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-luminosity"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/80 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/80 to-transparent z-0" />
 
-                <div className="relative z-10 max-w-5xl">
-                    <div className="overflow-hidden mb-2">
+                {/* 3D R3F Canvas - Background on Mobile, Right Panel on Desktop */}
+                <div className="crystal-wrapper absolute inset-0 md:left-auto md:right-0 md:w-[50%] z-0 flex items-center justify-center pointer-events-none md:pointer-events-auto opacity-30 md:opacity-100">
+                    <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+                        <HeroCrystal />
+                    </Suspense>
+                </div>
+
+                <div className="relative z-10 max-w-5xl md:w-[60%] pointer-events-none">
+                    <div className="overflow-hidden mb-2 pointer-events-auto">
                         <h1 className="hero-text text-3xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight text-white">
                             Precision AI inside the
                         </h1>
                     </div>
-                    <div className="overflow-hidden mb-12">
+                    <div className="overflow-hidden mb-12 pointer-events-auto">
                         <h2 className="hero-text text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent pr-4 py-2">
                             Financial Atelier.
                         </h2>
                     </div>
 
-                    <div className="hero-cta flex flex-wrap gap-6 items-center">
+                    <div className="hero-cta flex flex-wrap gap-6 items-center pointer-events-auto">
                         <button className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
                             <span className="relative z-10">Deploy Architecture</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
