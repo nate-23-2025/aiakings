@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, Suspense } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useCalModal } from '../context/CalModalContext';
 import DiagnosticShuffler from '../components/features/DiagnosticShuffler';
@@ -6,8 +6,6 @@ import TelemetryTypewriter from '../components/features/TelemetryTypewriter';
 import CursorProtocol from '../components/features/CursorProtocol';
 import ProtocolTimeline from '../components/sections/ProtocolTimeline';
 import ServicesShowcase from '../components/sections/ServicesShowcase';
-
-const HeroCrystal = React.lazy(() => import('../components/animations/HeroCrystal'));
 
 export default function FinancePage() {
     const heroRef = useRef(null);
@@ -24,10 +22,6 @@ export default function FinancePage() {
             gsap.fromTo('.hero-cta',
                 { y: 40, opacity: 0 },
                 { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.8 }
-            );
-            gsap.fromTo('.crystal-wrapper',
-                { opacity: 0, scale: 0.85 },
-                { opacity: 1, scale: 1, duration: 1.8, ease: 'power2.out', delay: 0.2 }
             );
         }, heroRef);
 
@@ -61,14 +55,7 @@ export default function FinancePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/80 to-transparent z-0" />
 
-                {/* 3D R3F Canvas - Background on Mobile, Right Panel on Desktop */}
-                <div className="crystal-wrapper absolute inset-0 md:left-auto md:right-0 md:w-[50%] z-0 flex items-center justify-center pointer-events-none md:pointer-events-auto opacity-30 md:opacity-100">
-                    <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
-                        <HeroCrystal />
-                    </Suspense>
-                </div>
-
-                <div className="relative z-10 max-w-5xl md:w-[60%] pointer-events-none">
+                <div className="relative z-10 max-w-5xl pointer-events-none">
                     <div className="overflow-hidden mb-2 pointer-events-auto">
                         <h1 className="hero-text text-3xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight text-white">
                             Precision AI inside the
