@@ -13,27 +13,27 @@ export default function FinancePage() {
     const { openCalModal } = useCalModal();
 
     useEffect(() => {
-        // Hero Entrance Animation — cinematic clip-path reveal + aurora fade-in
+        // Hero Entrance Animation — delayed to sync with preloader curtain open (~2s)
         let heroCtx = gsap.context(() => {
-            // Text clip-path wipe reveal
+            // Aurora blobs fade in — starts as curtain begins splitting
+            gsap.fromTo('.aurora-blob',
+                { opacity: 0, scale: 0.6 },
+                { opacity: 1, scale: 1, duration: 2.5, stagger: 0.3, ease: 'power2.out', delay: 1.6 }
+            );
+            // Text clip-path wipe reveal — starts as curtain clears
             gsap.fromTo('.hero-text',
                 { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
-                { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1.4, stagger: 0.25, ease: 'power4.out', delay: 0.3 }
+                { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1.4, stagger: 0.25, ease: 'power4.out', delay: 2.0 }
             );
             // CTA rises up
             gsap.fromTo('.hero-cta',
                 { y: 30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 1.2 }
-            );
-            // Aurora blobs fade in and scale up
-            gsap.fromTo('.aurora-blob',
-                { opacity: 0, scale: 0.6 },
-                { opacity: 1, scale: 1, duration: 2.5, stagger: 0.3, ease: 'power2.out', delay: 0.1 }
+                { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 3.0 }
             );
             // Accent text glow pulse after reveal
             gsap.fromTo('.hero-accent-glow',
                 { textShadow: '0 0 0px rgba(201,168,76,0)' },
-                { textShadow: '0 0 60px rgba(201,168,76,0.3)', duration: 2, ease: 'power2.out', delay: 1.5 }
+                { textShadow: '0 0 60px rgba(201,168,76,0.3)', duration: 2, ease: 'power2.out', delay: 3.3 }
             );
         }, heroRef);
 

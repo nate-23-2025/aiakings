@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import CalModal from './components/CalModal';
+import PreloaderOverlay from './components/PreloaderOverlay';
 import FinancePage from './pages/FinancePage';
 import HoustonPage from './pages/HoustonPage';
 import { CalModalProvider } from './context/CalModalContext';
@@ -26,6 +27,7 @@ function App() {
           <Footer />
         </div>
         <CalModal />
+        <PreloaderOverlay />
       </CalModalProvider>
     </BrowserRouter>
   );
