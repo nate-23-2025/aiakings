@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useCalModal } from '../context/CalModalContext';
 import LeadGenAnimation from '../components/animations/LeadGenAnimation';
 import SupportAIAnimation from '../components/animations/SupportAIAnimation';
 import FulfillmentAnimation from '../components/animations/FulfillmentAnimation';
@@ -9,6 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HoustonPage() {
     const heroRef = useRef(null);
+    const { openCalModal } = useCalModal();
 
     useEffect(() => {
         let heroCtx = gsap.context(() => {
@@ -53,8 +55,8 @@ export default function HoustonPage() {
                     </div>
 
                     <div className="hero-cta">
-                        <button className="group relative overflow-hidden bg-[#FAF8F5] text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
-                            <span className="relative z-10 flex items-center gap-2">Speak to a Local Growth Architect</span>
+                        <button onClick={openCalModal} className="group relative overflow-hidden bg-[#FAF8F5] text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
+                            <span className="relative z-10 flex items-center gap-2">Book Call Now</span>
                             <div className="absolute inset-0 bg-brand-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"></div>
                         </button>
                     </div>
@@ -107,8 +109,8 @@ export default function HoustonPage() {
             <section className="py-32 px-8 flex justify-center text-center bg-[#0D0D12]">
                 <div className="max-w-2xl">
                     <h2 className="text-4xl md:text-5xl font-sans tracking-tight mb-8 text-white">Your Houston competitors are adopting AI. <br /><span className="drama-text text-brand-accent">Are you?</span></h2>
-                    <button className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
-                        <span className="relative z-10">Modernize Your Operations Today</span>
+                    <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
+                        <span className="relative z-10">Book Call Now</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                     </button>
                 </div>

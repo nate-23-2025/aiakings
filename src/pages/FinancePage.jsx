@@ -1,20 +1,18 @@
 import React, { useEffect, useRef, Suspense } from 'react';
 import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Network, Search, Zap } from 'lucide-react';
+import { useCalModal } from '../context/CalModalContext';
 import DiagnosticShuffler from '../components/features/DiagnosticShuffler';
 import TelemetryTypewriter from '../components/features/TelemetryTypewriter';
 import CursorProtocol from '../components/features/CursorProtocol';
-import AuditAnimation from '../components/animations/AuditAnimation';
-import TrainingAnimation from '../components/animations/TrainingAnimation';
-import DeploymentAnimation from '../components/animations/DeploymentAnimation';
+import ProtocolTimeline from '../components/sections/ProtocolTimeline';
+import ServicesShowcase from '../components/sections/ServicesShowcase';
 
 const HeroCrystal = React.lazy(() => import('../components/animations/HeroCrystal'));
 
 export default function FinancePage() {
     const heroRef = useRef(null);
     const philosophyRef = useRef(null);
-    const protocolRef = useRef(null);
+    const { openCalModal } = useCalModal();
 
     useEffect(() => {
         // Hero Entrance Animation
@@ -47,41 +45,9 @@ export default function FinancePage() {
             );
         }, philosophyRef);
 
-        // Protocol Stacking Archive (Pinning)
-        let stackCtx = gsap.context(() => {
-            const cards = gsap.utils.toArray('.protocol-card');
-
-            cards.forEach((card, i) => {
-                ScrollTrigger.create({
-                    trigger: card,
-                    start: 'top top',
-                    pin: true,
-                    pinSpacing: false,
-                    endTrigger: '.protocol-wrapper',
-                    end: 'bottom bottom',
-                });
-
-                if (i < cards.length - 1) {
-                    gsap.to(card, {
-                        scale: 0.9,
-                        opacity: 0.3,
-                        filter: 'blur(10px)',
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: cards[i + 1],
-                            start: 'top bottom',
-                            end: 'top top',
-                            scrub: true,
-                        }
-                    });
-                }
-            });
-        }, protocolRef);
-
         return () => {
             heroCtx.revert();
             philCtx.revert();
-            stackCtx.revert();
         };
     }, []);
 
@@ -115,8 +81,8 @@ export default function FinancePage() {
                     </div>
 
                     <div className="hero-cta flex flex-wrap gap-6 items-center pointer-events-auto">
-                        <button className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
-                            <span className="relative z-10">Deploy Architecture</span>
+                        <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
+                            <span className="relative z-10">Book Call Now</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                         </button>
                         <span className="text-white/60 text-sm max-w-xs font-light">
@@ -179,83 +145,21 @@ export default function FinancePage() {
                 </div>
             </section>
 
-            {/* 4. PROTOCOL - STICKY ARCHIVE */}
-            <section ref={protocolRef} className="protocol-wrapper relative hidden md:block">
-                {/* Card 1 */}
-                <div className="protocol-card h-screen w-full flex items-center justify-center p-8 bg-[#0D0D12]">
-                    <div className="bg-[#15151A] border border-white/5 rounded-[3rem] w-full max-w-5xl h-[70vh] p-16 flex gap-12 relative overflow-hidden shadow-2xl">
-                        <div className="w-1/3 flex flex-col justify-between relative z-10 shrink-0">
-                            <div className="data-text text-brand-accent opacity-60">Phase 01</div>
-                            <div className="max-w-xl">
-                                <h3 className="text-5xl font-medium mb-6 text-white">Audit & Extraction</h3>
-                                <p className="text-white/50 text-xl leading-relaxed">We map your current data flows, identify friction points in your client acquisition, and securely connect to your existing CRM infrastructure.</p>
-                            </div>
-                        </div>
-                        <div className="w-2/3 h-full rounded-2xl overflow-hidden glass-panel border border-white/5">
-                            <AuditAnimation />
-                        </div>
-                    </div>
-                </div>
+            {/* 4. PROTOCOL - HORIZONTAL TIMELINE */}
+            <ProtocolTimeline />
 
-                {/* Card 2 */}
-                <div className="protocol-card h-screen w-full flex items-center justify-center p-8 bg-[#0D0D12]">
-                    <div className="bg-[#18181E] border border-brand-accent/20 rounded-[3rem] w-full max-w-5xl h-[70vh] p-16 flex gap-12 relative overflow-hidden shadow-2xl">
-                        <div className="absolute inset-0 bg-gradient-to-br from-brand-accent/5 to-transparent z-0 pointer-events-none" />
-                        <div className="w-1/3 flex flex-col justify-between relative z-10 shrink-0">
-                            <div className="data-text text-brand-accent opacity-60">Phase 02</div>
-                            <div className="max-w-xl">
-                                <h3 className="text-5xl font-medium mb-6 text-white">Agent Training</h3>
-                                <p className="text-white/50 text-xl leading-relaxed">Your custom LLMs are trained strictly on your firm's tone, regulatory requirements, and historical successful engagements.</p>
-                            </div>
-                        </div>
-                        <div className="w-2/3 h-full rounded-2xl overflow-hidden glass-panel border border-brand-accent/10 relative z-10">
-                            <TrainingAnimation />
-                        </div>
-                    </div>
-                </div>
+            {/* 5. SERVICES SHOWCASE */}
+            <ServicesShowcase />
 
-                {/* Card 3 */}
-                <div className="protocol-card h-screen w-full flex items-center justify-center p-8 bg-[#0D0D12]">
-                    <div className="bg-[#1A1A22] border border-brand-accent/40 rounded-[3rem] w-full max-w-5xl h-[70vh] p-16 flex gap-12 relative overflow-hidden shadow-2xl">
-                        <div className="w-1/3 flex flex-col justify-between relative z-10 shrink-0">
-                            <div className="data-text text-brand-accent font-medium">Phase 03</div>
-                            <div className="max-w-xl">
-                                <h3 className="text-5xl font-medium mb-6 text-brand-accent drama-text tracking-wide">Deployment</h3>
-                                <p className="text-white/70 text-xl leading-relaxed">The system goes live. Operations execute quietly in the background while warm, qualified leads are directed to your calendar.</p>
-                            </div>
-                        </div>
-                        <div className="w-2/3 h-full rounded-2xl overflow-hidden glass-panel border border-brand-accent/20 relative z-10 shadow-[0_0_30px_rgba(201,168,76,0.1)]">
-                            <DeploymentAnimation />
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Mobile-only protocol stack (fallback for pin on small screens) */}
-            <section className="md:hidden py-32 px-8 flex flex-col gap-8 bg-[#0D0D12]">
-                <h3 className="text-brand-accent font-mono uppercase tracking-widest text-sm mb-8">Implementation Protocol</h3>
-                {[
-                    { step: '01', title: 'Audit & Extraction', desc: 'Mapping current flows and identifying friction points.' },
-                    { step: '02', title: 'Agent Training', desc: 'Custom LLMs trained on firm tone and requirements.' },
-                    { step: '03', title: 'Deployment', desc: 'Operations execute while leads hit your calendar.' },
-                ].map((item, i) => (
-                    <div key={i} className="bg-[#15151A] border border-white/5 rounded-3xl p-8 shadow-xl">
-                        <div className="data-text text-brand-accent mb-4 text-sm">Phase {item.step}</div>
-                        <h4 className="text-2xl font-medium mb-4 text-white">{item.title}</h4>
-                        <p className="text-white/50">{item.desc}</p>
-                    </div>
-                ))}
-            </section>
-
-            {/* 5. PRICING / CTA PORTAL */}
+            {/* 6. PRICING / CTA PORTAL */}
             <section className="py-40 px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center">
                     <h2 className="text-5xl md:text-7xl font-sans tracking-tight mb-8 text-white">Step into the <span className="drama-text text-brand-accent">future.</span></h2>
                     <p className="text-xl text-white/50 font-light mb-12 max-w-xl">
                         Scale your accounting firm without increasing headcount. Let AI handle the generation and administration.
                     </p>
-                    <button className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)]">
-                        <span className="relative z-10">Schedule Architecture Review</span>
+                    <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)]">
+                        <span className="relative z-10">Book Call Now</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                     </button>
                 </div>

@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
+import { useCalModal } from '../context/CalModalContext';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const navRef = useRef(null);
     const location = useLocation();
+    const { openCalModal } = useCalModal();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -47,8 +49,8 @@ export default function Navbar() {
                 </Link>
             </div>
 
-            <button className="group relative overflow-hidden bg-[#C9A84C] text-[#0D0D12] px-6 py-2.5 rounded-[2rem] font-medium text-sm transition-transform hover:scale-[1.03] active:scale-95 duration-300">
-                <span className="relative z-10">Start Automating</span>
+            <button onClick={openCalModal} className="group relative overflow-hidden bg-[#C9A84C] text-[#0D0D12] px-6 py-2.5 rounded-[2rem] font-medium text-sm transition-transform hover:scale-[1.03] active:scale-95 duration-300">
+                <span className="relative z-10">Book Call Now</span>
                 <div className="absolute inset-0 bg-[#FAF8F5] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
             </button>
         </nav>
