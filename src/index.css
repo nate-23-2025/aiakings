@@ -41,3 +41,28 @@ h1, h2, h3, h4, h5, h6 {
 .data-text {
   font-family: var(--font-mono);
 }
+
+/* Hero aurora glow */
+@keyframes aurora-drift {
+  0%   { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+  25%  { transform: translate(10%, -15%) rotate(45deg) scale(1.1); }
+  50%  { transform: translate(-5%, 10%) rotate(90deg) scale(0.95); }
+  75%  { transform: translate(-10%, -5%) rotate(135deg) scale(1.05); }
+  100% { transform: translate(0%, 0%) rotate(180deg) scale(1); }
+}
+@keyframes aurora-drift-2 {
+  0%   { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+  25%  { transform: translate(-15%, 10%) rotate(-60deg) scale(1.15); }
+  50%  { transform: translate(10%, -10%) rotate(-120deg) scale(0.9); }
+  75%  { transform: translate(5%, 15%) rotate(-180deg) scale(1.1); }
+  100% { transform: translate(0%, 0%) rotate(-240deg) scale(1); }
+}
+.aurora-blob-1 {
+  animation: aurora-drift 12s ease-in-out infinite;
+}
+.aurora-blob-2 {
+  animation: aurora-drift-2 15s ease-in-out infinite;
+}
+.aurora-blob-3 {
+  animation: aurora-drift 18s ease-in-out infinite reverse;
+}

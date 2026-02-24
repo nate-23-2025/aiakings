@@ -13,15 +13,27 @@ export default function FinancePage() {
     const { openCalModal } = useCalModal();
 
     useEffect(() => {
-        // Hero Entrance Animation
+        // Hero Entrance Animation — cinematic clip-path reveal + aurora fade-in
         let heroCtx = gsap.context(() => {
+            // Text clip-path wipe reveal
             gsap.fromTo('.hero-text',
-                { y: 60, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1.2, stagger: 0.15, ease: 'power3.out', delay: 0.2 }
+                { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+                { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1.4, stagger: 0.25, ease: 'power4.out', delay: 0.3 }
             );
+            // CTA rises up
             gsap.fromTo('.hero-cta',
-                { y: 40, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.8 }
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 1.2 }
+            );
+            // Aurora blobs fade in and scale up
+            gsap.fromTo('.aurora-blob',
+                { opacity: 0, scale: 0.6 },
+                { opacity: 1, scale: 1, duration: 2.5, stagger: 0.3, ease: 'power2.out', delay: 0.1 }
+            );
+            // Accent text glow pulse after reveal
+            gsap.fromTo('.hero-accent-glow',
+                { textShadow: '0 0 0px rgba(201,168,76,0)' },
+                { textShadow: '0 0 60px rgba(201,168,76,0.3)', duration: 2, ease: 'power2.out', delay: 1.5 }
             );
         }, heroRef);
 
@@ -50,25 +62,37 @@ export default function FinancePage() {
 
             {/* 1. HERO SECTION */}
             <section ref={heroRef} className="relative h-[100dvh] flex flex-col justify-end pb-24 px-8 md:px-16 overflow-hidden">
+                {/* Background image */}
                 <div
-                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-luminosity"
+                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/80 to-transparent z-0" />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/90 to-brand-primary/60 z-0" />
 
+                {/* Aurora glow blobs */}
+                <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
+                    <div className="aurora-blob aurora-blob-1 absolute w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full opacity-0"
+                         style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%)', top: '-10%', right: '-5%' }} />
+                    <div className="aurora-blob aurora-blob-2 absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full opacity-0"
+                         style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.1) 0%, rgba(100,80,30,0.05) 40%, transparent 70%)', bottom: '5%', left: '-10%' }} />
+                    <div className="aurora-blob aurora-blob-3 absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full opacity-0"
+                         style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 60%)', top: '30%', left: '40%' }} />
+                </div>
+
+                {/* Hero content */}
                 <div className="relative z-10 max-w-5xl pointer-events-none">
-                    <div className="overflow-hidden mb-2 pointer-events-auto">
+                    <div className="mb-2 pointer-events-auto">
                         <h1 className="hero-text text-3xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight text-white">
                             Precision AI inside the
                         </h1>
                     </div>
-                    <div className="overflow-hidden mb-12 pointer-events-auto">
-                        <h2 className="hero-text text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent pr-4 py-2">
+                    <div className="mb-12 pointer-events-auto">
+                        <h2 className="hero-text hero-accent-glow text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent pr-4 py-2">
                             Financial Atelier.
                         </h2>
                     </div>
 
                     <div className="hero-cta flex flex-wrap gap-6 items-center pointer-events-auto">
-                        <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300">
+                        <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)]">
                             <span className="relative z-10">Book Call Now</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                         </button>
