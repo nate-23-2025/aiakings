@@ -75,7 +75,7 @@ export default function FinancePage() {
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
 
             {/* 1. HERO SECTION */}
-            <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col justify-center pb-16 sm:pb-16 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-16 overflow-hidden">
+            <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col justify-center pb-12 sm:pb-12 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-16 overflow-hidden">
                 {/* Background image */}
                 <div
                     className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"
@@ -104,7 +104,7 @@ export default function FinancePage() {
                         </p>
 
                         {/* Main headline */}
-                        <h1 className="hero-text text-2xl sm:text-2xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-1.5 sm:mb-1.5 md:mb-4 pointer-events-auto leading-tight">
+                        <h1 className="hero-text text-2xl sm:text-2xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 sm:mb-3 md:mb-4 pointer-events-auto leading-tight">
                             Add 15 New Clients Per Quarter
                         </h1>
 
