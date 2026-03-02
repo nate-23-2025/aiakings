@@ -145,8 +145,8 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
     ];
 
     return (
-        <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-6 flex items-center justify-center ${className}`}>
-            <div className="wf-container relative w-full flex items-center justify-between px-4 opacity-0">
+        <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-5 sm:p-6 md:p-8 flex items-center justify-center ${className}`}>
+            <div className="wf-container relative w-full flex items-center justify-between px-2 sm:px-4 opacity-0">
 
                 {/* SVG connecting lines */}
                 <svg className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%' }}>
@@ -170,11 +170,11 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
                 {stages.map((stage, index) => {
                     const IconComponent = stage.icon;
                     return (
-                        <div key={stage.id} className="flex flex-col items-center gap-2 relative">
-                            <div className={`wf-stage wf-stage-${stage.id} w-10 h-10 rounded-full border-2 flex items-center justify-center opacity-0`}>
-                                <IconComponent className={`wf-icon-${stage.id} w-5 h-5`} strokeWidth={2} />
+                        <div key={stage.id} className="flex flex-col items-center gap-2 sm:gap-2.5 relative">
+                            <div className={`wf-stage wf-stage-${stage.id} w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center opacity-0`}>
+                                <IconComponent className={`wf-icon-${stage.id} w-4 h-4 sm:w-5 sm:h-5`} strokeWidth={2} />
                             </div>
-                            <span className="font-mono text-[9px] text-white/30 whitespace-nowrap">
+                            <span className="font-mono text-[8px] sm:text-[9px] text-white/30 whitespace-nowrap text-center max-w-[60px] sm:max-w-none leading-tight">
                                 {stage.label}
                             </span>
                         </div>

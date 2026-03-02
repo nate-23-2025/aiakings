@@ -130,14 +130,14 @@ export default function BeforeAfterAnimation({ className = "w-full h-full" }) {
     }, []);
 
     return (
-        <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-4 ${className}`}>
+        <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-5 sm:p-6 ${className}`}>
             <div className="ba-container relative w-full h-full opacity-0">
 
                 {/* Labels */}
-                <span className="ba-label-before font-mono text-[10px] text-white/30 uppercase absolute top-2 left-4 opacity-0">
+                <span className="ba-label-before font-mono text-[9px] sm:text-[10px] text-white/30 uppercase absolute top-3 sm:top-4 left-4 sm:left-5 opacity-0">
                     Before
                 </span>
-                <span className="ba-label-after font-mono text-[10px] text-green-400/60 uppercase absolute top-2 right-4 opacity-0">
+                <span className="ba-label-after font-mono text-[9px] sm:text-[10px] text-green-400/60 uppercase absolute top-3 sm:top-4 right-4 sm:right-5 opacity-0">
                     After
                 </span>
 
@@ -148,10 +148,10 @@ export default function BeforeAfterAnimation({ className = "w-full h-full" }) {
                         className={`ba-item ba-item-${num} absolute -translate-x-1/2 -translate-y-1/2 opacity-0`}
                     >
                         {/* Red box (before state) */}
-                        <div className="ba-box w-3 h-3 rounded bg-red-500/60" />
+                        <div className="ba-box w-3.5 h-3.5 sm:w-4 sm:h-4 rounded bg-red-500/60" />
                         {/* Green check (after state) */}
                         <div className="ba-check absolute inset-0 flex items-center justify-center opacity-0">
-                            <CheckCircle2 size={14} className="text-green-400" strokeWidth={2.5} />
+                            <CheckCircle2 size={16} className="text-green-400 sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
                         </div>
                     </div>
                 ))}

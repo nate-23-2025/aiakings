@@ -75,7 +75,7 @@ export default function FinancePage() {
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
 
             {/* 1. HERO SECTION */}
-            <section ref={heroRef} className="relative h-[100dvh] flex flex-col justify-end pb-24 px-8 md:px-16 overflow-hidden">
+            <section ref={heroRef} className="relative h-[100dvh] flex flex-col justify-end pb-16 md:pb-24 px-6 md:px-8 lg:px-16 overflow-hidden">
                 {/* Background image */}
                 <div
                     className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"
@@ -93,72 +93,72 @@ export default function FinancePage() {
                 </div>
 
                 {/* Hero content - New 2-column layout */}
-                <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-end lg:items-center gap-12">
+                <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-end lg:items-center gap-8 lg:gap-12">
 
                     {/* LEFT: Text content */}
                     <div className="flex-1 max-w-3xl pointer-events-none">
 
                         {/* Micro-headline qualifier */}
-                        <p className="hero-text text-brand-accent uppercase tracking-[0.2em] font-mono text-xs mb-4 pointer-events-auto">
+                        <p className="hero-text text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-3 md:mb-4 pointer-events-auto">
                             For CPA Firms Doing $500K–$5M ARR
                         </p>
 
                         {/* Main headline */}
-                        <h1 className="hero-text text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-4 pointer-events-auto">
+                        <h1 className="hero-text text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 md:mb-4 pointer-events-auto leading-tight">
                             Add 15 New Clients Per Quarter
                         </h1>
 
                         {/* Drama text */}
-                        <h2 className="hero-text hero-accent-glow text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-8 pointer-events-auto">
+                        <h2 className="hero-text hero-accent-glow text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-6 md:mb-8 pointer-events-auto">
                             Without Hiring.
                         </h2>
 
                         {/* Benefit bullets */}
-                        <div className="hero-benefits flex flex-col gap-3 mb-10 pointer-events-auto">
-                            <div className="flex items-center gap-2">
-                                <Check className="w-5 h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-base md:text-lg">Cold lead generation on autopilot</span>
+                        <div className="hero-benefits flex flex-col gap-2.5 sm:gap-3 mb-8 md:mb-10 pointer-events-auto">
+                            <div className="flex items-center gap-2.5 sm:gap-3">
+                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-sm sm:text-base md:text-lg">Cold lead generation on autopilot</span>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <Check className="w-5 h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-base md:text-lg">Client onboarding in 3 clicks</span>
+                            <div className="flex items-center gap-2.5 sm:gap-3">
+                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-sm sm:text-base md:text-lg">Client onboarding in 3 clicks</span>
                             </div>
-                            <div className="flex items-center gap-2">
-                                <Check className="w-5 h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-base md:text-lg">Zero manual data entry</span>
+                            <div className="flex items-center gap-2.5 sm:gap-3">
+                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-sm sm:text-base md:text-lg">Zero manual data entry</span>
                             </div>
                         </div>
 
                         {/* Dual CTA */}
-                        <div className="hero-cta flex flex-wrap gap-4 items-center mb-4 pointer-events-auto">
-                            <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+                        <div className="hero-cta flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center mb-4 sm:mb-5 pointer-events-auto">
+                            <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-[2rem] font-semibold text-sm sm:text-base tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[48px]">
                                 <span className="relative z-10">Book Call Now</span>
                                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                             </button>
                             <button
                                 onClick={() => document.getElementById('protocol-timeline')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 py-4 rounded-[2rem] font-medium tracking-wide transition-all duration-300"
+                                className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-6 sm:px-8 py-3.5 sm:py-4 rounded-[2rem] font-medium text-sm sm:text-base tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[48px]"
                             >
                                 See How It Works →
                             </button>
                         </div>
 
                         {/* Risk reversal */}
-                        <p className="text-white/40 text-sm max-w-md pointer-events-auto">
+                        <p className="text-white/40 text-xs sm:text-sm max-w-md pointer-events-auto">
                             No upfront cost. ROI guarantee or you don't pay.
                         </p>
 
                     </div>
 
                     {/* RIGHT: Visual proof animations */}
-                    <div className="flex flex-col gap-6 w-full lg:w-[320px] shrink-0 pointer-events-none">
-                        <div className="visual-proof-animation h-[180px]">
+                    <div className="flex flex-col sm:flex-row lg:flex-col gap-5 sm:gap-4 lg:gap-6 w-full lg:w-[320px] shrink-0 pointer-events-none">
+                        <div className="visual-proof-animation h-[180px] sm:h-[160px] lg:h-[200px] sm:flex-1 lg:flex-none">
                             <DashboardMockupAnimation />
                         </div>
-                        <div className="visual-proof-animation h-[140px]">
+                        <div className="visual-proof-animation h-[140px] sm:h-[160px] lg:h-[150px] sm:flex-1 lg:flex-none">
                             <WorkflowAnimation />
                         </div>
-                        <div className="visual-proof-animation h-[160px]">
+                        <div className="visual-proof-animation h-[160px] sm:h-[160px] lg:h-[180px] sm:flex-1 lg:flex-none">
                             <BeforeAfterAnimation />
                         </div>
                     </div>
@@ -167,10 +167,10 @@ export default function FinancePage() {
             </section>
 
             {/* 2. FEATURES - INTERACTIVE ARTIFACTS */}
-            <section className="py-32 px-8 max-w-7xl mx-auto">
-                <div className="mb-20">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-sm mb-4">Core Infrastructure</h3>
-                    <h4 className="text-4xl md:text-5xl font-sans font-light max-w-2xl text-white">Automating the tedious to elevate the advisory.</h4>
+            <section className="py-20 sm:py-24 md:py-32 px-6 md:px-8 max-w-7xl mx-auto">
+                <div className="mb-12 sm:mb-16 md:mb-20">
+                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Core Infrastructure</h3>
+                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">Automating the tedious to elevate the advisory.</h4>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -201,18 +201,18 @@ export default function FinancePage() {
             </section>
 
             {/* 3. PHILOSOPHY */}
-            <section ref={philosophyRef} className="py-40 px-8 relative overflow-hidden bg-[#0A0A0E]">
+            <section ref={philosophyRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 relative overflow-hidden bg-[#0A0A0E]">
                 <div
                     className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-10 grayscale mix-blend-multiply"
                 />
-                <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-8">
+                <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-6 sm:gap-8">
                     <div className="overflow-hidden">
-                        <p className="philosophy-line text-2xl md:text-3xl text-white/40 font-light leading-relaxed max-w-3xl">
+                        <p className="philosophy-line text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/40 font-light leading-relaxed max-w-3xl">
                             Most automation tools provide generic workflows that require endless configuration.
                         </p>
                     </div>
-                    <div className="overflow-hidden mt-8 md:mt-16">
-                        <p className="philosophy-line text-5xl md:text-7xl lg:text-[7rem] leading-none text-white font-sans tracking-tight">
+                    <div className="overflow-hidden mt-4 sm:mt-6 md:mt-8 lg:mt-16">
+                        <p className="philosophy-line text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7rem] leading-none text-white font-sans tracking-tight">
                             We engineer <span className="drama-text text-brand-accent">bespoke</span> systems.
                         </p>
                     </div>
@@ -228,13 +228,13 @@ export default function FinancePage() {
             <ServicesShowcase />
 
             {/* 6. PRICING / CTA PORTAL */}
-            <section className="py-40 px-8 flex justify-center text-center">
+            <section className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center">
-                    <h2 className="text-5xl md:text-7xl font-sans tracking-tight mb-8 text-white">Step into the <span className="drama-text text-brand-accent">future.</span></h2>
-                    <p className="text-xl text-white/50 font-light mb-12 max-w-xl">
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-tight mb-6 sm:mb-8 text-white">Step into the <span className="drama-text text-brand-accent">future.</span></h2>
+                    <p className="text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 sm:mb-12 max-w-xl px-4">
                         Scale your accounting firm without increasing headcount. Let AI handle the generation and administration.
                     </p>
-                    <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)]">
+                    <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 sm:px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">
                         <span className="relative z-10">Book Call Now</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                     </button>

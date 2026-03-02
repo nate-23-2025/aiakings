@@ -97,28 +97,28 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
 
     return (
         <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 flex items-center justify-center ${className}`}>
-            <div className="dm-dashboard w-full h-full p-4 flex flex-col gap-3 justify-center opacity-0">
+            <div className="dm-dashboard w-full h-full p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 justify-center opacity-0">
 
                 {kpis.map((kpi) => (
                     <div
                         key={kpi.id}
-                        className={`dm-card dm-card-${kpi.id} bg-[#1A1A22] border border-white/10 rounded-lg p-3 flex items-center justify-between opacity-0`}
+                        className={`dm-card dm-card-${kpi.id} bg-[#1A1A22] border border-white/10 rounded-lg p-3 sm:p-4 flex items-center justify-between opacity-0`}
                     >
-                        <div className="flex flex-col gap-1">
-                            <span className="font-mono text-[8px] text-white/40 uppercase tracking-widest">
+                        <div className="flex flex-col gap-1 sm:gap-1.5">
+                            <span className="font-mono text-[9px] sm:text-[10px] text-white/40 uppercase tracking-widest">
                                 {kpi.label}
                             </span>
-                            <div className="flex items-baseline gap-1">
-                                <span className={`dm-number dm-number-${kpi.id} font-mono text-xl md:text-2xl text-white font-bold`}>
+                            <div className="flex items-baseline gap-1 sm:gap-1.5">
+                                <span className={`dm-number dm-number-${kpi.id} font-mono text-lg sm:text-xl md:text-2xl text-white font-bold`}>
                                     {kpi.value}
                                 </span>
                                 {kpi.suffix && (
-                                    <span className="font-mono text-xs text-white/50">{kpi.suffix}</span>
+                                    <span className="font-mono text-[10px] sm:text-xs text-white/50">{kpi.suffix}</span>
                                 )}
                             </div>
                         </div>
                         <div className="dm-arrow opacity-0">
-                            <TrendingUp className="text-green-400 w-4 h-4" strokeWidth={2.5} />
+                            <TrendingUp className="text-green-400 w-5 h-5 sm:w-5 sm:h-5" strokeWidth={2.5} />
                         </div>
                     </div>
                 ))}
