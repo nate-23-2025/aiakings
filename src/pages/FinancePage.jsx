@@ -151,14 +151,14 @@ export default function FinancePage() {
                     </div>
 
                     {/* RIGHT: Visual proof animations */}
-                    <div className="flex flex-col sm:flex-row lg:flex-col gap-3 sm:gap-4 lg:gap-6 w-full lg:w-[320px] shrink-0 pointer-events-none mt-6 lg:mt-0">
-                        <div className="visual-proof-animation h-[140px] sm:h-[160px] lg:h-[200px] sm:flex-1 lg:flex-none">
+                    <div className="hidden lg:flex flex-col gap-6 w-[320px] shrink-0 pointer-events-none">
+                        <div className="visual-proof-animation h-[200px]">
                             <DashboardMockupAnimation />
                         </div>
-                        <div className="visual-proof-animation h-[110px] sm:h-[160px] lg:h-[150px] sm:flex-1 lg:flex-none">
+                        <div className="visual-proof-animation h-[150px]">
                             <WorkflowAnimation />
                         </div>
-                        <div className="visual-proof-animation h-[130px] sm:h-[160px] lg:h-[180px] sm:flex-1 lg:flex-none">
+                        <div className="visual-proof-animation h-[180px]">
                             <BeforeAfterAnimation />
                         </div>
                     </div>
