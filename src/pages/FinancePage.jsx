@@ -51,6 +51,32 @@ export default function FinancePage() {
             );
         }, heroRef);
 
+        // Hero Scroll Animation — fade out and parallax effect
+        let heroScrollCtx = gsap.context(() => {
+            gsap.to('.hero-content-wrapper', {
+                opacity: 0,
+                scale: 0.95,
+                y: -50,
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: 'top top',
+                    end: '+=400',
+                    scrub: 1,
+                }
+            });
+
+            // Parallax background
+            gsap.to('.hero-background', {
+                y: 150,
+                scrollTrigger: {
+                    trigger: heroRef.current,
+                    start: 'top top',
+                    end: '+=600',
+                    scrub: 1.5,
+                }
+            });
+        }, heroRef);
+
         // Philosophy Scroll Animation
         let philCtx = gsap.context(() => {
             gsap.fromTo('.philosophy-line',
@@ -67,6 +93,7 @@ export default function FinancePage() {
 
         return () => {
             heroCtx.revert();
+            heroScrollCtx.revert();
             philCtx.revert();
         };
     }, []);
@@ -77,10 +104,12 @@ export default function FinancePage() {
             {/* 1. HERO SECTION */}
             <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col justify-center pb-12 sm:pb-12 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-16 overflow-hidden">
                 {/* Background image */}
-                <div
-                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/90 to-brand-primary/60 z-0" />
+                <div className="hero-background absolute inset-0 will-change-transform">
+                    <div
+                        className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/90 to-brand-primary/60 z-0" />
+                </div>
 
                 {/* Aurora glow blobs */}
                 <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
@@ -93,7 +122,7 @@ export default function FinancePage() {
                 </div>
 
                 {/* Hero content - New 2-column layout */}
-                <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-end lg:items-center gap-8 lg:gap-12">
+                <div className="hero-content-wrapper relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-end lg:items-center gap-8 lg:gap-12 will-change-transform">
 
                     {/* LEFT: Text content */}
                     <div className="flex-1 max-w-3xl pointer-events-none">
@@ -104,7 +133,7 @@ export default function FinancePage() {
                         </p>
 
                         {/* Main headline */}
-                        <h1 className="hero-text text-2xl sm:text-2xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 sm:mb-3 md:mb-4 pointer-events-auto leading-tight">
+                        <h1 className="hero-text text-2xl sm:text-2xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 sm:mb-3 md:mb-4 pointer-events-auto leading-snug">
                             Add 15 New Clients Per Quarter
                         </h1>
 
@@ -117,15 +146,15 @@ export default function FinancePage() {
                         <div className="hero-benefits flex flex-col gap-2.5 sm:gap-2.5 md:gap-3 mb-5 sm:mb-5 md:mb-10 pointer-events-auto">
                             <div className="flex items-center gap-2 sm:gap-2.5">
                                 <Check className="w-3.5 h-3.5 sm:w-3.5 sm:h-3.5 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-xs sm:text-xs md:text-base lg:text-lg leading-tight">Cold lead generation on autopilot</span>
+                                <span className="text-white/80 text-xs sm:text-xs md:text-base lg:text-lg leading-relaxed">Cold lead generation on autopilot</span>
                             </div>
                             <div className="flex items-center gap-2 sm:gap-2.5">
                                 <Check className="w-3.5 h-3.5 sm:w-3.5 sm:h-3.5 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-xs sm:text-xs md:text-base lg:text-lg leading-tight">Client onboarding in 3 clicks</span>
+                                <span className="text-white/80 text-xs sm:text-xs md:text-base lg:text-lg leading-relaxed">Client onboarding in 3 clicks</span>
                             </div>
                             <div className="flex items-center gap-2 sm:gap-2.5">
                                 <Check className="w-3.5 h-3.5 sm:w-3.5 sm:h-3.5 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-xs sm:text-xs md:text-base lg:text-lg leading-tight">Zero manual data entry</span>
+                                <span className="text-white/80 text-xs sm:text-xs md:text-base lg:text-lg leading-relaxed">Zero manual data entry</span>
                             </div>
                         </div>
 
