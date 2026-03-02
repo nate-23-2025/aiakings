@@ -1,11 +1,15 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { Check } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import DiagnosticShuffler from '../components/features/DiagnosticShuffler';
 import TelemetryTypewriter from '../components/features/TelemetryTypewriter';
 import CursorProtocol from '../components/features/CursorProtocol';
 import ProtocolTimeline from '../components/sections/ProtocolTimeline';
 import ServicesShowcase from '../components/sections/ServicesShowcase';
+import DashboardMockupAnimation from '../components/animations/DashboardMockupAnimation';
+import WorkflowAnimation from '../components/animations/WorkflowAnimation';
+import BeforeAfterAnimation from '../components/animations/BeforeAfterAnimation';
 
 export default function FinancePage() {
     const heroRef = useRef(null);
@@ -34,6 +38,16 @@ export default function FinancePage() {
             gsap.fromTo('.hero-accent-glow',
                 { textShadow: '0 0 0px rgba(201,168,76,0)' },
                 { textShadow: '0 0 60px rgba(201,168,76,0.3)', duration: 2, ease: 'power2.out', delay: 3.3 }
+            );
+            // Benefit bullets fade in + slide up (staggered)
+            gsap.fromTo('.hero-benefits > div',
+                { y: 10, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: 'power2.out', delay: 2.8 }
+            );
+            // Visual proof containers fade in (staggered)
+            gsap.fromTo('.visual-proof-animation',
+                { opacity: 0, scale: 0.95 },
+                { opacity: 1, scale: 1, duration: 0.6, stagger: 0.2, ease: 'back.out(1.5)', delay: 2.5 }
             );
         }, heroRef);
 
@@ -78,28 +92,77 @@ export default function FinancePage() {
                          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 60%)', top: '30%', left: '40%' }} />
                 </div>
 
-                {/* Hero content */}
-                <div className="relative z-10 max-w-5xl pointer-events-none">
-                    <div className="mb-2 pointer-events-auto">
-                        <h1 className="hero-text text-3xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight text-white">
-                            Precision AI inside the
+                {/* Hero content - New 2-column layout */}
+                <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-col lg:flex-row items-end lg:items-center gap-12">
+
+                    {/* LEFT: Text content */}
+                    <div className="flex-1 max-w-3xl pointer-events-none">
+
+                        {/* Micro-headline qualifier */}
+                        <p className="hero-text text-brand-accent uppercase tracking-[0.2em] font-mono text-xs mb-4 pointer-events-auto">
+                            For CPA Firms Doing $500K–$5M ARR
+                        </p>
+
+                        {/* Main headline */}
+                        <h1 className="hero-text text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-4 pointer-events-auto">
+                            Add 15 New Clients Per Quarter
                         </h1>
-                    </div>
-                    <div className="mb-12 pointer-events-auto">
-                        <h2 className="hero-text hero-accent-glow text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent pr-4 py-2">
-                            Financial Atelier.
+
+                        {/* Drama text */}
+                        <h2 className="hero-text hero-accent-glow text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-8 pointer-events-auto">
+                            Without Hiring.
                         </h2>
+
+                        {/* Benefit bullets */}
+                        <div className="hero-benefits flex flex-col gap-3 mb-10 pointer-events-auto">
+                            <div className="flex items-center gap-2">
+                                <Check className="w-5 h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-base md:text-lg">Cold lead generation on autopilot</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Check className="w-5 h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-base md:text-lg">Client onboarding in 3 clicks</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <Check className="w-5 h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-base md:text-lg">Zero manual data entry</span>
+                            </div>
+                        </div>
+
+                        {/* Dual CTA */}
+                        <div className="hero-cta flex flex-wrap gap-4 items-center mb-4 pointer-events-auto">
+                            <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)]">
+                                <span className="relative z-10">Book Call Now</span>
+                                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
+                            </button>
+                            <button
+                                onClick={() => document.getElementById('protocol-timeline')?.scrollIntoView({ behavior: 'smooth' })}
+                                className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 py-4 rounded-[2rem] font-medium tracking-wide transition-all duration-300"
+                            >
+                                See How It Works →
+                            </button>
+                        </div>
+
+                        {/* Risk reversal */}
+                        <p className="text-white/40 text-sm max-w-md pointer-events-auto">
+                            No upfront cost. ROI guarantee or you don't pay.
+                        </p>
+
                     </div>
 
-                    <div className="hero-cta flex flex-wrap gap-6 items-center pointer-events-auto">
-                        <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)]">
-                            <span className="relative z-10">Book Call Now</span>
-                            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
-                        </button>
-                        <span className="text-white/60 text-sm max-w-xs font-light">
-                            Built exclusively for high-performing CPAs and modern accounting firms.
-                        </span>
+                    {/* RIGHT: Visual proof animations */}
+                    <div className="flex flex-col gap-6 w-full lg:w-[320px] shrink-0 pointer-events-none">
+                        <div className="visual-proof-animation h-[180px]">
+                            <DashboardMockupAnimation />
+                        </div>
+                        <div className="visual-proof-animation h-[140px]">
+                            <WorkflowAnimation />
+                        </div>
+                        <div className="visual-proof-animation h-[160px]">
+                            <BeforeAfterAnimation />
+                        </div>
                     </div>
+
                 </div>
             </section>
 
@@ -157,7 +220,9 @@ export default function FinancePage() {
             </section>
 
             {/* 4. PROTOCOL - HORIZONTAL TIMELINE */}
-            <ProtocolTimeline />
+            <section id="protocol-timeline">
+                <ProtocolTimeline />
+            </section>
 
             {/* 5. SERVICES SHOWCASE */}
             <ServicesShowcase />
