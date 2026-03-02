@@ -145,7 +145,7 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
     ];
 
     return (
-        <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-5 sm:p-6 md:p-8 flex items-center justify-center ${className}`}>
+        <div ref={containerRef} className={`relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-3 sm:p-4 md:p-6 flex items-center justify-center ${className}`}>
             <div className="wf-container relative w-full flex items-center justify-between px-2 sm:px-4 opacity-0">
 
                 {/* SVG connecting lines */}
@@ -170,11 +170,11 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
                 {stages.map((stage, index) => {
                     const IconComponent = stage.icon;
                     return (
-                        <div key={stage.id} className="flex flex-col items-center gap-2 sm:gap-2.5 relative">
-                            <div className={`wf-stage wf-stage-${stage.id} w-9 h-9 sm:w-10 sm:h-10 rounded-full border-2 flex items-center justify-center opacity-0`}>
-                                <IconComponent className={`wf-icon-${stage.id} w-4 h-4 sm:w-5 sm:h-5`} strokeWidth={2} />
+                        <div key={stage.id} className="flex flex-col items-center gap-1.5 sm:gap-2 md:gap-2.5 relative">
+                            <div className={`wf-stage wf-stage-${stage.id} w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full border-2 flex items-center justify-center opacity-0`}>
+                                <IconComponent className={`wf-icon-${stage.id} w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5`} strokeWidth={2} />
                             </div>
-                            <span className="font-mono text-[8px] sm:text-[9px] text-white/30 whitespace-nowrap text-center max-w-[60px] sm:max-w-none leading-tight">
+                            <span className="font-mono text-[7px] sm:text-[8px] md:text-[9px] text-white/30 whitespace-nowrap text-center max-w-[55px] sm:max-w-[60px] md:max-w-none leading-tight">
                                 {stage.label}
                             </span>
                         </div>
@@ -182,8 +182,8 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
                 })}
 
                 {/* Flying mail icon (animates from stage 1 to stage 2) */}
-                <div className="wf-flying-mail absolute left-[50px] top-[14px] text-brand-accent opacity-0">
-                    <Mail size={12} strokeWidth={2.5} />
+                <div className="wf-flying-mail absolute left-[40px] sm:left-[50px] top-[12px] sm:top-[14px] text-brand-accent opacity-0">
+                    <Mail className="w-2.5 h-2.5 sm:w-3 sm:h-3" strokeWidth={2.5} />
                 </div>
 
             </div>

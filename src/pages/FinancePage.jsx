@@ -75,7 +75,7 @@ export default function FinancePage() {
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
 
             {/* 1. HERO SECTION */}
-            <section ref={heroRef} className="relative h-[100dvh] flex flex-col justify-end pb-16 md:pb-24 px-6 md:px-8 lg:px-16 overflow-hidden">
+            <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col justify-end pb-12 sm:pb-16 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-16 overflow-hidden">
                 {/* Background image */}
                 <div
                     className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"
@@ -104,28 +104,28 @@ export default function FinancePage() {
                         </p>
 
                         {/* Main headline */}
-                        <h1 className="hero-text text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 md:mb-4 pointer-events-auto leading-tight">
+                        <h1 className="hero-text text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-2 sm:mb-3 md:mb-4 pointer-events-auto leading-tight">
                             Add 15 New Clients Per Quarter
                         </h1>
 
                         {/* Drama text */}
-                        <h2 className="hero-text hero-accent-glow text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-6 md:mb-8 pointer-events-auto">
+                        <h2 className="hero-text hero-accent-glow text-4xl sm:text-5xl md:text-7xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-4 sm:mb-6 md:mb-8 pointer-events-auto">
                             Without Hiring.
                         </h2>
 
                         {/* Benefit bullets */}
-                        <div className="hero-benefits flex flex-col gap-2.5 sm:gap-3 mb-8 md:mb-10 pointer-events-auto">
-                            <div className="flex items-center gap-2.5 sm:gap-3">
-                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-sm sm:text-base md:text-lg">Cold lead generation on autopilot</span>
+                        <div className="hero-benefits flex flex-col gap-2 sm:gap-2.5 md:gap-3 mb-6 sm:mb-8 md:mb-10 pointer-events-auto">
+                            <div className="flex items-center gap-2 sm:gap-2.5">
+                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Cold lead generation on autopilot</span>
                             </div>
-                            <div className="flex items-center gap-2.5 sm:gap-3">
-                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-sm sm:text-base md:text-lg">Client onboarding in 3 clicks</span>
+                            <div className="flex items-center gap-2 sm:gap-2.5">
+                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Client onboarding in 3 clicks</span>
                             </div>
-                            <div className="flex items-center gap-2.5 sm:gap-3">
-                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-sm sm:text-base md:text-lg">Zero manual data entry</span>
+                            <div className="flex items-center gap-2 sm:gap-2.5">
+                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Zero manual data entry</span>
                             </div>
                         </div>
 
@@ -151,14 +151,14 @@ export default function FinancePage() {
                     </div>
 
                     {/* RIGHT: Visual proof animations */}
-                    <div className="flex flex-col sm:flex-row lg:flex-col gap-5 sm:gap-4 lg:gap-6 w-full lg:w-[320px] shrink-0 pointer-events-none">
-                        <div className="visual-proof-animation h-[180px] sm:h-[160px] lg:h-[200px] sm:flex-1 lg:flex-none">
+                    <div className="flex flex-col sm:flex-row lg:flex-col gap-3 sm:gap-4 lg:gap-6 w-full lg:w-[320px] shrink-0 pointer-events-none mt-6 lg:mt-0">
+                        <div className="visual-proof-animation h-[140px] sm:h-[160px] lg:h-[200px] sm:flex-1 lg:flex-none">
                             <DashboardMockupAnimation />
                         </div>
-                        <div className="visual-proof-animation h-[140px] sm:h-[160px] lg:h-[150px] sm:flex-1 lg:flex-none">
+                        <div className="visual-proof-animation h-[110px] sm:h-[160px] lg:h-[150px] sm:flex-1 lg:flex-none">
                             <WorkflowAnimation />
                         </div>
-                        <div className="visual-proof-animation h-[160px] sm:h-[160px] lg:h-[180px] sm:flex-1 lg:flex-none">
+                        <div className="visual-proof-animation h-[130px] sm:h-[160px] lg:h-[180px] sm:flex-1 lg:flex-none">
                             <BeforeAfterAnimation />
                         </div>
                     </div>

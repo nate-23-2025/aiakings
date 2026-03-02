@@ -130,14 +130,14 @@ export default function BeforeAfterAnimation({ className = "w-full h-full" }) {
     }, []);
 
     return (
-        <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-5 sm:p-6 ${className}`}>
+        <div ref={containerRef} className={`relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0D0D12]/50 border border-white/5 p-3 sm:p-4 md:p-5 ${className}`}>
             <div className="ba-container relative w-full h-full opacity-0">
 
                 {/* Labels */}
-                <span className="ba-label-before font-mono text-[9px] sm:text-[10px] text-white/30 uppercase absolute top-3 sm:top-4 left-4 sm:left-5 opacity-0">
+                <span className="ba-label-before font-mono text-[8px] sm:text-[9px] md:text-[10px] text-white/30 uppercase absolute top-2 sm:top-3 md:top-4 left-3 sm:left-4 md:left-5 opacity-0">
                     Before
                 </span>
-                <span className="ba-label-after font-mono text-[9px] sm:text-[10px] text-green-400/60 uppercase absolute top-3 sm:top-4 right-4 sm:right-5 opacity-0">
+                <span className="ba-label-after font-mono text-[8px] sm:text-[9px] md:text-[10px] text-green-400/60 uppercase absolute top-2 sm:top-3 md:top-4 right-3 sm:right-4 md:right-5 opacity-0">
                     After
                 </span>
 
@@ -148,10 +148,10 @@ export default function BeforeAfterAnimation({ className = "w-full h-full" }) {
                         className={`ba-item ba-item-${num} absolute -translate-x-1/2 -translate-y-1/2 opacity-0`}
                     >
                         {/* Red box (before state) */}
-                        <div className="ba-box w-3.5 h-3.5 sm:w-4 sm:h-4 rounded bg-red-500/60" />
+                        <div className="ba-box w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 rounded bg-red-500/60" />
                         {/* Green check (after state) */}
                         <div className="ba-check absolute inset-0 flex items-center justify-center opacity-0">
-                            <CheckCircle2 size={16} className="text-green-400 sm:w-[18px] sm:h-[18px]" strokeWidth={2.5} />
+                            <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-[18px] md:h-[18px] text-green-400" strokeWidth={2.5} />
                         </div>
                     </div>
                 ))}

@@ -96,8 +96,8 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
     ];
 
     return (
-        <div ref={containerRef} className={`relative overflow-hidden rounded-2xl bg-[#0D0D12]/50 border border-white/5 flex items-center justify-center ${className}`}>
-            <div className="dm-dashboard w-full h-full p-5 sm:p-6 flex flex-col gap-3 sm:gap-4 justify-center opacity-0">
+        <div ref={containerRef} className={`relative overflow-hidden rounded-xl sm:rounded-2xl bg-[#0D0D12]/50 border border-white/5 flex items-center justify-center ${className}`}>
+            <div className="dm-dashboard w-full h-full p-3 sm:p-4 md:p-6 flex flex-col gap-2 sm:gap-3 md:gap-4 justify-center opacity-0">
 
                 {kpis.map((kpi) => (
                     <div
