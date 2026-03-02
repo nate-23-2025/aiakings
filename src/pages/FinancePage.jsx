@@ -75,7 +75,7 @@ export default function FinancePage() {
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
 
             {/* 1. HERO SECTION */}
-            <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col justify-end pb-12 sm:pb-16 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-16 overflow-hidden">
+            <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col justify-center pb-16 sm:pb-16 md:pb-24 px-4 sm:px-6 md:px-8 lg:px-16 overflow-hidden">
                 {/* Background image */}
                 <div
                     className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-20 mix-blend-luminosity"
@@ -99,38 +99,38 @@ export default function FinancePage() {
                     <div className="flex-1 max-w-3xl pointer-events-none">
 
                         {/* Micro-headline qualifier */}
-                        <p className="hero-text text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-2 md:mb-4 pointer-events-auto">
+                        <p className="hero-text text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-xs mb-4 md:mb-4 pointer-events-auto">
                             For CPA Firms Doing $500K–$5M ARR
                         </p>
 
                         {/* Main headline */}
-                        <h1 className="hero-text text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-1.5 sm:mb-3 md:mb-4 pointer-events-auto leading-tight">
+                        <h1 className="hero-text text-3xl sm:text-3xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 sm:mb-3 md:mb-4 pointer-events-auto leading-tight">
                             Add 15 New Clients Per Quarter
                         </h1>
 
                         {/* Drama text */}
-                        <h2 className="hero-text hero-accent-glow text-4xl sm:text-5xl md:text-7xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-3 sm:mb-6 md:mb-8 pointer-events-auto">
+                        <h2 className="hero-text hero-accent-glow text-5xl sm:text-5xl md:text-7xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-6 sm:mb-6 md:mb-8 pointer-events-auto">
                             Without Hiring.
                         </h2>
 
                         {/* Benefit bullets */}
-                        <div className="hero-benefits flex flex-col gap-2.5 sm:gap-2.5 md:gap-3 mb-5 sm:mb-8 md:mb-10 pointer-events-auto">
+                        <div className="hero-benefits flex flex-col gap-3 sm:gap-2.5 md:gap-3 mb-8 sm:mb-8 md:mb-10 pointer-events-auto">
                             <div className="flex items-center gap-2 sm:gap-2.5">
-                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Cold lead generation on autopilot</span>
+                                <Check className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-sm sm:text-sm md:text-base lg:text-lg leading-tight">Cold lead generation on autopilot</span>
                             </div>
                             <div className="flex items-center gap-2 sm:gap-2.5">
-                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Client onboarding in 3 clicks</span>
+                                <Check className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-sm sm:text-sm md:text-base lg:text-lg leading-tight">Client onboarding in 3 clicks</span>
                             </div>
                             <div className="flex items-center gap-2 sm:gap-2.5">
-                                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
-                                <span className="text-white/80 text-xs sm:text-sm md:text-base lg:text-lg leading-tight">Zero manual data entry</span>
+                                <Check className="w-4 h-4 sm:w-4 sm:h-4 md:w-5 md:h-5 text-brand-accent shrink-0" strokeWidth={2.5} />
+                                <span className="text-white/80 text-sm sm:text-sm md:text-base lg:text-lg leading-tight">Zero manual data entry</span>
                             </div>
                         </div>
 
                         {/* Dual CTA */}
-                        <div className="hero-cta flex flex-col sm:flex-row flex-wrap gap-2.5 sm:gap-4 items-stretch sm:items-center mb-3 sm:mb-5 pointer-events-auto">
+                        <div className="hero-cta flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center mb-5 sm:mb-5 pointer-events-auto">
                             <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-6 sm:px-8 py-3.5 sm:py-4 rounded-[2rem] font-semibold text-sm sm:text-base tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[48px]">
                                 <span className="relative z-10">Book Call Now</span>
                                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
