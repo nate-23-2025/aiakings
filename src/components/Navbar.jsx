@@ -19,12 +19,12 @@ export default function Navbar() {
     }, []);
 
     useEffect(() => {
-        const servicesSection = document.getElementById('services-showcase');
-        if (!servicesSection) return;
+        const protocolSection = document.getElementById('protocol-timeline');
+        if (!protocolSection) return;
 
         const observer = new IntersectionObserver(
             ([entry]) => {
-                // Hide navbar when services section is in view
+                // Hide navbar when protocol timeline section is in view
                 setHideNav(entry.isIntersecting);
             },
             {
@@ -35,7 +35,7 @@ export default function Navbar() {
             }
         );
 
-        observer.observe(servicesSection);
+        observer.observe(protocolSection);
         return () => observer.disconnect();
     }, []);
 
