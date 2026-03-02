@@ -5,6 +5,7 @@ import { useCalModal } from '../context/CalModalContext';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
+    const [hideNav, setHideNav] = useState(false);
     const navRef = useRef(null);
     const location = useLocation();
     const { openCalModal } = useCalModal();
@@ -15,6 +16,27 @@ export default function Navbar() {
         };
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        const servicesSection = document.getElementById('services-showcase');
+        if (!servicesSection) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                // Hide navbar when services section is in view
+                setHideNav(entry.isIntersecting);
+            },
+            {
+                // Trigger when 20% of the section is visible
+                threshold: 0.2,
+                // Start checking slightly before it enters viewport
+                rootMargin: '0px 0px -100px 0px'
+            }
+        );
+
+        observer.observe(servicesSection);
+        return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
@@ -34,7 +56,9 @@ export default function Navbar() {
     return (
         <nav
             ref={navRef}
-            className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-[3rem] w-[90%] max-w-5xl transition-colors duration-300 text-[#FAF8F5]`}
+            className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between px-6 py-3 rounded-[3rem] w-[90%] max-w-5xl transition-all duration-500 text-[#FAF8F5] ${
+                hideNav ? 'opacity-0 pointer-events-none translate-y-[-20px]' : 'opacity-100'
+            }`}
         >
             <Link to="/" className="text-xl font-bold tracking-tight">
                 AIA KINGS

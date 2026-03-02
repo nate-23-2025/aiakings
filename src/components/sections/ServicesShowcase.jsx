@@ -276,7 +276,7 @@ export default function ServicesShowcase() {
     };
 
     return (
-        <section ref={sectionRef} className="py-28 px-8 bg-[#0A0A0E]">
+        <section id="services-showcase" ref={sectionRef} className="py-28 px-8 bg-[#0A0A0E]">
             <div className="max-w-7xl mx-auto">
                 {/* Section Header */}
                 <div className="mb-14 max-w-3xl">
