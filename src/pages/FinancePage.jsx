@@ -8,8 +8,6 @@ import CursorProtocol from '../components/features/CursorProtocol';
 import ProtocolTimeline from '../components/sections/ProtocolTimeline';
 import ServicesShowcase from '../components/sections/ServicesShowcase';
 import DashboardMockupAnimation from '../components/animations/DashboardMockupAnimation';
-import WorkflowAnimation from '../components/animations/WorkflowAnimation';
-import BeforeAfterAnimation from '../components/animations/BeforeAfterAnimation';
 
 export default function FinancePage() {
     const heroRef = useRef(null);
@@ -44,10 +42,10 @@ export default function FinancePage() {
                 { y: 10, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: 'power2.out', delay: 2.8 }
             );
-            // Visual proof containers fade in (staggered)
+            // Visual proof container fades in
             gsap.fromTo('.visual-proof-animation',
                 { opacity: 0, scale: 0.95 },
-                { opacity: 1, scale: 1, duration: 0.6, stagger: 0.2, ease: 'back.out(1.5)', delay: 2.5 }
+                { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.5)', delay: 2.5 }
             );
         }, heroRef);
 
@@ -179,16 +177,10 @@ export default function FinancePage() {
 
                     </div>
 
-                    {/* RIGHT: Visual proof animations */}
-                    <div className="hidden lg:flex flex-col gap-6 w-[320px] shrink-0 pointer-events-none">
-                        <div className="visual-proof-animation h-[200px]">
+                    {/* RIGHT: Visual proof animation */}
+                    <div className="hidden lg:flex w-[380px] shrink-0 pointer-events-none">
+                        <div className="visual-proof-animation w-full h-[420px]">
                             <DashboardMockupAnimation />
-                        </div>
-                        <div className="visual-proof-animation h-[150px]">
-                            <WorkflowAnimation />
-                        </div>
-                        <div className="visual-proof-animation h-[180px]">
-                            <BeforeAfterAnimation />
                         </div>
                     </div>
 
