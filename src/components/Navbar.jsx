@@ -59,7 +59,7 @@ export default function Navbar() {
                 hideNav ? 'opacity-0 pointer-events-none translate-y-[-20px]' : 'opacity-100'
             }`}
         >
-            <Link to="/" id="navbar-logo" className="text-xl font-bold tracking-tight">
+            <Link to="/" id="navbar-logo" className="text-xl drama-text tracking-tight opacity-0">
                 AIA KINGS
             </Link>
 

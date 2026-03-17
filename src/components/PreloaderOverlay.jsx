@@ -65,12 +65,13 @@ export default function PreloaderOverlay() {
                     y: deltaY,
                     scale: scaleFactor,
                     letterSpacing: '-0.025em',
-                    fontStyle: 'normal',
                     duration: 0.7,
                     ease: 'power3.inOut',
+                    onComplete: () => {
+                        navLogo.style.opacity = '1';
+                    },
                 });
 
-                // 7. Curtain split + text fades out (navbar text takes over)
                 tl.to(textEl, { opacity: 0, duration: 0.15, ease: 'power2.in' }, '-=0.15');
             }
 
