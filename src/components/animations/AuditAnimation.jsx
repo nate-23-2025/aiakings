@@ -30,7 +30,7 @@ export default function AuditAnimation({ className = "w-full h-full" }) {
 
 
             // ==========================================
-            // STAGE 1: Data Flow Mapping (0s - 2s)
+            // STAGE 1: Pipeline Mapping (0s - 2s)
             // ==========================================
             tl.to('.stage-1-label', { opacity: 1, y: 0, duration: 0.4 })
                 .to('.node-dot', { opacity: 1, scale: 1, duration: 0.4, stagger: 0.1, ease: 'back.out(2)' })
@@ -41,7 +41,7 @@ export default function AuditAnimation({ className = "w-full h-full" }) {
             tl.to('.stage-container', { x: '-33.333%', duration: 0.8, ease: 'power3.inOut' });
 
             // ==========================================
-            // STAGE 2: Friction Identified (2.5s - 4.5s)
+            // STAGE 2: Bottlenecks Found (2.5s - 4.5s)
             // ==========================================
             tl.to('.amber-node', { backgroundColor: '#f59e0b', duration: 0.3, yoyo: true, repeat: 3 })
                 .to('.magnifying-glass', { opacity: 1, x: 0, y: 0, duration: 0.6, ease: 'power2.out' }, "-=0.6")
@@ -52,7 +52,7 @@ export default function AuditAnimation({ className = "w-full h-full" }) {
             tl.to('.stage-container', { x: '-66.666%', duration: 0.8, ease: 'power3.inOut' });
 
             // ==========================================
-            // STAGE 3: Securely Integrated (5s - 7s)
+            // STAGE 3: System Connected (5s - 7s)
             // ==========================================
             tl.to('.padlock', { opacity: 1, duration: 0.4 })
                 // Simulate unlock by changing the icon slightly (using css classes or just a rotation/bounce)
@@ -80,7 +80,7 @@ export default function AuditAnimation({ className = "w-full h-full" }) {
 
                 {/* STAGE 1 */}
                 <div className="w-1/3 h-full relative flex flex-col items-center justify-center p-8">
-                    <div className="stage-1-label absolute top-6 left-6 text-brand-accent font-mono text-xs tracking-widest uppercase">Data Flow Mapping</div>
+                    <div className="stage-1-label absolute top-6 left-6 text-brand-accent font-mono text-xs tracking-widest uppercase">Pipeline Mapping</div>
 
                     {/* Abstract Network Graph */}
                     <div className="relative w-48 h-48">
@@ -103,7 +103,7 @@ export default function AuditAnimation({ className = "w-full h-full" }) {
 
                 {/* STAGE 2 */}
                 <div className="w-1/3 h-full relative flex flex-col items-center justify-center p-8">
-                    <div className="absolute top-6 left-6 text-brand-accent font-mono text-xs tracking-widest uppercase">Friction Identified</div>
+                    <div className="absolute top-6 left-6 text-brand-accent font-mono text-xs tracking-widest uppercase">Bottlenecks Found</div>
 
                     <div className="relative w-64 h-48 flex items-center justify-center">
                         {/* Amber nodes */}
@@ -111,8 +111,8 @@ export default function AuditAnimation({ className = "w-full h-full" }) {
                         <div className="amber-node absolute right-16 bottom-16 w-6 h-6 rounded-full shadow-lg" />
 
                         {/* Callouts */}
-                        <div className="friction-label absolute left-0 top-6 bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] uppercase tracking-wider px-2 py-1 rounded">Drop-off</div>
-                        <div className="friction-label absolute right-4 bottom-6 bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] uppercase tracking-wider px-2 py-1 rounded">Manual Entry</div>
+                        <div className="friction-label absolute left-0 top-6 bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] uppercase tracking-wider px-2 py-1 rounded">Manual Outreach</div>
+                        <div className="friction-label absolute right-4 bottom-6 bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] uppercase tracking-wider px-2 py-1 rounded">No Follow-Up</div>
 
                         {/* Magnifying Glass */}
                         <div className="magnifying-glass absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#1A1A22] p-4 rounded-full border border-white/10 shadow-2xl z-10">
@@ -123,7 +123,7 @@ export default function AuditAnimation({ className = "w-full h-full" }) {
 
                 {/* STAGE 3 */}
                 <div className="w-1/3 h-full relative flex flex-col items-center justify-center p-8">
-                    <div className="absolute top-6 left-6 text-brand-accent font-mono text-xs tracking-widest uppercase">Securely Integrated</div>
+                    <div className="absolute top-6 left-6 text-brand-accent font-mono text-xs tracking-widest uppercase">System Connected</div>
 
                     <div className="relative w-full max-w-sm h-32 flex items-center justify-between">
                         {/* Extraction Side */}

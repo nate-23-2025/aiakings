@@ -5,9 +5,9 @@ import { Database, Filter, Target } from 'lucide-react';
 export default function DiagnosticShuffler() {
     const containerRef = useRef(null);
     const [cards, setCards] = useState([
-        { id: 1, title: 'Data Extraction', value: 'High Net-Worth Profiles', icon: Database },
-        { id: 2, title: 'Enrichment', value: 'Verify SEC Filings', icon: Filter },
-        { id: 3, title: 'Targeting', value: 'Hyper-Personalized Sync', icon: Target },
+        { id: 1, title: 'Prospect Discovery', value: 'Firmographic + Intent Signals', icon: Database },
+        { id: 2, title: 'AI Personalization', value: 'Custom Copy Per Prospect', icon: Filter },
+        { id: 3, title: 'Campaign Launch', value: 'Multi-Channel Outreach', icon: Target },
     ]);
 
     useEffect(() => {
@@ -52,7 +52,7 @@ export default function DiagnosticShuffler() {
         >
             <div className="absolute top-6 left-6 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-                <span className="text-xs uppercase tracking-widest text-brand-accent font-semibold">Lead Gen Array</span>
+                <span className="text-xs uppercase tracking-widest text-brand-accent font-semibold">GTM Array</span>
             </div>
 
             <div className="relative w-full max-w-[240px] h-32 mt-4">

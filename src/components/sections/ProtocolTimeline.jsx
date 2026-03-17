@@ -9,22 +9,22 @@ import DeploymentAnimation from '../animations/DeploymentAnimation';
 const PHASES = [
     {
         number: '01',
-        title: 'Audit & Extraction',
-        description: 'We map your current data flows, identify friction points in your client acquisition, and securely connect to your existing CRM infrastructure.',
+        title: 'Discovery & Mapping',
+        description: 'We audit your current go-to-market process, map your ideal customer profile, and connect to your existing CRM and email infrastructure.',
         Animation: AuditAnimation,
         icon: Network,
     },
     {
         number: '02',
-        title: 'Agent Training',
-        description: "Your custom LLMs are trained strictly on your firm's tone, regulatory requirements, and historical successful engagements.",
+        title: 'Build & Train',
+        description: 'Custom AI agents are built and trained on your brand voice, ideal prospect data, and historical conversion patterns.',
         Animation: TrainingAnimation,
         icon: Search,
     },
     {
         number: '03',
         title: 'Deployment',
-        description: 'The system goes live. Operations execute quietly in the background while warm, qualified leads are directed to your calendar.',
+        description: 'Your GTM engine and autonomous agents go live. Qualified leads flow to your calendar while we monitor and optimize.',
         Animation: DeploymentAnimation,
         icon: Zap,
     },

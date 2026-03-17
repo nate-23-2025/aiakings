@@ -33,7 +33,7 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
 
             // STAGE 3 — Revenue number counts up (1.0s - 2.0s)
             tl.to('.dm-revenue-number', {
-                textContent: '85',
+                textContent: '240',
                 duration: 1.0,
                 snap: { textContent: 1 },
                 ease: 'power2.out'
@@ -65,14 +65,14 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
 
             // STAGE 7 — Secondary numbers count up (3.0s - 3.8s)
             tl.to('.dm-clients-number', {
-                textContent: '15',
+                textContent: '47',
                 duration: 0.6,
                 snap: { textContent: 1 },
                 ease: 'power2.out'
             }, 3.0);
 
             tl.to('.dm-hours-number', {
-                textContent: '40',
+                textContent: '10',
                 duration: 0.6,
                 snap: { textContent: 1 },
                 ease: 'power2.out'
@@ -127,7 +127,7 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
                     <div className="flex items-start justify-between mb-3">
                         <div>
                             <div className="text-[10px] uppercase tracking-widest text-white/40 font-medium mb-1">
-                                Total Revenue
+                                Pipeline Value
                             </div>
                             <div className="text-[9px] text-white/25">
                                 This Month
@@ -190,7 +190,7 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
                         <div className="flex items-center gap-1.5 mb-2">
                             <Users className="w-3 h-3 text-white/30" strokeWidth={2} />
                             <span className="text-[9px] uppercase tracking-widest text-white/40 font-medium">
-                                New Clients
+                                Meetings Booked
                             </span>
                         </div>
                         <div className="flex items-baseline gap-2 mb-2">
@@ -215,11 +215,12 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
                         <div className="flex items-center gap-1.5 mb-2">
                             <Clock className="w-3 h-3 text-white/30" strokeWidth={2} />
                             <span className="text-[9px] uppercase tracking-widest text-white/40 font-medium">
-                                Hours Saved
+                                Emails Sent
                             </span>
                         </div>
                         <div className="flex items-baseline gap-2 mb-2">
                             <span className="dm-hours-number text-2xl font-bold text-white">0</span>
+                            <span className="text-sm font-medium text-white/50">K</span>
                             <div className="dm-growth-badge opacity-0 flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-green-500/15">
                                 <TrendingUp className="w-2.5 h-2.5 text-green-400" strokeWidth={2.5} />
                                 <span className="text-[10px] font-semibold text-green-400">+12%</span>

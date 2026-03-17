@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useCalModal } from '../context/CalModalContext';
+import { useQualForm } from '../context/QualFormContext';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -9,6 +10,7 @@ export default function Navbar() {
     const navRef = useRef(null);
     const location = useLocation();
     const { openCalModal } = useCalModal();
+    const { openQualForm } = useQualForm();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,13 +26,10 @@ export default function Navbar() {
 
         const observer = new IntersectionObserver(
             ([entry]) => {
-                // Hide navbar when protocol timeline section is in view
                 setHideNav(entry.isIntersecting);
             },
             {
-                // Trigger when 20% of the section is visible
                 threshold: 0.2,
-                // Start checking slightly before it enters viewport
                 rootMargin: '0px 0px -100px 0px'
             }
         );
@@ -65,18 +64,26 @@ export default function Navbar() {
             </Link>
 
             <div className="hidden md:flex items-center gap-8 font-medium text-sm">
-                <Link to="/" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
-                    Finance & CPAs
+                <Link to="/go-to-market" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/go-to-market' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                    Go-To-Market
                 </Link>
-                <Link to="/houston" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/houston' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
-                    Houston Local
+                <Link to="/agentic-ai" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/agentic-ai' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                    Agentic AI
                 </Link>
+                {/* <Link to="/blog" className={`hover:-translate-y-[1px] transition-transform ${location.pathname.startsWith('/blog') ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                    Blog
+                </Link> */}
             </div>
 
-            <button onClick={openCalModal} className="group relative overflow-hidden bg-[#C9A84C] text-[#0D0D12] px-6 py-2.5 rounded-[2rem] font-medium text-sm transition-transform hover:scale-[1.03] active:scale-95 duration-300">
-                <span className="relative z-10">Book Call Now</span>
-                <div className="absolute inset-0 bg-[#FAF8F5] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
-            </button>
+            <div className="flex items-center gap-3">
+                <button onClick={openQualForm} className="hidden sm:block border border-white/20 text-current px-5 py-2.5 rounded-[2rem] font-medium text-sm transition-all hover:border-[#C9A84C]/40 hover:scale-[1.03] active:scale-95 duration-300">
+                    Free Audit
+                </button>
+                <button onClick={openCalModal} className="group relative overflow-hidden bg-[#C9A84C] text-[#0D0D12] px-6 py-2.5 rounded-[2rem] font-medium text-sm transition-transform hover:scale-[1.03] active:scale-95 duration-300">
+                    <span className="relative z-10">Book Call Now</span>
+                    <div className="absolute inset-0 bg-[#FAF8F5] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
+                </button>
+            </div>
         </nav>
     );
 }

@@ -2,12 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import { Terminal } from 'lucide-react';
 
 const MESSAGES = [
-    "> INITIALIZING CLIENT ONBOARDING AGENT...",
-    "> CONNECTING TO TAX PORTAL API...",
-    "> PARSING W2 AND 1099 DOCUMENTS...",
-    "> IDENTIFYING DEDUCTION OPPORTUNITIES...",
-    "> SYNCING WITH CRM SYSTEM...",
-    "> AGENT DEPLOYMENT COMPLETE.",
+    "> INITIALIZING COLD EMAIL ENGINE...",
+    "> LOADING TARGET PROSPECT LIST... 2,847 CONTACTS",
+    "> GENERATING PERSONALIZED SEQUENCES...",
+    "> WARMING SENDER DOMAINS... 98.2% DELIVERABILITY",
+    "> MONITORING REPLY SIGNALS...",
+    "> 12 NEW QUALIFIED LEADS TODAY.",
 ];
 
 export default function TelemetryTypewriter() {

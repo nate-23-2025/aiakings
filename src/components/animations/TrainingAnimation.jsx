@@ -107,7 +107,7 @@ export default function TrainingAnimation({ className = "w-full h-full" }) {
 
                         {/* Compliance badges popping out */}
                         <div className="compliance-check absolute top-4 left-6 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[9px] px-2 py-1 rounded-full uppercase tracking-wider">Tone Matched</div>
-                        <div className="compliance-check absolute bottom-4 right-2 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[9px] px-2 py-1 rounded-full uppercase tracking-wider">SEC Compliant</div>
+                        <div className="compliance-check absolute bottom-4 right-2 bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[9px] px-2 py-1 rounded-full uppercase tracking-wider">Brand Aligned</div>
                     </div>
                 </div>
 
@@ -129,8 +129,8 @@ export default function TrainingAnimation({ className = "w-full h-full" }) {
                             <UserCheck size={32} className="text-[#0D0D12]" />
                         </div>
 
-                        <div className="speech-bubble absolute right-2 top-8 bg-white/10 backdrop-blur-sm border border-white/20 p-2 rounded-lg text-xs text-white max-w-[100px]">
-                            "Hello, I've analyzed your portfolio..."
+                        <div className="speech-bubble absolute right-2 top-8 bg-white/10 backdrop-blur-sm border border-white/20 p-2 rounded-lg text-xs text-white max-w-[120px]">
+                            "Hello, I've identified 3 high-intent prospects..."
                         </div>
                     </div>
                 </div>

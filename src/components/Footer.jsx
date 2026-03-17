@@ -19,7 +19,7 @@ export default function Footer() {
                         AIA KINGS
                     </Link>
                     <p className="opacity-70 max-w-sm font-light">
-                        Automating operations and driving precision lead generation for the modern financial atelier and Houston's leading local businesses.
+                        Houston's #1 Go-To-Market and Agentic AI Solutions agency. We build the systems that fill your pipeline and run your operations.
                     </p>
 
                     <div className="mt-8 flex items-center gap-3 data-text text-sm opacity-80">
@@ -29,9 +29,10 @@ export default function Footer() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Divisions</span>
-                    <Link to="/" className="opacity-70 hover:opacity-100 transition-opacity">Finance Protocol</Link>
-                    <Link to="/houston" className="opacity-70 hover:opacity-100 transition-opacity">Houston Local</Link>
+                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Services</span>
+                    <Link to="/go-to-market" className="opacity-70 hover:opacity-100 transition-opacity">Go-To-Market</Link>
+                    <Link to="/agentic-ai" className="opacity-70 hover:opacity-100 transition-opacity">Agentic AI</Link>
+                    {/* <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link> */}
                     <a href="#" className="opacity-70 hover:opacity-100 transition-opacity">Case Studies</a>
                 </div>
 

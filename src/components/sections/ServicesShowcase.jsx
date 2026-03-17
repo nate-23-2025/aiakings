@@ -2,11 +2,10 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-    FileText, Search, UserPlus, Database,
-    Archive, CreditCard, BarChart3, Mail,
-    ListChecks, BookOpen, ShieldCheck, HardDrive,
-    Users, CalendarClock,
-    FolderOpen, Handshake, Settings, Scale,
+    Crosshair, Bot, Workflow, Target,
+    Search, Mail, Linkedin, Filter,
+    Headphones, Eye, Database, CalendarCheck,
+    Settings, ShieldCheck, BarChart3, FlaskConical,
 } from 'lucide-react';
 import ServiceCard from '../features/ServiceCard';
 
@@ -14,167 +13,171 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ─── Category definitions ─── */
 const CATEGORIES = [
-    { id: 'docs', label: 'Documents & Data', icon: FolderOpen },
-    { id: 'clients', label: 'Client Management', icon: Handshake },
-    { id: 'operations', label: 'Operations', icon: Settings },
-    { id: 'compliance', label: 'Compliance & Scale', icon: Scale },
+    { id: 'gtm', label: 'Go-To-Market', icon: Crosshair },
+    { id: 'agents', label: 'Agentic AI', icon: Bot },
+    { id: 'automation', label: 'Automation', icon: Workflow },
+    { id: 'strategy', label: 'Strategy', icon: Target },
 ];
 
 /* ─── Service data with category assignments ─── */
 const SERVICES = [
+    /* ── GO-TO-MARKET ── */
     {
-        id: 'doc-intake', category: 'docs',
-        icon: FileText,
-        title: 'Document Intake & Management',
-        painPoint: 'Clients email docs randomly. Staff renames, files, merges PDFs, and confirms receipt — for every single client.',
-        outcome: 'Save hours weekly. Audit-ready records on autopilot.',
-        animPattern: 'chaosToOrder',
-        today: ['Clients email documents at random', 'Staff downloads, renames, files manually', 'PDFs merged by hand', 'Receipt confirmed manually', 'Missing docs go unnoticed'],
-        automation: ['Dedicated inbox monitored automatically', 'Attachments downloaded and converted to PDF', 'Naming conventions applied, filed into client folders', 'Receipt logged and staff notified instantly'],
-        ai: ['Classify document type (W-2, 1099, invoice)', 'Flag unreadable or incomplete documents', 'Detect missing required documents', 'Summarize contents for reviewer'],
-    },
-    {
-        id: 'data-entry', category: 'docs',
-        icon: Database,
-        title: 'Data Entry & Re-Keying',
-        painPoint: 'Copying data from PDFs into software. Entering invoices by hand. The same numbers typed into 3 different tools.',
-        outcome: 'Eliminate double-entry. Human review only where it matters.',
-        animPattern: 'manualToAutomated',
-        today: ['Copying data from PDFs manually', 'Entering invoices one by one', 'Duplicating data across multiple tools'],
-        automation: ['Structured data extracted automatically', 'Fields validated before entry', 'Data synced across systems in real time'],
-        ai: ['Detect anomalies in extracted values', 'Flag entries needing human review', 'Pre-fill entries for one-click approval'],
-    },
-    {
-        id: 'invoice-archive', category: 'docs',
-        icon: Archive,
-        title: 'Invoice & Bill Archiving',
-        painPoint: 'Manually downloading PDFs, inconsistent backups, and the constant fear of losing data if your software changes.',
-        outcome: 'Every invoice backed up, categorized, and searchable.',
-        animPattern: 'pendingToResolved',
-        today: ['Manually downloading invoice PDFs', 'Inconsistent backup processes', 'Fear of data loss during software changes'],
-        automation: ['New invoices/bills detected automatically', 'PDFs exported and saved to Drive', 'Activity logged for audit trail'],
-        ai: ['Categorize expense types automatically', 'Flag unusual invoice amounts', 'Summarize vendor spending patterns'],
-    },
-    {
-        id: 'backup', category: 'docs',
-        icon: HardDrive,
-        title: 'Data Backup & Retention',
-        painPoint: 'Manual exports. Inconsistent backups. One missed backup could mean lost client data.',
-        outcome: 'Automated, monitored backups. Never lose a file.',
-        animPattern: 'unknownToGuided',
-        today: ['Manual exports on inconsistent schedules', 'No alerts when backups fail'],
-        automation: ['Scheduled backups on reliable cadence', 'Secure cloud storage with redundancy', 'Logs and alerts for every backup event'],
-        ai: ['Monitor for backup failures proactively', 'Flag data gaps before they become problems'],
-    },
-    {
-        id: 'missing-docs', category: 'clients',
+        id: 'prospect-research', category: 'gtm',
         icon: Search,
-        title: 'Missing Document Tracking',
-        painPoint: 'Manual checklists and spreadsheets. Reminder emails that never get sent. Clients who hold up entire engagements.',
-        outcome: 'Zero forgotten follow-ups. Clients stay on track.',
-        animPattern: 'missingToComplete',
-        today: ['Manual checklists per client', 'Spreadsheet tracking for engagement status', 'Reminder emails sent (or forgotten) manually', 'No escalation when clients go dark'],
-        automation: ['Per-engagement document checklists auto-generated', 'Received vs missing detected automatically', 'Timed reminder sequences sent without staff effort', 'Reminders stop when docs arrive'],
-        ai: ['Adjust reminder tone based on client history', 'Escalate only when needed', 'Summarize who is blocking progress'],
+        title: 'Prospect Research & List Building',
+        painPoint: 'Buying generic lists. Spending hours on LinkedIn. Half your contacts are outdated or irrelevant.',
+        outcome: 'Laser-targeted prospect lists built from real intent signals.',
+        animPattern: 'chaosToOrder',
+        today: ['Buying generic contact lists', 'Manual LinkedIn searches', 'Outdated or irrelevant contacts', 'No verification or enrichment'],
+        automation: ['Firmographic + technographic filters applied', 'Contacts verified and enriched automatically', 'Lists refreshed on cadence', 'Delivered directly to your outreach tool'],
+        ai: ['Score prospects by fit and intent', 'Identify lookalike companies from closed deals', 'Surface hiring signals and funding events'],
     },
     {
-        id: 'onboarding', category: 'clients',
-        icon: UserPlus,
-        title: 'Client Onboarding',
-        painPoint: 'Intake emails, PDFs to fill out, missing info, manual folder creation. Every new client is a 2-hour headache.',
-        outcome: 'New clients onboarded in minutes, not days.',
-        animPattern: 'manualToAutomated',
-        today: ['Intake emails back and forth', 'PDFs sent to fill out manually', 'Missing info discovered too late', 'Folders and tasks created by hand'],
-        automation: ['Intake form triggers full workflow', 'Client folder structure created automatically', 'Tasks assigned, client type tagged', 'Confirmation emails sent instantly'],
-        ai: ['Review intake for completeness', 'Flag inconsistencies in submitted data', 'Suggest missing information proactively'],
-    },
-    {
-        id: 'billing', category: 'clients',
-        icon: CreditCard,
-        title: 'Billing & Payment Follow-Ups',
-        painPoint: 'Manually sending invoices. Chasing late payments. Awkward "just checking in" emails that never feel right.',
-        outcome: 'Invoices out on time. Late payments handled without the awkwardness.',
-        animPattern: 'pendingToResolved',
-        today: ['Invoices sent manually each cycle', 'Late payments tracked in spreadsheets', 'Awkward follow-up conversations with clients'],
-        automation: ['Invoices auto-sent on schedule', 'Friendly reminders triggered by payment status', 'Escalation rules enforce your collection policy'],
-        ai: ['Predict which clients will pay late', 'Adjust reminder timing per client', 'Summarize accounts receivable risk'],
-    },
-    {
-        id: 'crm', category: 'clients',
-        icon: Users,
-        title: 'CRM & Relationship Management',
-        painPoint: 'Client notes buried in emails. No consistent tracking. You find out a client is unhappy when they leave.',
-        outcome: 'Full client health visibility. Churn risk caught early.',
-        animPattern: 'disconnectedToConnected',
-        today: ['Client notes scattered across emails', 'Inconsistent relationship tracking', 'No early warning for at-risk clients'],
-        automation: ['Interactions logged automatically from all channels', 'Client status updated in real time'],
-        ai: ['Summarize client health at a glance', 'Identify churn risk before it escalates', 'Suggest proactive follow-up actions'],
-    },
-    {
-        id: 'email-mgmt', category: 'operations',
+        id: 'cold-email', category: 'gtm',
         icon: Mail,
-        title: 'Email & Communication Management',
-        painPoint: 'Inbox overload. Lost threads. Staff manually forwarding messages to the right person. Context disappears.',
-        outcome: 'Every email routed, logged, and actionable.',
-        animPattern: 'chaosToOrder',
-        today: ['Overflowing inboxes with no structure', 'Lost email threads and missed messages', 'Manual forwarding and client-matching'],
-        automation: ['Emails auto-labeled by client and topic', 'Routed to correct staff automatically', 'Linked to client records for full context'],
-        ai: ['Summarize long email threads', 'Draft reply suggestions', 'Flag urgent messages for immediate action'],
-    },
-    {
-        id: 'task-mgmt', category: 'operations',
-        icon: ListChecks,
-        title: 'Task & Deadline Management',
-        painPoint: 'Sticky notes, verbal reminders, and email threads pretending to be project management. Deadlines slip through.',
-        outcome: 'Every deadline tracked. Bottlenecks caught before they cost you.',
-        animPattern: 'disconnectedToConnected',
-        today: ['Tasks tracked via emails and sticky notes', 'Verbal reminders between staff', 'Deadlines missed without visibility'],
-        automation: ['Tasks created automatically from events', 'Deadline reminders sent to owners', 'Status dashboards for firm-wide visibility'],
-        ai: ['Predict workload bottlenecks before they hit', 'Suggest task re-assignment when staff is overloaded', 'Highlight risk areas across engagements'],
-    },
-    {
-        id: 'reporting', category: 'operations',
-        icon: BarChart3,
-        title: 'Monthly & Quarterly Reporting',
-        painPoint: 'Running reports, formatting PDFs, emailing clients, saving copies. The same ritual every month, by hand.',
-        outcome: 'Reports generated, delivered, and archived automatically.',
+        title: 'AI Cold Email Campaigns',
+        painPoint: 'Writing the same email 500 times. Low open rates. Replies going to spam. No personalization at scale.',
+        outcome: '10,000+ personalized emails per month with 35%+ open rates.',
         animPattern: 'manualToAutomated',
-        today: ['Reports run manually each period', 'Formatted into PDFs by hand', 'Emailed individually to each client', 'Copies saved manually to folders'],
-        automation: ['Scheduled report generation on cadence', 'Auto-delivered to clients on time', 'Copies archived automatically'],
-        ai: ['Generate executive summaries per report', 'Highlight period-over-period changes', 'Flag issues for partner review'],
+        today: ['Writing emails one at a time', 'Copy-paste personalization', 'Low open and reply rates', 'No A/B testing or optimization'],
+        automation: ['Personalized sequences generated per prospect', 'Multi-touch follow-ups triggered automatically', 'Domain warming and deliverability managed', 'A/B tests run continuously'],
+        ai: ['Generate personalized opening lines from prospect data', 'Optimize send times per recipient', 'Detect positive reply intent and route to sales'],
     },
     {
-        id: 'training', category: 'compliance',
-        icon: BookOpen,
-        title: 'Staff Training & SOP Enforcement',
-        painPoint: 'Tribal knowledge in senior staff heads. New hires take months to ramp. Processes vary person to person.',
-        outcome: 'Consistent execution. Faster ramp-up. SOPs that enforce themselves.',
+        id: 'linkedin-outreach', category: 'gtm',
+        icon: Linkedin,
+        title: 'LinkedIn Outreach Automation',
+        painPoint: 'Spending 2 hours a day on LinkedIn. Connection requests ignored. No system for follow-ups.',
+        outcome: 'Automated multi-channel outreach across email + LinkedIn.',
+        animPattern: 'disconnectedToConnected',
+        today: ['Manual connection requests', 'No follow-up system', 'Hours spent scrolling feeds', 'Inconsistent messaging'],
+        automation: ['Connection requests sent on autopilot', 'Multi-step message sequences', 'Synced with email campaigns for multi-channel', 'Activity logged to CRM'],
+        ai: ['Personalize connection messages from profile data', 'Identify best time to engage', 'Flag warm leads for immediate follow-up'],
+    },
+    {
+        id: 'lead-scoring', category: 'gtm',
+        icon: Filter,
+        title: 'Lead Scoring & Qualification',
+        painPoint: 'Every lead treated the same. Sales wasting time on unqualified prospects. No way to prioritize.',
+        outcome: 'Sales only talks to leads most likely to close.',
         animPattern: 'unknownToGuided',
-        today: ['Tribal knowledge — nothing documented', 'New staff takes months to get productive', 'Processes vary by person'],
-        automation: ['SOP checklists triggered by workflow events', 'Required steps enforced before task completion', 'Task completion tracked for accountability'],
-        ai: ['Answer SOP questions in real time', 'Guide junior staff step-by-step through processes', 'Detect deviations from standard procedures'],
+        today: ['All leads treated equally', 'No scoring methodology', 'Sales wastes time on bad fits', 'Pipeline visibility is guesswork'],
+        automation: ['Leads scored automatically on ingestion', 'Qualification criteria enforced before handoff', 'Priority queue updated in real time'],
+        ai: ['Predict conversion likelihood from behavior', 'Surface buying signals from email engagement', 'Recommend next best action per lead'],
+    },
+    /* ── AGENTIC AI ── */
+    {
+        id: 'support-agent', category: 'agents',
+        icon: Headphones,
+        title: 'Customer Support Agent',
+        painPoint: 'Missed calls. Slow response times. Customers leave before they ever talk to a human.',
+        outcome: '24/7 support that qualifies leads and books meetings while you sleep.',
+        animPattern: 'pendingToResolved',
+        today: ['Missed calls and voicemails', 'Slow email response times', 'Customers churning from frustration', 'No after-hours coverage'],
+        automation: ['Inbound queries handled instantly', 'FAQs answered without human involvement', 'Meetings booked directly on your calendar', 'Escalation to humans when needed'],
+        ai: ['Understand natural language queries', 'Qualify leads through conversation', 'Learn from past interactions to improve'],
     },
     {
-        id: 'audit', category: 'compliance',
-        icon: ShieldCheck,
-        title: 'Audit Readiness & Compliance',
-        painPoint: 'Scrambling to gather documentation during audits. Searching for proof of actions taken months ago.',
-        outcome: 'Audit-ready at all times. Documentation compiled in seconds.',
+        id: 'sales-intel', category: 'agents',
+        icon: Eye,
+        title: 'Sales Intelligence Agent',
+        painPoint: 'Website visitors leave without a trace. No idea who visited, what they looked at, or how to follow up.',
+        outcome: 'Every high-intent visitor identified and engaged automatically.',
         animPattern: 'missingToComplete',
-        today: ['Manual documentation gathering before audits', 'Stress and scrambling during review periods', 'Searching for proof of past actions'],
-        automation: ['Activity logs maintained automatically', 'Document trails with timestamps', 'Every action recorded for compliance'],
-        ai: ['Compile audit packets on demand', 'Summarize activity history per client', 'Flag missing documentation before it matters'],
+        today: ['Anonymous website traffic', 'No visitor identification', 'No trigger-based outreach', 'Sales flying blind'],
+        automation: ['Visitor companies identified in real time', 'High-intent pages trigger alerts', 'Personalized outreach fired automatically', 'Activity synced to CRM'],
+        ai: ['Score visitors by engagement depth', 'Match visitors to prospect lists', 'Generate personalized follow-up messaging'],
     },
     {
-        id: 'busy-season', category: 'compliance',
-        icon: CalendarClock,
-        title: 'Busy Season Preparation',
-        painPoint: 'Every January starts with scrambling. Manual checklists, overwhelmed staff, and the same fire drills as last year.',
-        outcome: 'Walk into busy season prepared. Staff focused on high-value work from day one.',
+        id: 'data-agent', category: 'agents',
+        icon: Database,
+        title: 'Data Processing Agent',
+        painPoint: 'Copy-pasting between tools. Manual data entry. The same information typed into 3 different systems.',
+        outcome: 'Zero manual data entry. Error-free processing across your stack.',
+        animPattern: 'manualToAutomated',
+        today: ['Copy-pasting between systems', 'Manual data entry and re-keying', 'Errors from human transcription', 'Hours lost to repetitive work'],
+        automation: ['Data extracted and transformed automatically', 'Fields validated before entry', 'Synced across all systems in real time'],
+        ai: ['Detect anomalies in incoming data', 'Flag entries needing human review', 'Pre-fill fields for one-click approval'],
+    },
+    {
+        id: 'appointment-agent', category: 'agents',
+        icon: CalendarCheck,
+        title: 'Appointment Setting Agent',
+        painPoint: 'Back-and-forth emails to schedule meetings. Double bookings. No-shows with no follow-up.',
+        outcome: 'Meetings booked, confirmed, and reminded — all on autopilot.',
         animPattern: 'chaosToOrder',
-        today: ['Scrambling every January', 'Manual pre-season checklists', 'Staff overloaded from day one'],
-        automation: ['Pre-season workflows kick off automatically', 'Client document requests sent on schedule', 'Progress dashboards for real-time tracking'],
-        ai: ['Predict workload distribution and peaks', 'Flag staffing gaps before they impact delivery', 'Optimize scheduling across the team'],
+        today: ['Manual scheduling back-and-forth', 'Double bookings and conflicts', 'No-shows without follow-up', 'Calendar management eating hours'],
+        automation: ['Calendar availability shared automatically', 'Meetings booked without human intervention', 'Reminders and confirmations sent on schedule', 'No-show follow-ups triggered instantly'],
+        ai: ['Suggest optimal meeting times', 'Predict no-show likelihood and adjust reminders', 'Route meetings to the right team member'],
+    },
+    /* ── AUTOMATION ── */
+    {
+        id: 'crm-integration', category: 'automation',
+        icon: Settings,
+        title: 'CRM Integration & Management',
+        painPoint: 'Data stuck in silos. CRM never up to date. Nobody trusts the numbers in your pipeline.',
+        outcome: 'Single source of truth. Every touchpoint logged automatically.',
+        animPattern: 'disconnectedToConnected',
+        today: ['CRM data is stale and incomplete', 'Manual entry after every interaction', 'Pipeline numbers unreliable', 'Tools disconnected from each other'],
+        automation: ['All interactions logged automatically', 'Contact records enriched on ingestion', 'Pipeline stages updated in real time', 'Tools connected via API integrations'],
+        ai: ['Predict deal outcomes from activity data', 'Surface at-risk deals before they stall', 'Recommend next actions per opportunity'],
+    },
+    {
+        id: 'deliverability', category: 'automation',
+        icon: ShieldCheck,
+        title: 'Email Deliverability Management',
+        painPoint: 'Emails landing in spam. Domain reputation tanking. No idea why open rates dropped.',
+        outcome: '98%+ inbox placement. Sender reputation protected.',
+        animPattern: 'pendingToResolved',
+        today: ['Emails going to spam folders', 'Domain reputation degrading', 'No SPF/DKIM/DMARC setup', 'Open rates declining with no diagnosis'],
+        automation: ['Domain warming on autopilot', 'SPF/DKIM/DMARC configured and monitored', 'Bounce rates tracked and addressed', 'Sender reputation dashboards'],
+        ai: ['Predict deliverability issues before they hit', 'Recommend content changes to avoid spam filters', 'Optimize sending patterns per domain'],
+    },
+    {
+        id: 'reporting-dash', category: 'automation',
+        icon: BarChart3,
+        title: 'Reporting & Analytics Dashboard',
+        painPoint: 'Pulling numbers from 5 different tools. Manually building reports. No real-time visibility into performance.',
+        outcome: 'One dashboard. Real-time metrics. Zero manual reporting.',
+        animPattern: 'manualToAutomated',
+        today: ['Data scattered across multiple tools', 'Reports built manually in spreadsheets', 'No real-time performance visibility', 'Hours spent compiling weekly updates'],
+        automation: ['Data aggregated from all sources automatically', 'Dashboards update in real time', 'Scheduled reports delivered on cadence', 'Alerts triggered on key metric changes'],
+        ai: ['Generate executive summaries from raw data', 'Spot trends and anomalies automatically', 'Recommend optimizations based on performance'],
+    },
+    {
+        id: 'follow-up', category: 'automation',
+        icon: Mail,
+        title: 'Follow-Up Sequence Automation',
+        painPoint: 'Leads go cold because nobody followed up. Manual reminders forgotten. Revenue left on the table.',
+        outcome: 'Every lead nurtured. No opportunity falls through the cracks.',
+        animPattern: 'missingToComplete',
+        today: ['Follow-ups dependent on human memory', 'Leads going cold after first touch', 'No system for multi-touch nurturing', 'Revenue lost to dropped conversations'],
+        automation: ['Multi-step sequences triggered by behavior', 'Reminders stop when prospects reply', 'Escalation rules for high-priority leads', 'Activity synced to CRM'],
+        ai: ['Adjust messaging based on engagement signals', 'Optimize sequence timing per prospect', 'Identify re-engagement opportunities in dead leads'],
+    },
+    /* ── STRATEGY ── */
+    {
+        id: 'icp-research', category: 'strategy',
+        icon: Target,
+        title: 'ICP & Market Research',
+        painPoint: 'Targeting everyone and converting no one. No clear ideal customer profile. Marketing budget wasted on bad fits.',
+        outcome: 'Crystal-clear ICP. Every dollar spent on the right audience.',
+        animPattern: 'unknownToGuided',
+        today: ['Vague target audience', 'No data-driven ICP', 'Marketing budget spread too thin', 'Attracting low-quality leads'],
+        automation: ['ICP frameworks built from closed-deal data', 'Market segments defined and prioritized', 'Targeting criteria synced to outreach tools'],
+        ai: ['Analyze conversion patterns to refine ICP', 'Identify underserved market segments', 'Surface emerging verticals from data trends'],
+    },
+    {
+        id: 'campaign-optimization', category: 'strategy',
+        icon: FlaskConical,
+        title: 'Campaign Optimization & A/B Testing',
+        painPoint: 'Running the same campaigns with no idea what works. No testing framework. Results plateau and nobody knows why.',
+        outcome: 'Continuous improvement. Every campaign better than the last.',
+        animPattern: 'manualToAutomated',
+        today: ['No systematic testing', 'Same messaging used for months', 'No data on what works vs what doesn\'t', 'Performance plateaus with no diagnosis'],
+        automation: ['A/B tests run automatically across variants', 'Winners promoted, losers killed', 'Subject lines, CTAs, and copy tested continuously', 'Performance data fed back into strategy'],
+        ai: ['Generate test hypotheses from performance data', 'Predict winning variants before full deployment', 'Recommend messaging pivots based on market response'],
     },
 ];
 
@@ -183,7 +186,7 @@ export default function ServicesShowcase() {
     const tabBarRef = useRef(null);
     const indicatorRef = useRef(null);
     const gridRef = useRef(null);
-    const [activeTab, setActiveTab] = useState('docs');
+    const [activeTab, setActiveTab] = useState('gtm');
     const isFirstRender = useRef(true);
 
     const activeServices = SERVICES.filter(s => s.category === activeTab);
@@ -281,16 +284,16 @@ export default function ServicesShowcase() {
                 {/* Section Header */}
                 <div className="mb-14 max-w-3xl">
                     <span className="svc-header block text-brand-accent tracking-[0.2em] text-xs font-semibold uppercase mb-4">
-                        What We Automate
+                        The Full Stack
                     </span>
                     <h2 className="svc-header text-4xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight text-white leading-[1.1] mb-6">
-                        Your team is buried in{' '}
-                        <span className="drama-text text-brand-accent">manual work.</span>
+                        Everything between{' '}
+                        <span className="drama-text text-brand-accent">first touch</span>
                         <br />
-                        We fix that.
+                        and closed deal.
                     </h2>
                     <p className="svc-header text-lg text-white/40 font-light leading-relaxed">
-                        14 workflows CPA firms run by hand every week — each one automated with guardrails, audit trails, and an AI layer that gets smarter over time.
+                        {SERVICES.length} systems across outbound, AI agents, automation, and strategy — each one engineered with guardrails, real-time analytics, and an AI layer that gets smarter over time.
                     </p>
                 </div>
 
