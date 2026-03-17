@@ -22,14 +22,20 @@ export default function MainLandingPage() {
     const { openCalModal } = useCalModal();
     const { openQualForm } = useQualForm();
 
-    // Force video playback on mobile
+    // Force video playback on mobile — React doesn't always apply `muted` to the DOM
     useEffect(() => {
         const vid = videoRef.current;
         if (!vid) return;
 
+        vid.muted = true;
+        vid.setAttribute('muted', '');
+        vid.setAttribute('playsinline', '');
+        vid.setAttribute('webkit-playsinline', '');
+
         const tryPlay = () => vid.play().catch(() => {});
         tryPlay();
         vid.addEventListener('loadeddata', tryPlay);
+        vid.addEventListener('canplay', tryPlay);
 
         // Last resort: play on first user interaction
         const onInteract = () => { tryPlay(); cleanup(); };
@@ -40,7 +46,11 @@ export default function MainLandingPage() {
         document.addEventListener('touchstart', onInteract, { once: true });
         document.addEventListener('click', onInteract, { once: true });
 
-        return () => { vid.removeEventListener('loadeddata', tryPlay); cleanup(); };
+        return () => {
+            vid.removeEventListener('loadeddata', tryPlay);
+            vid.removeEventListener('canplay', tryPlay);
+            cleanup();
+        };
     }, []);
 
     useEffect(() => {
@@ -155,9 +165,10 @@ export default function MainLandingPage() {
                         autoPlay
                         loop
                         muted
+                        defaultMuted
                         playsInline
                         preload="auto"
-                        className="absolute inset-0 w-full h-full object-cover opacity-20 sm:opacity-30"
+                        className="absolute inset-0 w-full h-full object-cover object-center opacity-20 sm:opacity-30"
                         src={heroVideo}
                     />
                     <div className="absolute inset-0 bg-brand-primary/40" />
