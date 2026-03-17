@@ -45,20 +45,40 @@ export default function PreloaderOverlay() {
             // 4. Hold — let it breathe
             tl.to({}, { duration: 0.3 });
 
-            // 5. Content fades out + slight scale down
-            tl.to(content, {
-                opacity: 0,
-                scale: 0.95,
-                duration: 0.3,
-                ease: 'power2.in',
-            });
+            // 5. Gold line fades out
+            tl.to(line, { opacity: 0, duration: 0.2, ease: 'power2.in' });
 
-            // 6. Curtain split — top rises, bottom drops
+            // 6. Text flies to navbar logo position
+            const textEl = overlayRef.current.querySelector('.preloader-text');
+            const navLogo = document.getElementById('navbar-logo');
+
+            if (textEl && navLogo) {
+                const textRect = textEl.getBoundingClientRect();
+                const logoRect = navLogo.getBoundingClientRect();
+
+                const deltaX = logoRect.left + logoRect.width / 2 - (textRect.left + textRect.width / 2);
+                const deltaY = logoRect.top + logoRect.height / 2 - (textRect.top + textRect.height / 2);
+                const scaleFactor = logoRect.height / textRect.height;
+
+                tl.to(textEl, {
+                    x: deltaX,
+                    y: deltaY,
+                    scale: scaleFactor,
+                    letterSpacing: '-0.025em',
+                    fontStyle: 'normal',
+                    duration: 0.7,
+                    ease: 'power3.inOut',
+                });
+
+                // 7. Curtain split + text fades out (navbar text takes over)
+                tl.to(textEl, { opacity: 0, duration: 0.15, ease: 'power2.in' }, '-=0.15');
+            }
+
             tl.to(topHalf, {
                 yPercent: -100,
                 duration: 0.6,
                 ease: 'power4.inOut',
-            }, '-=0.1');
+            }, '-=0.3');
             tl.to(bottomHalf, {
                 yPercent: 100,
                 duration: 0.6,
@@ -84,7 +104,7 @@ export default function PreloaderOverlay() {
 
             {/* Centered brand text + gold line */}
             <div className="preloader-content absolute inset-0 flex flex-col items-center justify-center z-10">
-                <div className="flex" style={{ letterSpacing: '0.15em' }}>
+                <div className="preloader-text flex" style={{ letterSpacing: '0.15em' }}>
                     {brandName.split('').map((char, i) => (
                         <span
                             key={i}

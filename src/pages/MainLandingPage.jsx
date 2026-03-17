@@ -16,10 +16,32 @@ import heroVideo from '../components/animations/go_to_market.mp4';
 
 export default function MainLandingPage() {
     const heroRef = useRef(null);
+    const videoRef = useRef(null);
     const philosophyRef = useRef(null);
     const servicesRef = useRef(null);
     const { openCalModal } = useCalModal();
     const { openQualForm } = useQualForm();
+
+    // Force video playback on mobile
+    useEffect(() => {
+        const vid = videoRef.current;
+        if (!vid) return;
+
+        const tryPlay = () => vid.play().catch(() => {});
+        tryPlay();
+        vid.addEventListener('loadeddata', tryPlay);
+
+        // Last resort: play on first user interaction
+        const onInteract = () => { tryPlay(); cleanup(); };
+        const cleanup = () => {
+            document.removeEventListener('touchstart', onInteract);
+            document.removeEventListener('click', onInteract);
+        };
+        document.addEventListener('touchstart', onInteract, { once: true });
+        document.addEventListener('click', onInteract, { once: true });
+
+        return () => { vid.removeEventListener('loadeddata', tryPlay); cleanup(); };
+    }, []);
 
     useEffect(() => {
         // Hero Entrance Animation — delayed to sync with preloader curtain open (~2s)
@@ -129,11 +151,12 @@ export default function MainLandingPage() {
                     style={{ maskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)', WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)' }}
                 >
                     <video
+                        ref={videoRef}
                         autoPlay
                         loop
                         muted
                         playsInline
-                        preload="metadata"
+                        preload="auto"
                         className="absolute inset-0 w-full h-full object-cover opacity-20 sm:opacity-30"
                         src={heroVideo}
                     />
