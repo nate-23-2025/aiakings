@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import gsap from 'gsap';
 import { ArrowLeft, Clock, ArrowRight } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import { useQualForm } from '../context/QualFormContext';
-import { BLOG_POSTS } from '../data/blogPosts';
+import { BLOG_POSTS, LOCAL_BUSINESS_SCHEMA } from '../data/blogPosts';
 
 export default function BlogPostPage() {
     const { slug } = useParams();
@@ -49,7 +52,7 @@ export default function BlogPostPage() {
                     <h1 className="text-4xl font-semibold text-white mb-4">Post not found</h1>
                     <p className="text-white/50 mb-8">The article you're looking for doesn't exist.</p>
                     <Link to="/blog" className="text-brand-accent hover:underline font-medium">
-                        ← Back to Blog
+                        &larr; Back to Blog
                     </Link>
                 </div>
             </div>
@@ -58,6 +61,38 @@ export default function BlogPostPage() {
 
     return (
         <div ref={articleRef} className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
+
+            {/* SEO Meta Tags & JSON-LD */}
+            <Helmet>
+                <title>{post.seo?.metaTitle || post.title}</title>
+                <meta name="description" content={post.seo?.metaDescription || post.excerpt} />
+                <meta property="og:title" content={post.seo?.ogTitle || post.title} />
+                <meta property="og:description" content={post.seo?.ogDescription || post.excerpt} />
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={`https://aiautomationkings.com/blog/${post.slug}`} />
+                {post.coverImage && <meta property="og:image" content={post.coverImage} />}
+                <meta name="keywords" content={[post.seo?.primaryKeyword, ...(post.seo?.secondaryKeywords || [])].filter(Boolean).join(', ')} />
+                <link rel="canonical" href={`https://aiautomationkings.com/blog/${post.slug}`} />
+
+                {/* Article Schema */}
+                {post.jsonLd?.article && (
+                    <script type="application/ld+json">
+                        {JSON.stringify(post.jsonLd.article)}
+                    </script>
+                )}
+
+                {/* FAQ Schema */}
+                {post.jsonLd?.faq && (
+                    <script type="application/ld+json">
+                        {JSON.stringify(post.jsonLd.faq)}
+                    </script>
+                )}
+
+                {/* LocalBusiness Schema */}
+                <script type="application/ld+json">
+                    {JSON.stringify(LOCAL_BUSINESS_SCHEMA)}
+                </script>
+            </Helmet>
 
             {/* Article Header */}
             <section className="pt-36 sm:pt-40 pb-12 px-6 md:px-8">
@@ -98,18 +133,70 @@ export default function BlogPostPage() {
                 </div>
             </section>
 
-            {/* Article Body */}
+            {/* Article Body — Markdown */}
             <section className="px-6 md:px-8 pb-20">
                 <div className="post-body max-w-3xl mx-auto">
                     {post.content ? (
-                        <div className="text-white/80 text-base sm:text-lg leading-[1.85] font-light space-y-6">
-                            {post.content.split('\n\n').map((paragraph, i) => (
-                                <p key={i}>{paragraph}</p>
-                            ))}
+                        <div className="blog-content">
+                            <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                    h2: ({ children }) => (
+                                        <h2 className="text-2xl sm:text-3xl font-sans font-medium tracking-tight text-white mt-12 mb-4">
+                                            {children}
+                                        </h2>
+                                    ),
+                                    h3: ({ children }) => (
+                                        <h3 className="text-xl sm:text-2xl font-sans font-medium tracking-tight text-white mt-8 mb-3">
+                                            {children}
+                                        </h3>
+                                    ),
+                                    p: ({ children }) => (
+                                        <p className="text-white/80 text-base sm:text-lg leading-[1.85] font-light mb-6">
+                                            {children}
+                                        </p>
+                                    ),
+                                    strong: ({ children }) => (
+                                        <strong className="text-white font-medium">{children}</strong>
+                                    ),
+                                    a: ({ href, children }) => (
+                                        <a href={href} className="text-brand-accent hover:underline transition-colors duration-200" target={href?.startsWith('http') ? '_blank' : undefined} rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                                            {children}
+                                        </a>
+                                    ),
+                                    ul: ({ children }) => (
+                                        <ul className="text-white/80 text-base sm:text-lg leading-[1.85] font-light mb-6 list-disc pl-6 space-y-2">
+                                            {children}
+                                        </ul>
+                                    ),
+                                    ol: ({ children }) => (
+                                        <ol className="text-white/80 text-base sm:text-lg leading-[1.85] font-light mb-6 list-decimal pl-6 space-y-2">
+                                            {children}
+                                        </ol>
+                                    ),
+                                    li: ({ children }) => (
+                                        <li className="text-white/80">{children}</li>
+                                    ),
+                                    blockquote: ({ children }) => (
+                                        <blockquote className="border-l-2 border-brand-accent/40 pl-6 my-6 text-white/60 italic">
+                                            {children}
+                                        </blockquote>
+                                    ),
+                                }}
+                            />
                         </div>
                     ) : (
                         <div className="bg-[#15151A] border border-white/5 rounded-[2rem] p-8 sm:p-12 text-center">
                             <p className="text-white/40 text-lg">Content coming soon.</p>
+                        </div>
+                    )}
+
+                    {/* Author Bio */}
+                    {post.author && (
+                        <div className="mt-16 pt-8 border-t border-white/10">
+                            <p className="text-white/40 text-xs uppercase tracking-wider font-semibold mb-3">Written by</p>
+                            <p className="text-white font-medium text-lg mb-2">{post.author.name}</p>
+                            <p className="text-white/50 text-sm leading-relaxed max-w-2xl">{post.author.bio}</p>
                         </div>
                     )}
                 </div>

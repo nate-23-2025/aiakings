@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Clock, ArrowRight } from 'lucide-react';
@@ -42,6 +43,14 @@ export default function BlogPage() {
 
     return (
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
+
+            <Helmet>
+                <title>Blog | AI Automation Kings - Houston AI & GTM Insights</title>
+                <meta name="description" content="Frameworks, strategies, and insights on AI automation, go-to-market systems, and business growth from Houston's leading AI automation agency." />
+                <meta property="og:title" content="Blog | AI Automation Kings" />
+                <meta property="og:description" content="Frameworks, strategies, and insights on AI automation, go-to-market systems, and business growth." />
+                <link rel="canonical" href="https://aiautomationkings.com/blog" />
+            </Helmet>
 
             {/* Hero */}
             <section ref={heroRef} className="pt-40 pb-16 sm:pb-20 px-6 md:px-8">
