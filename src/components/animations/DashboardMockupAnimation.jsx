@@ -7,7 +7,7 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
             // INITIAL SETUP
             gsap.set('.dm-dashboard', { opacity: 0 });
@@ -100,7 +100,7 @@ export default function DashboardMockupAnimation({ className = "w-full h-full" }
                 .set('.dm-percentage', { opacity: 0, scale: 0.8 })
                 .set('.dm-sparkline', { strokeDashoffset: 200 })
                 .set('.dm-growth-badge', { opacity: 0, x: -5 })
-                .to('.dm-dashboard', { opacity: 1, duration: 0.1 });
+                .to('.dm-dashboard', { opacity: 1, duration: 0.4 });
 
         }, containerRef);
 

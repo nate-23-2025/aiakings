@@ -64,6 +64,7 @@ export default function AgenticAIPage() {
     const heroRef = useRef(null);
     const useCasesRef = useRef(null);
     const phasesRef = useRef(null);
+    const ctaRef = useRef(null);
     const { openCalModal } = useCalModal();
     const { openQualForm } = useQualForm();
 
@@ -79,7 +80,31 @@ export default function AgenticAIPage() {
             );
         }, heroRef);
 
+        // Hero scroll-out parallax (desktop only)
+        let heroScrollCtx = gsap.context(() => {
+            ScrollTrigger.matchMedia({
+                '(min-width: 768px)': function() {
+                    gsap.to('.ai-hero-content', {
+                        opacity: 0, y: -40,
+                        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: '+=350', scrub: 1 }
+                    });
+                    gsap.to('.ai-hero-bg', {
+                        y: 100,
+                        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: '+=500', scrub: 1.5 }
+                    });
+                }
+            });
+        }, heroRef);
+
         let ucCtx = gsap.context(() => {
+            gsap.fromTo('.ai-section-header-uc',
+                { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+                {
+                    clipPath: 'inset(0 0% 0 0)', opacity: 1,
+                    duration: 1, stagger: 0.2, ease: 'power4.out',
+                    scrollTrigger: { trigger: useCasesRef.current, start: 'top 80%' }
+                }
+            );
             gsap.fromTo('.uc-card',
                 { y: 60, opacity: 0 },
                 {
@@ -90,6 +115,14 @@ export default function AgenticAIPage() {
         }, useCasesRef);
 
         let phaseCtx = gsap.context(() => {
+            gsap.fromTo('.ai-section-header-phase',
+                { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+                {
+                    clipPath: 'inset(0 0% 0 0)', opacity: 1,
+                    duration: 1, stagger: 0.2, ease: 'power4.out',
+                    scrollTrigger: { trigger: phasesRef.current, start: 'top 80%' }
+                }
+            );
             gsap.fromTo('.phase-card',
                 { y: 50, opacity: 0 },
                 {
@@ -99,10 +132,30 @@ export default function AgenticAIPage() {
             );
         }, phasesRef);
 
+        // CTA Section Animation
+        let ctaCtx = gsap.context(() => {
+            gsap.fromTo('.ai-cta-text',
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out',
+                    scrollTrigger: { trigger: ctaRef.current, start: 'top 80%' }
+                }
+            );
+            gsap.fromTo('.ai-cta-buttons',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                    scrollTrigger: { trigger: ctaRef.current, start: 'top 75%' }
+                }
+            );
+        }, ctaRef);
+
         return () => {
             heroCtx.revert();
+            heroScrollCtx.revert();
             ucCtx.revert();
             phaseCtx.revert();
+            ctaCtx.revert();
         };
     }, []);
 
@@ -112,11 +165,11 @@ export default function AgenticAIPage() {
             {/* 1. HERO */}
             <section ref={heroRef} className="relative h-[100dvh] flex flex-col justify-end pb-24 px-6 sm:px-8 md:px-16 overflow-hidden">
                 <div
-                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-15 mix-blend-luminosity"
+                    className="ai-hero-bg absolute inset-0 bg-[url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-15 mix-blend-luminosity"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/90 to-transparent" />
+                <div className="ai-hero-bg absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/90 to-transparent" />
 
-                <div className="relative z-10 max-w-5xl">
+                <div className="ai-hero-content relative z-10 max-w-5xl">
                     <div className="flex items-center gap-4 mb-4 opacity-0 ai-hero-text">
                         <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
                         <span className="text-brand-accent tracking-[0.2em] text-sm font-semibold uppercase">Agentic AI Solutions</span>
@@ -147,8 +200,8 @@ export default function AgenticAIPage() {
             {/* 2. USE CASES */}
             <section ref={useCasesRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 max-w-7xl mx-auto">
                 <div className="mb-16 md:mb-20">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Use Cases</h3>
-                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
+                    <h3 className="ai-section-header-uc text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Use Cases</h3>
+                    <h4 className="ai-section-header-uc text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
                         Agents that work. <span className="drama-text text-brand-accent">Literally.</span>
                     </h4>
                 </div>
@@ -157,7 +210,7 @@ export default function AgenticAIPage() {
                     {USE_CASES.map((uc) => {
                         const IconComp = uc.icon;
                         return (
-                            <div key={uc.title} className="uc-card bg-[#15151A] border border-white/5 rounded-[2rem] p-8 sm:p-10 hover:-translate-y-1 transition-transform duration-500 group">
+                            <div key={uc.title} className="uc-card bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] transition-all duration-500 group">
                                 <div className="w-full h-48 mb-8 rounded-xl overflow-hidden bg-[#0D0D12]">
                                     {uc.animation === 'support' && <SupportAIAnimation />}
                                     {uc.animation === 'beforeafter' && <BeforeAfterAnimation />}
@@ -182,8 +235,8 @@ export default function AgenticAIPage() {
             <section ref={phasesRef} className="py-24 sm:py-32 px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-16 md:mb-20">
-                        <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Implementation</h3>
-                        <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
+                        <h3 className="ai-section-header-phase text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Implementation</h3>
+                        <h4 className="ai-section-header-phase text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
                             From discovery to <span className="drama-text text-brand-accent">deployment</span> in weeks.
                         </h4>
                     </div>
@@ -208,16 +261,19 @@ export default function AgenticAIPage() {
                 </div>
             </section>
 
+            {/* 4. TESTIMONIALS */}
+            <TestimonialsCarousel />
+
             {/* 5. CTA */}
-            <section className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
+            <section ref={ctaRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center">
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-sans tracking-tight mb-6 sm:mb-8 text-white">
+                    <h2 className="ai-cta-text text-4xl sm:text-5xl md:text-6xl font-sans tracking-tight mb-6 sm:mb-8 text-white">
                         Stop hiring for tasks <span className="drama-text text-brand-accent">AI can handle.</span>
                     </h2>
-                    <p className="text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
+                    <p className="ai-cta-text text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
                         Your next employee doesn't need a salary, benefits, or sleep. Let us build it.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 items-center">
+                    <div className="ai-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">
                             <span className="relative z-10">Book Call Now</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>

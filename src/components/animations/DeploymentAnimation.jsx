@@ -7,7 +7,7 @@ export default function DeploymentAnimation({ className = "w-full h-full" }) {
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
             // INITIAL SETUP
             gsap.set('.stage-container', { x: '0%' });

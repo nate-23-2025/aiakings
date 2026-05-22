@@ -11,39 +11,34 @@ export default function DiagnosticShuffler() {
     ]);
 
     useEffect(() => {
-        let ctx = gsap.context(() => {
-            // Setup initial positions
+        const interval = setInterval(() => {
+            setCards(prev => {
+                const newCards = [...prev];
+                const first = newCards.shift();
+                newCards.push(first);
+                return newCards;
+            });
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (!containerRef.current) return;
+        const ctx = gsap.context(() => {
             const elements = gsap.utils.toArray('.shuffler-card');
-
-            const animateCards = () => {
-                elements.forEach((el, index) => {
-                    gsap.to(el, {
-                        y: index * 12,
-                        scale: 1 - index * 0.05,
-                        opacity: 1 - index * 0.2,
-                        zIndex: elements.length - index,
-                        duration: 0.8,
-                        ease: 'back.out(1.2)',
-                    });
+            elements.forEach((el, index) => {
+                gsap.to(el, {
+                    y: index * 12,
+                    scale: 1 - index * 0.05,
+                    opacity: 1 - index * 0.2,
+                    zIndex: elements.length - index,
+                    duration: 0.8,
+                    ease: 'back.out(1.2)',
                 });
-            };
-
-            animateCards();
-
-            const interval = setInterval(() => {
-                setCards(prev => {
-                    const newCards = [...prev];
-                    const first = newCards.shift();
-                    newCards.push(first);
-                    return newCards;
-                });
-            }, 3000);
-
-            return () => clearInterval(interval);
+            });
         }, containerRef);
-
         return () => ctx.revert();
-    }, [cards]); // Re-run animation when state changes
+    }, [cards]);
 
     return (
         <div

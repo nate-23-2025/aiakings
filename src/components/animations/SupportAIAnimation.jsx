@@ -7,7 +7,7 @@ export default function SupportAIAnimation({ className = "w-full h-full" }) {
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
             // INITIAL SETUP
             gsap.set('.sa-notification', { x: -40, opacity: 0, scale: 0.8 });
@@ -87,11 +87,10 @@ export default function SupportAIAnimation({ className = "w-full h-full" }) {
                 </div>
 
                 {/* SVG Connecting Lines (Absolute behind) */}
-                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" style={{ preserveAspectRatio: 'none' }}>
-                    {/* Hardcoded approximate paths from left column to center node */}
-                    <path className="sa-line-path sa-line-1" d="M 40 30 C 80 30, 100 65, 150 65" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeDasharray="100" strokeDashoffset="100" opacity="0.4" />
-                    <path className="sa-line-path sa-line-2" d="M 35 65 L 150 65" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeDasharray="100" strokeDashoffset="100" opacity="0.4" />
-                    <path className="sa-line-path sa-line-3" d="M 40 100 C 80 100, 100 65, 150 65" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeDasharray="100" strokeDashoffset="100" opacity="0.4" />
+                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 300 130" preserveAspectRatio="none">
+                    <path className="sa-line-path sa-line-1" d="M 40 25 C 90 25, 120 65, 150 65" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeDasharray="100" strokeDashoffset="100" opacity="0.4" vectorEffect="non-scaling-stroke" />
+                    <path className="sa-line-path sa-line-2" d="M 35 65 L 150 65" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeDasharray="100" strokeDashoffset="100" opacity="0.4" vectorEffect="non-scaling-stroke" />
+                    <path className="sa-line-path sa-line-3" d="M 40 105 C 90 105, 120 65, 150 65" fill="none" stroke="#C9A84C" strokeWidth="1.5" strokeDasharray="100" strokeDashoffset="100" opacity="0.4" vectorEffect="non-scaling-stroke" />
                 </svg>
 
                 {/* Center: AI Node */}

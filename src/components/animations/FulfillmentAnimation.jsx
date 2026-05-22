@@ -7,7 +7,7 @@ export default function FulfillmentAnimation({ className = "w-full h-full" }) {
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
             // SVG Path lengths for strokeDasharray
             const pathLength1 = 120; // CRM to Invoicing

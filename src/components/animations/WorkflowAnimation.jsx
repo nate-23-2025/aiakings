@@ -7,7 +7,7 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
             // INITIAL SETUP
             gsap.set('.wf-container', { opacity: 0 });
@@ -131,7 +131,7 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
                       gsap.set(line2, { strokeDashoffset: line2.getTotalLength() });
                   }
               })
-              .to('.wf-container', { opacity: 1, duration: 0.1 });
+              .to('.wf-container', { opacity: 1, duration: 0.4 });
 
         }, containerRef);
 
@@ -149,20 +149,22 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
             <div className="wf-container relative w-full flex items-center justify-between px-2 sm:px-4 opacity-0">
 
                 {/* SVG connecting lines */}
-                <svg className="absolute inset-0 pointer-events-none" style={{ width: '100%', height: '100%' }}>
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path
                         className="wf-line-1"
-                        d="M 80 50 L 150 50"
+                        d="M 18 45 L 45 45"
                         stroke="rgba(248,113,113,0.4)"
-                        strokeWidth="2"
+                        strokeWidth="0.8"
                         fill="none"
+                        vectorEffect="non-scaling-stroke"
                     />
                     <path
                         className="wf-line-2"
-                        d="M 220 50 L 290 50"
+                        d="M 55 45 L 82 45"
                         stroke="rgba(201,168,76,0.4)"
-                        strokeWidth="2"
+                        strokeWidth="0.8"
                         fill="none"
+                        vectorEffect="non-scaling-stroke"
                     />
                 </svg>
 
@@ -182,7 +184,7 @@ export default function WorkflowAnimation({ className = "w-full h-full" }) {
                 })}
 
                 {/* Flying mail icon (animates from stage 1 to stage 2) */}
-                <div className="wf-flying-mail absolute left-[40px] sm:left-[50px] top-[12px] sm:top-[14px] text-brand-accent opacity-0">
+                <div className="wf-flying-mail absolute left-[15%] top-[12px] sm:top-[14px] text-brand-accent opacity-0">
                     <Mail className="w-2.5 h-2.5 sm:w-3 sm:h-3" strokeWidth={2.5} />
                 </div>
 

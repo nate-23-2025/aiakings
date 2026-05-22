@@ -1,8 +1,28 @@
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Footer() {
+    const footerRef = useRef(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            gsap.fromTo('.footer-content > *',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out',
+                    scrollTrigger: { trigger: footerRef.current, start: 'top 90%' }
+                }
+            );
+        }, footerRef);
+        return () => ctx.revert();
+    }, []);
+
     return (
-        <footer className="bg-brand-primary text-brand-background rounded-t-[4rem] px-8 py-20 mt-32 relative overflow-hidden">
+        <footer ref={footerRef} className="bg-brand-primary text-brand-background rounded-t-[4rem] px-8 py-20 mt-32 relative overflow-hidden">
             {/* Background texture matching the Midnight Luxe motif */}
             <div
                 className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay"
@@ -13,7 +33,7 @@ export default function Footer() {
                 }}
             />
 
-            <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+            <div className="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
                 <div className="col-span-1 md:col-span-2">
                     <Link to="/" className="text-3xl font-bold tracking-tight mb-4 block">
                         AIA KINGS

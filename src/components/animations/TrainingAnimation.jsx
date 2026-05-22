@@ -7,7 +7,7 @@ export default function TrainingAnimation({ className = "w-full h-full" }) {
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
             // INITIAL SETUP
             gsap.set('.stage-container', { x: '0%' });
@@ -121,16 +121,16 @@ export default function TrainingAnimation({ className = "w-full h-full" }) {
                         </div>
 
                         {/* Arc connecting LLM to Agent */}
-                        <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 192" preserveAspectRatio="xMidYMid meet">
                             <path className="arc-line" d="M 100 96 Q 144 40 188 96" fill="transparent" stroke="rgba(201,168,76,0.3)" strokeWidth="2" strokeDasharray="100" strokeDashoffset="100" strokeLinecap="round" />
                         </svg>
 
-                        <div className="agent-avatar absolute right-16 top-1/2 -translate-y-1/2 bg-brand-accent p-4 rounded-full shadow-[0_0_20px_rgba(201,168,76,0.3)] z-20 block">
-                            <UserCheck size={32} className="text-[#0D0D12]" />
+                        <div className="agent-avatar absolute right-14 bottom-8 bg-brand-accent p-3 rounded-full shadow-[0_0_20px_rgba(201,168,76,0.3)] z-20 block">
+                            <UserCheck size={28} className="text-[#0D0D12]" />
                         </div>
 
-                        <div className="speech-bubble absolute right-2 top-8 bg-white/10 backdrop-blur-sm border border-white/20 p-2 rounded-lg text-xs text-white max-w-[120px]">
-                            "Hello, I've identified 3 high-intent prospects..."
+                        <div className="speech-bubble absolute right-2 top-4 bg-white/10 backdrop-blur-sm border border-white/20 px-2 py-1.5 rounded-lg text-[10px] text-white/80 max-w-[100px] z-30 leading-snug">
+                            "3 high-intent prospects identified..."
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,8 @@ export default function MainLandingPage() {
     const videoRef = useRef(null);
     const philosophyRef = useRef(null);
     const servicesRef = useRef(null);
+    const featuresRef = useRef(null);
+    const ctaRef = useRef(null);
     const { openCalModal } = useCalModal();
     const { openQualForm } = useQualForm();
 
@@ -141,11 +143,49 @@ export default function MainLandingPage() {
             );
         }, servicesRef);
 
+        // Features Section Animation
+        let featCtx = gsap.context(() => {
+            gsap.fromTo('.features-header',
+                { y: 40, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out',
+                    scrollTrigger: { trigger: featuresRef.current, start: 'top 75%' }
+                }
+            );
+            gsap.fromTo('.features-card',
+                { y: 60, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 1, stagger: 0.25, ease: 'power3.out',
+                    scrollTrigger: { trigger: featuresRef.current, start: 'top 70%' }
+                }
+            );
+        }, featuresRef);
+
+        // CTA Section Animation
+        let ctaCtx = gsap.context(() => {
+            gsap.fromTo('.main-cta-text',
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out',
+                    scrollTrigger: { trigger: ctaRef.current, start: 'top 80%' }
+                }
+            );
+            gsap.fromTo('.main-cta-buttons',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                    scrollTrigger: { trigger: ctaRef.current, start: 'top 75%' }
+                }
+            );
+        }, ctaRef);
+
         return () => {
             heroCtx.revert();
             heroScrollCtx.revert();
             philCtx.revert();
             servCtx.revert();
+            featCtx.revert();
+            ctaCtx.revert();
         };
     }, []);
 
@@ -241,14 +281,14 @@ export default function MainLandingPage() {
             </section>
 
             {/* 2. FEATURES - INTERACTIVE ARTIFACTS */}
-            <section className="py-20 sm:py-24 md:py-32 px-6 md:px-8 max-w-7xl mx-auto">
+            <section ref={featuresRef} className="py-20 sm:py-24 md:py-32 px-6 md:px-8 max-w-7xl mx-auto">
                 <div className="mb-12 sm:mb-16 md:mb-20">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Core Systems</h3>
-                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">Two engines. One mission: fill your calendar with qualified leads.</h4>
+                    <h3 className="features-header text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Core Systems</h3>
+                    <h4 className="features-header text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">Two engines. One mission: fill your calendar with qualified leads.</h4>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="flex flex-col gap-6">
+                    <div className="features-card flex flex-col gap-6">
                         <DiagnosticShuffler />
                         <div>
                             <h5 className="font-semibold text-xl mb-2 text-white">Go-To-Market Engine</h5>
@@ -256,7 +296,7 @@ export default function MainLandingPage() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-6">
+                    <div className="features-card flex flex-col gap-6">
                         <TelemetryTypewriter />
                         <div>
                             <h5 className="font-semibold text-xl mb-2 text-white">Agentic AI Workforce</h5>
@@ -264,7 +304,7 @@ export default function MainLandingPage() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-6">
+                    <div className="features-card flex flex-col gap-6">
                         <CursorProtocol />
                         <div>
                             <h5 className="font-semibold text-xl mb-2 text-white">Automated Operations</h5>
@@ -310,7 +350,7 @@ export default function MainLandingPage() {
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* GTM Card */}
-                        <Link to="/go-to-market" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 shadow-xl">
+                        <Link to="/go-to-market" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] shadow-xl">
                             <div className="w-full h-56 mb-8 rounded-2xl overflow-hidden bg-[#0D0D12]">
                                 <LeadGenAnimation />
                             </div>
@@ -328,7 +368,7 @@ export default function MainLandingPage() {
                         </Link>
 
                         {/* Agentic AI Card */}
-                        <Link to="/agentic-ai" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 shadow-xl">
+                        <Link to="/agentic-ai" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] shadow-xl">
                             <div className="w-full h-56 mb-8 rounded-2xl overflow-hidden bg-[#0D0D12] flex items-center justify-center">
                                 <NeuralCore />
                             </div>
@@ -348,14 +388,17 @@ export default function MainLandingPage() {
                 </div>
             </section>
 
+            {/* 6. TESTIMONIALS */}
+            <TestimonialsCarousel />
+
             {/* 7. FINAL CTA */}
-            <section className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
+            <section ref={ctaRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center">
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-tight mb-6 sm:mb-8 text-white">Your competitors are using AI. <span className="drama-text text-brand-accent">Are you?</span></h2>
-                    <p className="text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 sm:mb-12 max-w-xl px-4">
+                    <h2 className="main-cta-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-tight mb-6 sm:mb-8 text-white">Your competitors are using AI. <span className="drama-text text-brand-accent">Are you?</span></h2>
+                    <p className="main-cta-text text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 sm:mb-12 max-w-xl px-4">
                         Stop prospecting manually. Stop hiring for tasks AI can handle. Let us build the system that scales your business.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 items-center">
+                    <div className="main-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 sm:px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">
                             <span className="relative z-10">Book Call Now</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>

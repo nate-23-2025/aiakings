@@ -38,18 +38,18 @@ export default function TelemetryTypewriter() {
 
     return (
         <div
-            className="bg-[#15151A] border border-white/5 rounded-[2rem] p-8 h-80 flex flex-col relative shadow-2xl overflow-hidden"
+            className="bg-[#15151A] border border-white/5 rounded-[2rem] p-5 sm:p-8 h-full flex flex-col relative shadow-2xl overflow-hidden"
         >
-            <div className="absolute top-6 right-6 flex items-center gap-2 bg-[#2A2A35]/40 px-3 py-1 rounded-full">
+            <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-2 bg-[#2A2A35]/40 px-3 py-1 rounded-full">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="text-[10px] uppercase tracking-widest text-emerald-400/80 font-mono">Live Feed</span>
             </div>
 
-            <div className="mt-8 flex-grow flex flex-col justify-end">
-                <div className="mb-4">
-                    <Terminal size={24} className="text-brand-accent/50" />
+            <div className="mt-4 sm:mt-8 flex-grow flex flex-col justify-end">
+                <div className="mb-2 sm:mb-4">
+                    <Terminal size={20} className="text-brand-accent/50" />
                 </div>
-                <div className="font-mono text-sm text-brand-accent/90 h-16 leading-relaxed">
+                <div className="font-mono text-xs sm:text-sm text-brand-accent/90 h-12 sm:h-16 leading-relaxed">
                     {text}
                     <span className="inline-block w-2 h-4 ml-1 bg-brand-accent animate-pulse align-middle" />
                 </div>

@@ -35,9 +35,9 @@ const HOW_IT_WORKS = [
 ];
 
 const METRICS = [
-    { value: '10K+', label: 'Emails / Month', suffix: '' },
-    { value: '35%+', label: 'Open Rate', suffix: '' },
-    { value: '15+', label: 'Meetings / Month', suffix: '' },
+    { numericValue: 10, suffix: 'K+', label: 'Emails / Month' },
+    { numericValue: 35, suffix: '%+', label: 'Open Rate' },
+    { numericValue: 15, suffix: '+', label: 'Meetings / Month' },
 ];
 
 const FEATURES = [
@@ -68,6 +68,7 @@ export default function GoToMarketPage() {
     const howRef = useRef(null);
     const metricsRef = useRef(null);
     const featuresRef = useRef(null);
+    const ctaRef = useRef(null);
     const { openCalModal } = useCalModal();
     const { openQualForm } = useQualForm();
 
@@ -83,7 +84,31 @@ export default function GoToMarketPage() {
             );
         }, heroRef);
 
+        // Hero scroll-out parallax (desktop only)
+        let heroScrollCtx = gsap.context(() => {
+            ScrollTrigger.matchMedia({
+                '(min-width: 768px)': function() {
+                    gsap.to('.gtm-hero-content', {
+                        opacity: 0, y: -40,
+                        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: '+=350', scrub: 1 }
+                    });
+                    gsap.to('.gtm-hero-bg', {
+                        y: 100,
+                        scrollTrigger: { trigger: heroRef.current, start: 'top top', end: '+=500', scrub: 1.5 }
+                    });
+                }
+            });
+        }, heroRef);
+
         let howCtx = gsap.context(() => {
+            gsap.fromTo('.gtm-section-header-how',
+                { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+                {
+                    clipPath: 'inset(0 0% 0 0)', opacity: 1,
+                    duration: 1, stagger: 0.2, ease: 'power4.out',
+                    scrollTrigger: { trigger: howRef.current, start: 'top 80%' }
+                }
+            );
             gsap.fromTo('.how-step',
                 { y: 50, opacity: 0 },
                 {
@@ -101,9 +126,30 @@ export default function GoToMarketPage() {
                     scrollTrigger: { trigger: metricsRef.current, start: 'top 80%' }
                 }
             );
+            // Counter animations
+            [10, 35, 15].forEach((target, i) => {
+                gsap.fromTo(`.metric-num-${i}`,
+                    { textContent: 0 },
+                    {
+                        textContent: target,
+                        duration: 1.5,
+                        snap: { textContent: 1 },
+                        ease: 'power2.out',
+                        scrollTrigger: { trigger: metricsRef.current, start: 'top 80%' }
+                    }
+                );
+            });
         }, metricsRef);
 
         let featCtx = gsap.context(() => {
+            gsap.fromTo('.gtm-section-header-feat',
+                { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
+                {
+                    clipPath: 'inset(0 0% 0 0)', opacity: 1,
+                    duration: 1, stagger: 0.2, ease: 'power4.out',
+                    scrollTrigger: { trigger: featuresRef.current, start: 'top 80%' }
+                }
+            );
             gsap.fromTo('.feat-card',
                 { y: 60, opacity: 0 },
                 {
@@ -113,11 +159,31 @@ export default function GoToMarketPage() {
             );
         }, featuresRef);
 
+        // CTA Section Animation
+        let ctaCtx = gsap.context(() => {
+            gsap.fromTo('.gtm-cta-text',
+                { y: 50, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out',
+                    scrollTrigger: { trigger: ctaRef.current, start: 'top 80%' }
+                }
+            );
+            gsap.fromTo('.gtm-cta-buttons',
+                { y: 30, opacity: 0 },
+                {
+                    y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+                    scrollTrigger: { trigger: ctaRef.current, start: 'top 75%' }
+                }
+            );
+        }, ctaRef);
+
         return () => {
             heroCtx.revert();
+            heroScrollCtx.revert();
             howCtx.revert();
             metricsCtx.revert();
             featCtx.revert();
+            ctaCtx.revert();
         };
     }, []);
 
@@ -127,11 +193,11 @@ export default function GoToMarketPage() {
             {/* 1. HERO */}
             <section ref={heroRef} className="relative h-[100dvh] flex flex-col justify-end pb-24 px-6 sm:px-8 md:px-16 overflow-hidden">
                 <div
-                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-15 mix-blend-luminosity"
+                    className="gtm-hero-bg absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-15 mix-blend-luminosity"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/90 to-transparent" />
+                <div className="gtm-hero-bg absolute inset-0 bg-gradient-to-t from-brand-primary via-brand-primary/90 to-transparent" />
 
-                <div className="relative z-10 max-w-5xl">
+                <div className="gtm-hero-content relative z-10 max-w-5xl">
                     <div className="flex items-center gap-4 mb-4 opacity-0 gtm-hero-text">
                         <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
                         <span className="text-brand-accent tracking-[0.2em] text-sm font-semibold uppercase">Go-To-Market Engine</span>
@@ -162,8 +228,8 @@ export default function GoToMarketPage() {
             {/* 2. HOW IT WORKS */}
             <section ref={howRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 max-w-7xl mx-auto">
                 <div className="mb-16 md:mb-20">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">How It Works</h3>
-                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
+                    <h3 className="gtm-section-header-how text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">How It Works</h3>
+                    <h4 className="gtm-section-header-how text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
                         Three steps to a <span className="drama-text text-brand-accent">full pipeline.</span>
                     </h4>
                 </div>
@@ -190,9 +256,11 @@ export default function GoToMarketPage() {
             {/* 3. KEY METRICS */}
             <section ref={metricsRef} className="py-20 sm:py-24 px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-                    {METRICS.map((m) => (
+                    {METRICS.map((m, i) => (
                         <div key={m.label} className="metric-card text-center py-12 px-6 bg-[#15151A] border border-white/5 rounded-[2rem]">
-                            <p className="text-5xl sm:text-6xl font-bold text-brand-accent mb-3 data-text">{m.value}</p>
+                            <p className="text-5xl sm:text-6xl font-bold text-brand-accent mb-3 data-text">
+                                <span className={`metric-num-${i}`}>0</span>{m.suffix}
+                            </p>
                             <p className="text-white/50 text-sm uppercase tracking-wider">{m.label}</p>
                         </div>
                     ))}
@@ -202,15 +270,15 @@ export default function GoToMarketPage() {
             {/* 4. FEATURE BREAKDOWN */}
             <section ref={featuresRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 max-w-7xl mx-auto">
                 <div className="mb-16 md:mb-20">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">The Full Stack</h3>
-                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
+                    <h3 className="gtm-section-header-feat text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">The Full Stack</h3>
+                    <h4 className="gtm-section-header-feat text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
                         Everything between <span className="drama-text text-brand-accent">first touch</span> and closed deal.
                     </h4>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {FEATURES.map((feat) => (
-                        <div key={feat.title} className="feat-card bg-[#15151A] border border-white/5 rounded-[2rem] p-8 sm:p-10 hover:-translate-y-1 transition-transform duration-500">
+                        <div key={feat.title} className="feat-card bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] transition-all duration-500">
                             <div className="w-full h-48 mb-8 rounded-xl overflow-hidden bg-[#0D0D12]">
                                 {feat.animation === 'leadgen' && <LeadGenAnimation />}
                                 {feat.animation === 'typewriter' && <TelemetryTypewriter />}
@@ -224,16 +292,19 @@ export default function GoToMarketPage() {
                 </div>
             </section>
 
+            {/* 5. TESTIMONIALS */}
+            <TestimonialsCarousel />
+
             {/* 6. CTA */}
-            <section className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center bg-[#0A0A0E]">
+            <section ref={ctaRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center bg-[#0A0A0E]">
                 <div className="max-w-3xl flex flex-col items-center">
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-sans tracking-tight mb-6 sm:mb-8 text-white">
+                    <h2 className="gtm-cta-text text-4xl sm:text-5xl md:text-6xl font-sans tracking-tight mb-6 sm:mb-8 text-white">
                         Ready to fill your <span className="drama-text text-brand-accent">pipeline?</span>
                     </h2>
-                    <p className="text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
+                    <p className="gtm-cta-text text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
                         Stop cold calling. Stop guessing. Let AI find, engage, and book your ideal customers.
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 items-center">
+                    <div className="gtm-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">
                             <span className="relative z-10">Book Call Now</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>

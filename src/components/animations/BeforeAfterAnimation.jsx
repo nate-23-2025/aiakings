@@ -7,7 +7,7 @@ export default function BeforeAfterAnimation({ className = "w-full h-full" }) {
 
     useEffect(() => {
         let ctx = gsap.context(() => {
-            const tl = gsap.timeline({ repeat: -1 });
+            const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.3 });
 
             // INITIAL SETUP
             gsap.set('.ba-container', { opacity: 0 });
@@ -122,7 +122,7 @@ export default function BeforeAfterAnimation({ className = "w-full h-full" }) {
                       });
                   });
               })
-              .to('.ba-container', { opacity: 1, duration: 0.1 });
+              .to('.ba-container', { opacity: 1, duration: 0.4 });
 
         }, containerRef);
 
