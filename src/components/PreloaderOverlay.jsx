@@ -73,6 +73,9 @@ export default function PreloaderOverlay() {
                 });
 
                 tl.to(textEl, { opacity: 0, duration: 0.15, ease: 'power2.in' }, '-=0.15');
+            } else {
+                tl.to(textEl, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+                if (navLogo) navLogo.style.opacity = '1';
             }
 
             tl.to(topHalf, {
