@@ -29,8 +29,8 @@ function App() {
                 <Route path="/" element={<MainLandingPage />} />
                 <Route path="/go-to-market" element={<GoToMarketPage />} />
                 <Route path="/agentic-ai" element={<AgenticAIPage />} />
-                {/* <Route path="/blog" element={<BlogPage />} />
-                <Route path="/blog/:slug" element={<BlogPostPage />} /> */}
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
               </Routes>
             </main>
             <Footer />
