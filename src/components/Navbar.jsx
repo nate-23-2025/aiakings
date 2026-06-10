@@ -70,9 +70,9 @@ export default function Navbar() {
                 <Link to="/agentic-ai" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/agentic-ai' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
                     Agentic AI
                 </Link>
-                <Link to="/blog" className={`hover:-translate-y-[1px] transition-transform ${location.pathname.startsWith('/blog') ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                {/* <Link to="/blog" className={`hover:-translate-y-[1px] transition-transform ${location.pathname.startsWith('/blog') ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
                     Blog
-                </Link>
+                </Link> */}
             </div>
 
             <div className="flex items-center gap-3">
