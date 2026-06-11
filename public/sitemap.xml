@@ -26,28 +26,4 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://aiautomationkings.com/blog/why-cold-email-still-works-2026</loc>
-    <lastmod>2026-03-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aiautomationkings.com/blog/what-is-an-ai-agent</loc>
-    <lastmod>2026-03-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aiautomationkings.com/blog/building-your-icp</loc>
-    <lastmod>2026-02-28</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://aiautomationkings.com/blog/email-deliverability-guide</loc>
-    <lastmod>2026-02-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
 </urlset>
