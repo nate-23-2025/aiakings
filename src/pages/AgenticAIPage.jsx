@@ -271,7 +271,7 @@ export default function AgenticAIPage() {
                         Stop hiring for tasks <span className="drama-text text-brand-accent">AI can handle.</span>
                     </h2>
                     <p className="ai-cta-text text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        Your next employee doesn't need a salary, benefits, or sleep. Let us build it.
+                        Your next employee doesn't need a salary, benefits, or sleep. For qualified businesses, I build the AI agent that runs your operations.
                     </p>
                     <div className="ai-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">

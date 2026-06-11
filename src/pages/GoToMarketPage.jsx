@@ -302,7 +302,7 @@ export default function GoToMarketPage() {
                         Ready to fill your <span className="drama-text text-brand-accent">pipeline?</span>
                     </h2>
                     <p className="gtm-cta-text text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        Stop cold calling. Stop guessing. Let AI find, engage, and book your ideal customers.
+                        Stop cold calling. Stop guessing. For qualified businesses ready to scale, I build the outbound system that books your ideal customers.
                     </p>
                     <div className="gtm-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">

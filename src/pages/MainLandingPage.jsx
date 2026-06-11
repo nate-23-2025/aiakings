@@ -274,7 +274,7 @@ export default function MainLandingPage() {
 
                     {/* Risk reversal */}
                     <p className="text-white/40 text-xs sm:text-sm">
-                        No upfront cost. ROI guarantee or you don't pay.
+                        For qualified businesses only. No upfront cost. ROI guarantee or you don't pay.
                     </p>
 
                 </div>
@@ -396,7 +396,7 @@ export default function MainLandingPage() {
                 <div className="max-w-3xl flex flex-col items-center">
                     <h2 className="main-cta-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-tight mb-6 sm:mb-8 text-white">Your competitors are using AI. <span className="drama-text text-brand-accent">Are you?</span></h2>
                     <p className="main-cta-text text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 sm:mb-12 max-w-xl px-4">
-                        Stop prospecting manually. Stop hiring for tasks AI can handle. Let us build the system that scales your business.
+                        Stop prospecting manually. Stop hiring for tasks AI can handle. We build systems for qualified businesses ready to scale.
                     </p>
                     <div className="main-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 sm:px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">

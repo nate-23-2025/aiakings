@@ -202,7 +202,7 @@ export default function BlogPostPage() {
                         Ready to automate your Houston <span className="drama-text text-brand-accent">business?</span>
                     </h2>
                     <p className="text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        Book a free 15-minute call. I will map out which AI agents would have the biggest impact on your specific business.
+                        For qualified businesses: book a free 15-minute call and I will map out which AI agents would have the biggest impact on your operations.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[48px]">

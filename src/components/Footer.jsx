@@ -39,7 +39,7 @@ export default function Footer() {
                         AIA KINGS
                     </Link>
                     <p className="opacity-70 max-w-sm font-light">
-                        Houston's #1 Go-To-Market and Agentic AI Solutions agency. We build the systems that fill your pipeline and run your operations.
+                        Houston's #1 Go-To-Market and Agentic AI Solutions agency. I build AI systems that fill your pipeline and run your operations for qualified businesses.
                     </p>
 
                     <div className="mt-8 flex items-center gap-3 data-text text-sm opacity-80">
