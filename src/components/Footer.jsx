@@ -52,15 +52,12 @@ export default function Footer() {
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Services</span>
                     <Link to="/go-to-market" className="opacity-70 hover:opacity-100 transition-opacity">Go-To-Market</Link>
                     <Link to="/agentic-ai" className="opacity-70 hover:opacity-100 transition-opacity">Agentic AI</Link>
-                    <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link>
-                    <a href="#" className="opacity-70 hover:opacity-100 transition-opacity">Case Studies</a>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Legal</span>
-                    <a href="#" className="opacity-70 hover:opacity-100 transition-opacity">Privacy Policy</a>
-                    <a href="#" className="opacity-70 hover:opacity-100 transition-opacity">Terms of Service</a>
-                    <a href="mailto:hello@aiakings.com" className="opacity-70 hover:opacity-100 transition-opacity mt-4 data-text">hello@aiakings.com</a>
+                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Resources</span>
+                    <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link>
+                    <a href="mailto:nate@aiautomationkings.com" className="opacity-70 hover:opacity-100 transition-opacity data-text">nate@aiautomationkings.com</a>
                 </div>
             </div>
 
