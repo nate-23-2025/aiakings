@@ -24,26 +24,35 @@ export const BLOG_POSTS = [
         jsonLd: {
             article: {
                 "@context": "https://schema.org",
-                            "@type": "Article",
-                            "headline": "What Are AI Agents? How Houston Businesses Use Them to Never Miss a Lead",
-                            "description": "AI agents help Houston businesses capture leads, answer calls, and book appointments 24/7. Learn what they are and how local businesses are using them.",
-                            "author": {
-                                            "@type": "Person",
-                                            "name": "Nathan Mamo"
-                            },
-                            "publisher": {
-                                            "@type": "Organization",
-                                            "name": "AI Automation Kings"
-                            },
-                            "datePublished": "2026-06-11",
-                            "dateModified": "2026-06-11",
-                            "keywords": [
-                                            "AI agents Houston",
-                                            "agentic AI",
-                                            "AI voice agent Houston",
-                                            "custom AI agents for business",
-                                            "AI automation Houston"
-                            ]
+                "@type": "Article",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://aiautomationkings.com/blog/what-are-ai-agents-houston-businesses"
+                },
+                "headline": "What Are AI Agents? How Houston Businesses Use Them to Never Miss a Lead",
+                "description": "AI agents help Houston businesses capture leads, answer calls, and book appointments 24/7. Learn what they are and how local businesses are using them.",
+                "author": {
+                    "@type": "Person",
+                    "name": "Nathan Mamo",
+                    "jobTitle": "Founder",
+                    "url": "https://aiautomationkings.com"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "AI Automation Kings",
+                    "url": "https://aiautomationkings.com"
+                },
+                "datePublished": "2026-06-11",
+                "dateModified": "2026-06-11",
+                "articleSection": "Agentic AI",
+                "wordCount": 1800,
+                "keywords": [
+                    "AI agents Houston",
+                    "agentic AI",
+                    "AI voice agent Houston",
+                    "custom AI agents for business",
+                    "AI automation Houston"
+                ]
             },
             faq: {
                 "@context": "https://schema.org",
@@ -219,12 +228,34 @@ The call is free. It takes 15 minutes. And you will walk away with a clear pictu
     {
         slug: 'why-cold-email-still-works-2026',
         title: 'Why Cold Email Still Works in 2026',
-        excerpt: 'The channels change. The principles don\'t. Here\'s why cold email remains the highest-ROI outbound channel for B2B companies — and how AI is making it even more effective.',
+        excerpt: 'The channels change. The principles don\'t. Here\'s why cold email remains the highest-ROI outbound channel for B2B companies and how AI is making it even more effective.',
         category: 'Go-To-Market',
         date: '2026-03-10',
         readTime: '5 min read',
         coverImage: null,
-        content: `Cold email isn't dead — it's evolved. While social selling and paid ads fight for attention in crowded feeds, a well-crafted cold email lands directly in your prospect's inbox. No algorithm. No bidding war. Just you and your message.
+        author: DEFAULT_AUTHOR,
+        seo: {
+            metaTitle: 'Why Cold Email Still Works in 2026 - AI-Powered Outbound Strategy',
+            metaDescription: 'Cold email is not dead. Learn why AI-personalized cold email is the highest-ROI outbound channel in 2026 and how Houston B2B companies use it to fill their pipeline.',
+            ogTitle: 'Why Cold Email Still Works in 2026',
+            ogDescription: 'AI personalization at scale is making cold email the highest-ROI outbound channel. Open rates above 35%, pipeline that fills itself.',
+            primaryKeyword: 'cold email 2026',
+            secondaryKeywords: ['AI cold email', 'cold email strategy', 'B2B outbound 2026', 'AI personalization email']
+        },
+        jsonLd: {
+            article: {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": "Why Cold Email Still Works in 2026",
+                "description": "Cold email is not dead. Learn why AI-personalized cold email is the highest-ROI outbound channel in 2026.",
+                "author": { "@type": "Person", "name": "Nathan Mamo", "jobTitle": "Founder", "url": "https://aiautomationkings.com" },
+                "publisher": { "@type": "Organization", "name": "AI Automation Kings", "url": "https://aiautomationkings.com" },
+                "datePublished": "2026-03-10",
+                "dateModified": "2026-03-10",
+                "keywords": ["cold email 2026", "AI cold email", "B2B outbound", "AI personalization"]
+            }
+        },
+        content: `Cold email isn't dead. It's evolved. While social selling and paid ads fight for attention in crowded feeds, a well-crafted cold email lands directly in your prospect's inbox. No algorithm. No bidding war. Just you and your message.
 
 The difference in 2026? AI personalization at scale. Instead of sending the same template to 10,000 people, modern GTM engines craft unique opening lines for each prospect — referencing their company news, tech stack, hiring patterns, and more.
 
@@ -235,11 +266,33 @@ The companies winning at outbound right now aren't the ones with the biggest tea
     {
         slug: 'what-is-an-ai-agent',
         title: 'What Is an AI Agent (And Why Your Business Needs One)',
-        excerpt: 'AI agents aren\'t chatbots. They\'re autonomous systems that take action, make decisions, and run operations without human intervention. Here\'s what that means for your business.',
+        excerpt: 'AI agents are not chatbots. They are autonomous systems that take action, make decisions, and run operations without human intervention. Here is what that means for your business.',
         category: 'Agentic AI',
         date: '2026-03-05',
         readTime: '7 min read',
         coverImage: null,
+        author: DEFAULT_AUTHOR,
+        seo: {
+            metaTitle: 'What Is an AI Agent? Why Your Business Needs One in 2026',
+            metaDescription: 'AI agents take action, make decisions, and run operations autonomously. Learn the difference between chatbots and AI agents and why Houston businesses are adopting them.',
+            ogTitle: 'What Is an AI Agent (And Why Your Business Needs One)',
+            ogDescription: 'AI agents are not chatbots. They qualify leads, book meetings, update CRMs, and run operations without human intervention.',
+            primaryKeyword: 'what is an AI agent',
+            secondaryKeywords: ['AI agent vs chatbot', 'AI agents for business', 'autonomous AI', 'agentic AI']
+        },
+        jsonLd: {
+            article: {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": "What Is an AI Agent (And Why Your Business Needs One)",
+                "description": "AI agents take action, make decisions, and run operations autonomously. Learn the difference between chatbots and AI agents.",
+                "author": { "@type": "Person", "name": "Nathan Mamo", "jobTitle": "Founder", "url": "https://aiautomationkings.com" },
+                "publisher": { "@type": "Organization", "name": "AI Automation Kings", "url": "https://aiautomationkings.com" },
+                "datePublished": "2026-03-05",
+                "dateModified": "2026-03-05",
+                "keywords": ["AI agent", "chatbot vs AI agent", "agentic AI", "autonomous AI"]
+            }
+        },
         content: `There's a critical difference between a chatbot and an AI agent. A chatbot answers questions. An AI agent takes action.
 
 An AI agent can qualify a lead, book a meeting on your calendar, update your CRM, send a follow-up email, and flag the deal as high-priority — all without a human touching anything.
@@ -251,11 +304,33 @@ The question isn't whether AI agents will transform business operations. It's wh
     {
         slug: 'building-your-icp',
         title: 'How to Build an ICP That Actually Converts',
-        excerpt: 'Most companies define their ideal customer profile once and never revisit it. Here\'s a data-driven framework for building an ICP that evolves with your business.',
+        excerpt: 'Most companies define their ideal customer profile once and never revisit it. Here is a data-driven framework for building an ICP that evolves with your business.',
         category: 'Strategy',
         date: '2026-02-28',
         readTime: '6 min read',
         coverImage: null,
+        author: DEFAULT_AUTHOR,
+        seo: {
+            metaTitle: 'How to Build an Ideal Customer Profile (ICP) That Actually Converts',
+            metaDescription: 'Stop guessing who to sell to. Learn a data-driven framework for building an ideal customer profile that evolves with your business and drives real conversions.',
+            ogTitle: 'How to Build an ICP That Actually Converts',
+            ogDescription: 'A data-driven framework for building an ideal customer profile that evolves with your business.',
+            primaryKeyword: 'ideal customer profile',
+            secondaryKeywords: ['ICP framework', 'how to build ICP', 'B2B targeting', 'customer profile template']
+        },
+        jsonLd: {
+            article: {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": "How to Build an ICP That Actually Converts",
+                "description": "A data-driven framework for building an ideal customer profile that evolves with your business and drives real conversions.",
+                "author": { "@type": "Person", "name": "Nathan Mamo", "jobTitle": "Founder", "url": "https://aiautomationkings.com" },
+                "publisher": { "@type": "Organization", "name": "AI Automation Kings", "url": "https://aiautomationkings.com" },
+                "datePublished": "2026-02-28",
+                "dateModified": "2026-02-28",
+                "keywords": ["ideal customer profile", "ICP", "B2B targeting", "customer profile framework"]
+            }
+        },
         content: `Your Ideal Customer Profile isn't a persona document gathering dust in a shared drive. It's a living, data-driven framework that should evolve every quarter based on real conversion data.
 
 Start with your best customers — the ones who close fastest, retain longest, and refer most. What do they have in common? Industry, company size, tech stack, growth stage, and buying triggers all matter.
@@ -267,11 +342,33 @@ The intersection of these two analyses gives you a precision-targeted ICP that y
     {
         slug: 'email-deliverability-guide',
         title: 'The Complete Guide to Email Deliverability in 2026',
-        excerpt: 'Your emails are landing in spam and you don\'t even know it. Here\'s everything you need to know about SPF, DKIM, DMARC, domain warming, and sender reputation.',
+        excerpt: 'Your emails are landing in spam and you do not even know it. Here is everything you need to know about SPF, DKIM, DMARC, domain warming, and sender reputation.',
         category: 'Go-To-Market',
         date: '2026-02-20',
         readTime: '8 min read',
         coverImage: null,
+        author: DEFAULT_AUTHOR,
+        seo: {
+            metaTitle: 'Email Deliverability Guide 2026: SPF, DKIM, DMARC, and Domain Warming',
+            metaDescription: 'Your emails are landing in spam. Learn everything about SPF, DKIM, DMARC, domain warming, and sender reputation to fix your deliverability in 2026.',
+            ogTitle: 'The Complete Guide to Email Deliverability in 2026',
+            ogDescription: 'Everything you need to know about SPF, DKIM, DMARC, domain warming, and sender reputation.',
+            primaryKeyword: 'email deliverability 2026',
+            secondaryKeywords: ['SPF DKIM DMARC', 'domain warming', 'email sender reputation', 'cold email deliverability']
+        },
+        jsonLd: {
+            article: {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": "The Complete Guide to Email Deliverability in 2026",
+                "description": "Everything you need to know about SPF, DKIM, DMARC, domain warming, and sender reputation to fix your email deliverability.",
+                "author": { "@type": "Person", "name": "Nathan Mamo", "jobTitle": "Founder", "url": "https://aiautomationkings.com" },
+                "publisher": { "@type": "Organization", "name": "AI Automation Kings", "url": "https://aiautomationkings.com" },
+                "datePublished": "2026-02-20",
+                "dateModified": "2026-02-20",
+                "keywords": ["email deliverability", "SPF DKIM DMARC", "domain warming", "sender reputation"]
+            }
+        },
         content: `You could write the perfect cold email, personalized down to the prospect's favorite coffee order. But if it lands in spam, none of it matters.
 
 Email deliverability is the invisible foundation of every outbound program. And in 2026, with Google and Microsoft tightening spam filters, it's more important than ever.

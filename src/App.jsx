@@ -10,6 +10,7 @@ import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import { CalModalProvider } from './context/CalModalContext';
 import { QualFormProvider } from './context/QualFormContext';
+import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 function App() {
   return (
+    <HelmetProvider>
     <BrowserRouter>
       <CalModalProvider>
         <QualFormProvider>
@@ -29,8 +31,8 @@ function App() {
                 <Route path="/" element={<MainLandingPage />} />
                 <Route path="/go-to-market" element={<GoToMarketPage />} />
                 <Route path="/agentic-ai" element={<AgenticAIPage />} />
-                {/* <Route path="/blog" element={<BlogPage />} />
-                <Route path="/blog/:slug" element={<BlogPostPage />} /> */}
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
               </Routes>
             </main>
             <Footer />
@@ -41,6 +43,7 @@ function App() {
         </QualFormProvider>
       </CalModalProvider>
     </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Clock, ArrowRight } from 'lucide-react';
+import SEOHead from '../components/SEOHead';
 import { BLOG_POSTS } from '../data/blogPosts';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -42,6 +43,11 @@ export default function BlogPage() {
 
     return (
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
+            <SEOHead
+                title="AI Automation &amp; Go-To-Market Blog | AI Automation Kings"
+                description="Frameworks, strategies, and insights on AI agents, cold email, and go-to-market systems for Houston businesses. From Houston's leading AI automation agency."
+                canonical="https://aiautomationkings.com/blog"
+            />
 
             {/* Hero */}
             <section ref={heroRef} className="pt-40 pb-16 sm:pb-20 px-6 md:px-8">
@@ -50,10 +56,10 @@ export default function BlogPage() {
                         Insights
                     </span>
                     <h1 className="blog-hero-text text-4xl sm:text-5xl md:text-6xl font-sans font-medium tracking-tight text-white leading-tight max-w-3xl">
-                        Perspectives on GTM, AI, and <span className="drama-text text-brand-accent">Growth.</span>
+                        AI Automation & Go-To-Market <span className="drama-text text-brand-accent">Insights.</span>
                     </h1>
                     <p className="blog-hero-text text-lg text-white/40 font-light mt-6 max-w-xl">
-                        Frameworks, strategies, and insights from the team building Houston's most advanced go-to-market and AI systems.
+                        Frameworks and strategies for AI agents, cold email, and growth systems from Houston's leading AI automation agency.
                     </p>
                 </div>
             </section>
@@ -86,9 +92,9 @@ export default function BlogPage() {
 
                             {/* Content */}
                             <div className="p-8 flex flex-col flex-grow">
-                                <h3 className="text-xl font-semibold text-white mb-3 group-hover:text-brand-accent transition-colors duration-300 leading-snug">
+                                <h2 className="text-xl font-semibold text-white mb-3 group-hover:text-brand-accent transition-colors duration-300 leading-snug">
                                     {post.title}
-                                </h3>
+                                </h2>
                                 <p className="text-white/50 text-sm leading-relaxed mb-6 flex-grow line-clamp-3">
                                     {post.excerpt}
                                 </p>

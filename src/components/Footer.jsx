@@ -52,7 +52,7 @@ export default function Footer() {
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Services</span>
                     <Link to="/go-to-market" className="opacity-70 hover:opacity-100 transition-opacity">Go-To-Market</Link>
                     <Link to="/agentic-ai" className="opacity-70 hover:opacity-100 transition-opacity">Agentic AI</Link>
-                    {/* <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link> */}
+                    <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link>
                     <a href="#" className="opacity-70 hover:opacity-100 transition-opacity">Case Studies</a>
                 </div>
 
