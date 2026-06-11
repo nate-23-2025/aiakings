@@ -1,3 +1,8 @@
+const DEFAULT_AUTHOR = {
+    name: 'Nathan Mamo',
+    role: 'Founder, AI Automation Kings',
+};
+
 export const BLOG_POSTS = [
     {
         slug: 'what-are-ai-agents-houston-businesses',
