@@ -2,16 +2,24 @@ import { useEffect, useRef, useState } from 'react';
 import { X, CheckCircle, Loader2 } from 'lucide-react';
 import gsap from 'gsap';
 import { useQualForm } from '../context/QualFormContext';
+import { supabase } from '../lib/supabase';
 
-const REVENUE_OPTIONS = [
-    { value: '', label: 'Select revenue range' },
-    { value: 'under-50k', label: 'Under $50K/mo' },
-    { value: '50k-250k', label: '$50K – $250K/mo' },
-    { value: '250k-1m', label: '$250K – $1M/mo' },
-    { value: '1m-plus', label: '$1M+/mo' },
+const TEAM_SIZE_OPTIONS = [
+    { value: '', label: 'Select team size' },
+    { value: 'solo-5', label: 'Solo / 1-5 employees' },
+    { value: '5-15', label: '5-15 employees' },
+    { value: '15-50', label: '15-50 employees' },
+    { value: '50-plus', label: '50+ employees' },
 ];
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+const BUSINESS_TYPE_OPTIONS = [
+    { value: '', label: 'Select business type' },
+    { value: 'cpa-accounting', label: 'CPA / Accounting Firm' },
+    { value: 'financial-advisory', label: 'Financial Advisory' },
+    { value: 'bookkeeping-cfo', label: 'Bookkeeping / Fractional CFO' },
+    { value: 'local-business', label: 'Local Business (Houston)' },
+    { value: 'other', label: 'Other' },
+];
 
 export default function QualificationForm() {
     const { isOpen, formType, closeQualForm } = useQualForm();
@@ -24,21 +32,20 @@ export default function QualificationForm() {
         name: '',
         email: '',
         company: '',
-        revenue: '',
+        business_type: '',
+        team_size: '',
         bottleneck: '',
     });
 
-    // Sync formType from context when modal opens
     useEffect(() => {
         if (isOpen) {
             setSelectedType(formType);
             setSubmitted(false);
             setSubmitting(false);
-            setFormData({ name: '', email: '', company: '', revenue: '', bottleneck: '' });
+            setFormData({ name: '', email: '', company: '', business_type: '', team_size: '', bottleneck: '' });
         }
     }, [isOpen, formType]);
 
-    // GSAP open/close animations + scroll lock + escape key
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -70,7 +77,6 @@ export default function QualificationForm() {
         }
     }, [isOpen]);
 
-    // Escape key handler
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === 'Escape' && isOpen) closeQualForm();
@@ -88,19 +94,21 @@ export default function QualificationForm() {
         setSubmitting(true);
 
         const payload = {
-            ...formData,
-            assessmentType: selectedType === 'gtm-audit' ? 'GTM Audit' : 'AI Readiness Assessment',
+            name: formData.name,
+            email: formData.email,
+            company: formData.company,
+            business_type: formData.business_type,
+            team_size: formData.team_size,
+            bottleneck: formData.bottleneck || null,
+            assessment_type: selectedType === 'gtm-audit' ? 'Firm Growth Audit' : 'AI Receptionist Demo',
         };
 
         try {
-            await fetch(FORMSPREE_ENDPOINT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            });
+            if (supabase) {
+                await supabase.from('lead_submissions').insert([payload]);
+            }
             setSubmitted(true);
         } catch {
-            // Still show success — form data was captured
             setSubmitted(true);
         } finally {
             setSubmitting(false);
@@ -120,7 +128,6 @@ export default function QualificationForm() {
                 ref={cardRef}
                 className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-[#15151A] border border-white/10 rounded-[2rem] shadow-[0_0_60px_rgba(201,168,76,0.15)] p-8"
             >
-                {/* Close button */}
                 <button
                     onClick={closeQualForm}
                     className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-colors duration-200"
@@ -129,14 +136,13 @@ export default function QualificationForm() {
                 </button>
 
                 {submitted ? (
-                    /* Success State */
                     <div className="flex flex-col items-center justify-center py-12 text-center">
                         <div className="w-16 h-16 rounded-full bg-brand-accent/10 flex items-center justify-center mb-6">
                             <CheckCircle className="w-8 h-8 text-brand-accent" />
                         </div>
                         <h3 className="text-2xl font-semibold text-white mb-3">Request Received</h3>
                         <p className="text-white/50 text-sm max-w-xs leading-relaxed">
-                            We'll review your information and reach out within 24 hours to schedule your free {selectedType === 'gtm-audit' ? 'GTM audit' : 'AI readiness assessment'}.
+                            I'll review your information and reach out within 24 hours to schedule your free {selectedType === 'gtm-audit' ? 'firm growth audit' : 'AI receptionist demo'}.
                         </p>
                         <button
                             onClick={closeQualForm}
@@ -146,12 +152,10 @@ export default function QualificationForm() {
                         </button>
                     </div>
                 ) : (
-                    /* Form */
                     <>
                         <h3 className="text-2xl font-semibold text-white mb-2 pr-8">Qualify for a Free Audit</h3>
-                        <p className="text-white/40 text-sm mb-8">Tell us about your business and we'll prepare a custom assessment.</p>
+                        <p className="text-white/40 text-sm mb-8">Tell me about your business and I'll prepare a custom assessment.</p>
 
-                        {/* Assessment Type Toggle */}
                         <div className="flex bg-white/5 rounded-xl p-1 mb-6">
                             <button
                                 type="button"
@@ -162,7 +166,7 @@ export default function QualificationForm() {
                                         : 'text-white/50 hover:text-white/70'
                                 }`}
                             >
-                                GTM Audit
+                                Firm Growth Audit
                             </button>
                             <button
                                 type="button"
@@ -173,7 +177,7 @@ export default function QualificationForm() {
                                         : 'text-white/50 hover:text-white/70'
                                 }`}
                             >
-                                AI Readiness
+                                AI Receptionist Demo
                             </button>
                         </div>
 
@@ -206,13 +210,26 @@ export default function QualificationForm() {
                                 className={inputClass}
                             />
                             <select
-                                name="revenue"
+                                name="business_type"
                                 required
-                                value={formData.revenue}
+                                value={formData.business_type}
                                 onChange={handleChange}
-                                className={`${inputClass} ${!formData.revenue ? 'text-white/30' : ''}`}
+                                className={`${inputClass} ${!formData.business_type ? 'text-white/30' : ''}`}
                             >
-                                {REVENUE_OPTIONS.map(opt => (
+                                {BUSINESS_TYPE_OPTIONS.map(opt => (
+                                    <option key={opt.value} value={opt.value} disabled={!opt.value} className="bg-[#15151A] text-white">
+                                        {opt.label}
+                                    </option>
+                                ))}
+                            </select>
+                            <select
+                                name="team_size"
+                                required
+                                value={formData.team_size}
+                                onChange={handleChange}
+                                className={`${inputClass} ${!formData.team_size ? 'text-white/30' : ''}`}
+                            >
+                                {TEAM_SIZE_OPTIONS.map(opt => (
                                     <option key={opt.value} value={opt.value} disabled={!opt.value} className="bg-[#15151A] text-white">
                                         {opt.label}
                                     </option>
@@ -220,7 +237,7 @@ export default function QualificationForm() {
                             </select>
                             <textarea
                                 name="bottleneck"
-                                placeholder="What's your biggest bottleneck right now? (optional)"
+                                placeholder="What's holding your firm back right now? (optional)"
                                 rows={3}
                                 value={formData.bottleneck}
                                 onChange={handleChange}
@@ -239,10 +256,10 @@ export default function QualificationForm() {
                                             Submitting...
                                         </>
                                     ) : (
-                                        'Request Free Audit'
+                                        selectedType === 'gtm-audit' ? 'Request Free Audit' : 'Request Demo'
                                     )}
                                 </span>
-                                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
+                                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay" />
                             </button>
                         </form>
                     </>

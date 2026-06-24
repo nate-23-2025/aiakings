@@ -6,6 +6,7 @@ import PreloaderOverlay from './components/PreloaderOverlay';
 import MainLandingPage from './pages/MainLandingPage';
 import GoToMarketPage from './pages/GoToMarketPage';
 import AgenticAIPage from './pages/AgenticAIPage';
+import AccountingPage from './pages/AccountingPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import { CalModalProvider } from './context/CalModalContext';
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/" element={<MainLandingPage />} />
                 <Route path="/go-to-market" element={<GoToMarketPage />} />
                 <Route path="/agentic-ai" element={<AgenticAIPage />} />
+                <Route path="/accounting" element={<AccountingPage />} />
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
               </Routes>

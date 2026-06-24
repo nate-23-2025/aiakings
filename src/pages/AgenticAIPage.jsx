@@ -14,26 +14,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const USE_CASES = [
     {
-        title: 'Customer Support Agent',
-        description: 'Handles inbound queries, qualifies leads, and books meetings 24/7. Custom-trained on your brand voice and FAQ knowledge base.',
+        title: 'Inbound Call Handling',
+        description: 'AI answers every call 24/7 in your brand\'s voice. Qualifies leads, books appointments, and routes to the right person. No more missed calls, no more voicemail.',
         icon: Headphones,
         animation: 'support',
     },
     {
-        title: 'Data Processing Agent',
-        description: 'Extracts, transforms, and loads data across your entire stack. Replaces hours of manual copy-paste with instant, error-free processing.',
+        title: 'Outbound Follow-Up Calls',
+        description: 'AI calls back missed leads, confirms appointments, and reactivates past clients. Your phone works for you even when you\'re closed.',
         icon: Database,
         animation: 'beforeafter',
     },
     {
-        title: 'Workflow Orchestration Agent',
-        description: 'Connects your CRM, invoicing, and fulfillment systems. If a human triggers it, an agent can automate it.',
+        title: 'Appointment Booking & Reminders',
+        description: 'Prospects book directly during the call. Automated confirmations and reminders cut no-shows. Everything syncs to your calendar.',
         icon: Workflow,
         animation: 'fulfillment',
     },
     {
-        title: 'Sales Intelligence Agent',
-        description: 'Monitors website visitors, identifies high-intent prospects, and triggers personalized outreach before they leave.',
+        title: 'Lead Qualification & Routing',
+        description: 'AI asks the right questions, scores each lead, and routes hot prospects to you immediately. No more wasting time on tire-kickers.',
         icon: Eye,
         animation: 'website',
     },
@@ -43,19 +43,19 @@ const PHASES = [
     {
         step: '01',
         title: 'Discovery',
-        description: 'We map your workflows, identify repetitive tasks, and pinpoint where autonomous agents will deliver the highest ROI.',
+        description: 'I learn how your business handles calls, what questions clients ask, and what your booking process looks like. Every receptionist is custom.',
         icon: Search,
     },
     {
         step: '02',
         title: 'Build & Train',
-        description: 'Custom agents are built and trained on your data, brand voice, and operational processes. No generic templates.',
+        description: 'Your AI receptionist is built and trained on your services, pricing, FAQs, and brand voice. It sounds like your best front-desk person.',
         icon: Cpu,
     },
     {
         step: '03',
-        title: 'Deploy & Monitor',
-        description: 'Agents go live with real-time dashboards, guardrails, and human-in-the-loop escalation. We monitor and optimize continuously.',
+        title: 'Go Live',
+        description: 'Your AI receptionist starts handling calls. I monitor performance, tune responses, and optimize booking rates continuously.',
         icon: Zap,
     },
 ];
@@ -172,26 +172,26 @@ export default function AgenticAIPage() {
                 <div className="ai-hero-content relative z-10 max-w-5xl">
                     <div className="flex items-center gap-4 mb-4 opacity-0 ai-hero-text">
                         <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-                        <span className="text-brand-accent tracking-[0.2em] text-sm font-semibold uppercase">Agentic AI Solutions</span>
+                        <span className="text-brand-accent tracking-[0.2em] text-sm font-semibold uppercase">AI Receptionists for Local Businesses</span>
                     </div>
                     <div className="overflow-hidden mb-2">
                         <h1 className="ai-hero-text text-3xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight text-white">
-                            Autonomous AI Agents That Run Your Operations
+                            Your Phone Rings at 2AM.
                         </h1>
                     </div>
                     <div className="overflow-hidden mb-12">
                         <h2 className="ai-hero-text text-5xl md:text-7xl lg:text-[8rem] leading-[0.9] drama-text text-brand-accent py-2">
-                            While You Sleep.
+                            Who Answers?
                         </h2>
                     </div>
 
                     <div className="ai-hero-cta flex flex-col sm:flex-row gap-4">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[48px]">
-                            <span className="relative z-10">Book Call Now</span>
+                            <span className="relative z-10">Book a Call</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                         </button>
                         <button onClick={() => openQualForm('ai-assessment')} className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 py-4 rounded-[2rem] font-medium tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[48px]">
-                            Get AI Assessment →
+                            Get a Demo →
                         </button>
                     </div>
                 </div>
@@ -200,9 +200,9 @@ export default function AgenticAIPage() {
             {/* 2. USE CASES */}
             <section ref={useCasesRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 max-w-7xl mx-auto">
                 <div className="mb-16 md:mb-20">
-                    <h3 className="ai-section-header-uc text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Use Cases</h3>
+                    <h3 className="ai-section-header-uc text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">What Your AI Receptionist Does</h3>
                     <h4 className="ai-section-header-uc text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
-                        Agents that work. <span className="drama-text text-brand-accent">Literally.</span>
+                        Never miss a call. Never lose a <span className="drama-text text-brand-accent">lead.</span>
                     </h4>
                 </div>
 
@@ -235,9 +235,9 @@ export default function AgenticAIPage() {
             <section ref={phasesRef} className="py-24 sm:py-32 px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-16 md:mb-20">
-                        <h3 className="ai-section-header-phase text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Implementation</h3>
+                        <h3 className="ai-section-header-phase text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">How It Works</h3>
                         <h4 className="ai-section-header-phase text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
-                            From discovery to <span className="drama-text text-brand-accent">deployment</span> in weeks.
+                            Your AI receptionist, <span className="drama-text text-brand-accent">live in weeks.</span>
                         </h4>
                     </div>
 
@@ -268,18 +268,18 @@ export default function AgenticAIPage() {
             <section ref={ctaRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center">
                     <h2 className="ai-cta-text text-4xl sm:text-5xl md:text-6xl font-sans tracking-tight mb-6 sm:mb-8 text-white">
-                        Stop hiring for tasks <span className="drama-text text-brand-accent">AI can handle.</span>
+                        Every missed call is a lost <span className="drama-text text-brand-accent">client.</span>
                     </h2>
                     <p className="ai-cta-text text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        Your next employee doesn't need a salary, benefits, or sleep. For qualified businesses, I build the AI agent that runs your operations.
+                        78% of customers buy from the first business that responds. Your AI receptionist answers every call, qualifies every lead, and books every appointment. 24/7.
                     </p>
                     <div className="ai-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">
-                            <span className="relative z-10">Book Call Now</span>
+                            <span className="relative z-10">Book a Call</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                         </button>
                         <button onClick={() => openQualForm('ai-assessment')} className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-10 py-5 rounded-[2.5rem] text-lg font-medium tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[52px]">
-                            Request AI Assessment
+                            Get a Demo
                         </button>
                     </div>
                 </div>

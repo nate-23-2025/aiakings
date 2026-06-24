@@ -16,49 +16,49 @@ gsap.registerPlugin(ScrollTrigger);
 const HOW_IT_WORKS = [
     {
         step: '01',
-        title: 'Target',
-        description: 'We identify your ideal B2B prospects using firmographic data, intent signals, and behavioral triggers. No guesswork — just qualified targets.',
+        title: 'Research',
+        description: 'I identify your ideal clients using firmographic data, hiring signals, and market triggers. Every prospect is verified and enriched before outreach begins.',
         icon: Crosshair,
     },
     {
         step: '02',
         title: 'Personalize',
-        description: 'AI generates hyper-personalized cold email sequences tailored to each prospect. Every message feels hand-written at scale.',
+        description: 'AI generates one-to-one cold email sequences referencing real data about each prospect. Every message sounds like it came from you.',
         icon: Sparkles,
     },
     {
         step: '03',
         title: 'Convert',
-        description: 'Warm leads land directly on your calendar. Automated follow-ups nurture cold replies until they convert.',
+        description: 'Warm leads land on your calendar. Follow-up sequences handle the rest. You show up to meetings with prospects who already want to talk.',
         icon: CalendarCheck,
     },
 ];
 
-const METRICS = [
-    { numericValue: 10, suffix: 'K+', label: 'Emails / Month' },
-    { numericValue: 35, suffix: '%+', label: 'Open Rate' },
-    { numericValue: 15, suffix: '+', label: 'Meetings / Month' },
+const OUTCOMES = [
+    { label: 'Qualified meetings on your calendar', detail: 'Not just leads. Actual conversations with prospects who match your ideal client profile.' },
+    { label: 'Zero cold calling on your end', detail: 'AI handles outreach, personalization, and follow-ups. You show up to meetings.' },
+    { label: 'System gets smarter over time', detail: 'Every campaign informs the next. Better targeting, better messaging, better results.' },
 ];
 
 const FEATURES = [
     {
-        title: 'Prospect Research & List Building',
-        description: 'We build laser-targeted prospect lists using LinkedIn, Apollo, and custom scrapers. Every contact verified, enriched, and ready for outreach.',
+        title: 'Finding Your Ideal Clients',
+        description: 'I build targeted prospect lists matched to your ideal client profile. Every contact verified, enriched with company data, and ready for outreach.',
         animation: 'leadgen',
     },
     {
-        title: 'AI-Powered Email Copywriting',
-        description: 'Custom-trained AI writes personalized cold emails that reference real prospect data — company news, tech stack, hiring signals, and more.',
+        title: 'Emails That Sound Like You Wrote Them',
+        description: 'AI writes personalized cold emails referencing real prospect data. Company news, hiring signals, recent moves. Every message feels one-to-one.',
         animation: 'typewriter',
     },
     {
-        title: 'Automated Follow-Up Sequences',
-        description: 'Multi-touch sequences that adapt based on prospect behavior. Opens, clicks, and replies all trigger different follow-up paths.',
+        title: 'Follow-Ups That Run Themselves',
+        description: 'Multi-touch sequences that adapt based on prospect behavior. Opens, clicks, and replies all trigger different follow-up paths automatically.',
         animation: 'scheduler',
     },
     {
-        title: 'Deliverability & Domain Warming',
-        description: 'We manage sender reputation, domain warming, SPF/DKIM/DMARC, and inbox placement so your emails actually arrive.',
+        title: 'Emails That Actually Arrive',
+        description: 'I manage sender reputation, domain health, and inbox placement so your emails land where they should. Not in spam.',
         animation: 'scanner',
     },
 ];
@@ -126,19 +126,6 @@ export default function GoToMarketPage() {
                     scrollTrigger: { trigger: metricsRef.current, start: 'top 80%' }
                 }
             );
-            // Counter animations
-            [10, 35, 15].forEach((target, i) => {
-                gsap.fromTo(`.metric-num-${i}`,
-                    { textContent: 0 },
-                    {
-                        textContent: target,
-                        duration: 1.5,
-                        snap: { textContent: 1 },
-                        ease: 'power2.out',
-                        scrollTrigger: { trigger: metricsRef.current, start: 'top 80%' }
-                    }
-                );
-            });
         }, metricsRef);
 
         let featCtx = gsap.context(() => {
@@ -200,26 +187,26 @@ export default function GoToMarketPage() {
                 <div className="gtm-hero-content relative z-10 max-w-5xl">
                     <div className="flex items-center gap-4 mb-4 opacity-0 gtm-hero-text">
                         <span className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
-                        <span className="text-brand-accent tracking-[0.2em] text-sm font-semibold uppercase">Go-To-Market Engine</span>
+                        <span className="text-brand-accent tracking-[0.2em] text-sm font-semibold uppercase">AI Lead Generation</span>
                     </div>
                     <div className="overflow-hidden mb-2">
                         <h1 className="gtm-hero-text text-3xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight text-white">
-                            10,000 Personalized Emails. Zero Manual Effort.
+                            Qualified Meetings on Your Calendar.
                         </h1>
                     </div>
                     <div className="overflow-hidden mb-12">
                         <h2 className="gtm-hero-text text-5xl md:text-7xl lg:text-[8rem] leading-[0.9] drama-text text-brand-accent py-2">
-                            Every Month.
+                            No Guesswork.
                         </h2>
                     </div>
 
                     <div className="gtm-hero-cta flex flex-col sm:flex-row gap-4">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[48px]">
-                            <span className="relative z-10">Book Call Now</span>
+                            <span className="relative z-10">Book a Call</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                         </button>
                         <button onClick={() => openQualForm('gtm-audit')} className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 py-4 rounded-[2rem] font-medium tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[48px]">
-                            Get GTM Audit →
+                            Get a Free Audit →
                         </button>
                     </div>
                 </div>
@@ -253,15 +240,13 @@ export default function GoToMarketPage() {
                 </div>
             </section>
 
-            {/* 3. KEY METRICS */}
+            {/* 3. OUTCOMES */}
             <section ref={metricsRef} className="py-20 sm:py-24 px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8">
-                    {METRICS.map((m, i) => (
-                        <div key={m.label} className="metric-card text-center py-12 px-6 bg-[#15151A] border border-white/5 rounded-[2rem]">
-                            <p className="text-5xl sm:text-6xl font-bold text-brand-accent mb-3 data-text">
-                                <span className={`metric-num-${i}`}>0</span>{m.suffix}
-                            </p>
-                            <p className="text-white/50 text-sm uppercase tracking-wider">{m.label}</p>
+                    {OUTCOMES.map((o) => (
+                        <div key={o.label} className="metric-card py-10 px-8 bg-[#15151A] border border-white/5 rounded-[2rem]">
+                            <p className="text-white font-semibold text-base mb-3">{o.label}</p>
+                            <p className="text-white/40 text-sm leading-relaxed">{o.detail}</p>
                         </div>
                     ))}
                 </div>
@@ -299,10 +284,10 @@ export default function GoToMarketPage() {
             <section ref={ctaRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center bg-[#0A0A0E]">
                 <div className="max-w-3xl flex flex-col items-center">
                     <h2 className="gtm-cta-text text-4xl sm:text-5xl md:text-6xl font-sans tracking-tight mb-6 sm:mb-8 text-white">
-                        Ready to fill your <span className="drama-text text-brand-accent">pipeline?</span>
+                        Ready to fill your <span className="drama-text text-brand-accent">calendar?</span>
                     </h2>
                     <p className="gtm-cta-text text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        Stop cold calling. Stop guessing. For qualified businesses ready to scale, I build the outbound system that books your ideal customers.
+                        Stop relying on referrals. Stop cold calling. I build the client acquisition system that puts qualified prospects on your calendar while you focus on your clients.
                     </p>
                     <div className="gtm-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-5 rounded-[2.5rem] text-lg font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">

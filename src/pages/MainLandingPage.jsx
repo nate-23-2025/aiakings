@@ -229,12 +229,12 @@ export default function MainLandingPage() {
 
                     {/* Micro-headline qualifier */}
                     <p className="hero-text text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] mb-4 md:mb-6">
-                        Houston's #1 Go-To-Market & Agentic AI Agency
+                        AI Systems for Financial Services Firms & Local Businesses
                     </p>
 
                     {/* Main headline */}
                     <h1 className="hero-text text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-4 md:mb-6 leading-[1.1]">
-                        We Build the Systems That Fill Your Pipeline
+                        I Build the AI Systems That Fill Your Pipeline
                     </h1>
 
                     {/* Drama text */}
@@ -246,15 +246,15 @@ export default function MainLandingPage() {
                     <div className="hero-benefits flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 mb-8 md:mb-12">
                         <div className="flex items-center gap-2">
                             <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-accent shrink-0" strokeWidth={2.5} />
-                            <span className="text-white/70 text-xs md:text-sm">AI-powered outbound 24/7</span>
+                            <span className="text-white/70 text-xs md:text-sm">AI-powered client acquisition</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-accent shrink-0" strokeWidth={2.5} />
-                            <span className="text-white/70 text-xs md:text-sm">Autonomous agent operations</span>
+                            <span className="text-white/70 text-xs md:text-sm">Autonomous firm operations</span>
                         </div>
                         <div className="flex items-center gap-2">
                             <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-accent shrink-0" strokeWidth={2.5} />
-                            <span className="text-white/70 text-xs md:text-sm">Zero manual prospecting</span>
+                            <span className="text-white/70 text-xs md:text-sm">AI receptionists for local businesses</span>
                         </div>
                     </div>
 
@@ -274,7 +274,7 @@ export default function MainLandingPage() {
 
                     {/* Risk reversal */}
                     <p className="text-white/40 text-xs sm:text-sm">
-                        For qualified businesses only. No upfront cost. ROI guarantee or you don't pay.
+                        For qualified businesses only. I build systems that pay for themselves.
                     </p>
 
                 </div>
@@ -284,31 +284,31 @@ export default function MainLandingPage() {
             <section ref={featuresRef} className="py-20 sm:py-24 md:py-32 px-6 md:px-8 max-w-7xl mx-auto">
                 <div className="mb-12 sm:mb-16 md:mb-20">
                     <h3 className="features-header text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Core Systems</h3>
-                    <h4 className="features-header text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">Two engines. One mission: fill your calendar with qualified leads.</h4>
+                    <h4 className="features-header text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">Three systems. One outcome: growth without headcount.</h4>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="features-card flex flex-col gap-6">
                         <DiagnosticShuffler />
                         <div>
-                            <h5 className="font-semibold text-xl mb-2 text-white">Go-To-Market Engine</h5>
-                            <p className="text-white/50 text-sm leading-relaxed">AI-powered outbound targeting your ideal prospects with hyper-personalized cold email at scale.</p>
+                            <h5 className="font-semibold text-xl mb-2 text-white">AI Client Acquisition</h5>
+                            <p className="text-white/50 text-sm leading-relaxed">Qualified meetings on your calendar from AI-personalized outreach. No cold calling on your end.</p>
                         </div>
                     </div>
 
                     <div className="features-card flex flex-col gap-6">
                         <TelemetryTypewriter />
                         <div>
-                            <h5 className="font-semibold text-xl mb-2 text-white">Agentic AI Workforce</h5>
-                            <p className="text-white/50 text-sm leading-relaxed">Autonomous agents that handle support, data processing, and workflow orchestration without human intervention.</p>
+                            <h5 className="font-semibold text-xl mb-2 text-white">AI Firm Operations</h5>
+                            <p className="text-white/50 text-sm leading-relaxed">Client onboarding, document collection, follow-ups, and CRM automation. Your team stays on billable work.</p>
                         </div>
                     </div>
 
                     <div className="features-card flex flex-col gap-6">
                         <CursorProtocol />
                         <div>
-                            <h5 className="font-semibold text-xl mb-2 text-white">Automated Operations</h5>
-                            <p className="text-white/50 text-sm leading-relaxed">From calendar orchestration to follow-up sequences. Let the code handle the administration.</p>
+                            <h5 className="font-semibold text-xl mb-2 text-white">AI Receptionists</h5>
+                            <p className="text-white/50 text-sm leading-relaxed">24/7 inbound and outbound AI phone agents. Never miss a call, never lose a lead.</p>
                         </div>
                     </div>
                 </div>
@@ -322,12 +322,12 @@ export default function MainLandingPage() {
                 <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-6 sm:gap-8">
                     <div className="overflow-hidden">
                         <p className="philosophy-line text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/40 font-light leading-relaxed max-w-3xl">
-                            Most agencies send spam and call it outreach.
+                            Most agencies sell you tools and disappear.
                         </p>
                     </div>
                     <div className="overflow-hidden mt-4 sm:mt-6 md:mt-8 lg:mt-16">
                         <p className="philosophy-line text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7rem] leading-none text-white font-sans tracking-tight">
-                            We engineer <span className="drama-text text-brand-accent">intelligent</span> systems.
+                            I build systems that <span className="drama-text text-brand-accent">run themselves.</span>
                         </p>
                     </div>
                 </div>
@@ -342,24 +342,24 @@ export default function MainLandingPage() {
             <section ref={servicesRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="mb-12 sm:mb-16 md:mb-20 text-center">
-                        <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">What We Build</h3>
+                        <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">What I Build</h3>
                         <h4 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight max-w-3xl mx-auto">
-                            Two pillars. <span className="drama-text text-brand-accent">One outcome:</span> growth.
+                            Two plays. <span className="drama-text text-brand-accent">One builder.</span>
                         </h4>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {/* GTM Card */}
-                        <Link to="/go-to-market" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] shadow-xl">
+                        {/* Financial Services Card */}
+                        <Link to="/accounting" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] shadow-xl">
                             <div className="w-full h-56 mb-8 rounded-2xl overflow-hidden bg-[#0D0D12]">
                                 <LeadGenAnimation />
                             </div>
                             <div className="flex items-center gap-2 mb-4">
-                                <span className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px]">Service 01</span>
+                                <span className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px]">Financial Services</span>
                             </div>
-                            <h5 className="text-2xl sm:text-3xl font-semibold text-white mb-4">Go-To-Market Engine</h5>
+                            <h5 className="text-2xl sm:text-3xl font-semibold text-white mb-4">AI Growth System for Firms</h5>
                             <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-8">
-                                AI-powered cold email, outbound prospecting, and full-funnel pipeline building. From ICP research to booked meetings — on autopilot.
+                                Built for CPAs, accountants, and financial advisors facing the talent crisis. AI-powered lead gen, firm automations, and operations that scale without new hires.
                             </p>
                             <div className="flex items-center gap-2 text-brand-accent font-medium text-sm group-hover:gap-3 transition-all duration-300">
                                 <span>Learn More</span>
@@ -367,17 +367,17 @@ export default function MainLandingPage() {
                             </div>
                         </Link>
 
-                        {/* Agentic AI Card */}
+                        {/* AI Receptionists Card */}
                         <Link to="/agentic-ai" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] shadow-xl">
                             <div className="w-full h-56 mb-8 rounded-2xl overflow-hidden bg-[#0D0D12] flex items-center justify-center">
                                 <NeuralCore />
                             </div>
                             <div className="flex items-center gap-2 mb-4">
-                                <span className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px]">Service 02</span>
+                                <span className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px]">Local Businesses</span>
                             </div>
-                            <h5 className="text-2xl sm:text-3xl font-semibold text-white mb-4">Agentic AI Solutions</h5>
+                            <h5 className="text-2xl sm:text-3xl font-semibold text-white mb-4">AI Receptionists</h5>
                             <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-8">
-                                Custom autonomous AI agents that run your support, process your data, orchestrate workflows, and handle operations — while you sleep.
+                                24/7 inbound and outbound AI phone agents for Houston businesses. Never miss a call, never lose a lead. Med spas, dental, law firms, salons.
                             </p>
                             <div className="flex items-center gap-2 text-brand-accent font-medium text-sm group-hover:gap-3 transition-all duration-300">
                                 <span>Learn More</span>
@@ -394,9 +394,9 @@ export default function MainLandingPage() {
             {/* 7. FINAL CTA */}
             <section ref={ctaRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center">
-                    <h2 className="main-cta-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-tight mb-6 sm:mb-8 text-white">Your competitors are using AI. <span className="drama-text text-brand-accent">Are you?</span></h2>
+                    <h2 className="main-cta-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-tight mb-6 sm:mb-8 text-white">Your competitors are already using AI. <span className="drama-text text-brand-accent">Are you?</span></h2>
                     <p className="main-cta-text text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 sm:mb-12 max-w-xl px-4">
-                        Stop prospecting manually. Stop hiring for tasks AI can handle. We build systems for qualified businesses ready to scale.
+                        The firms and businesses that thrive will be the ones that build AI into their operations now. The question is whether you'll lead or catch up.
                     </p>
                     <div className="main-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 sm:px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">

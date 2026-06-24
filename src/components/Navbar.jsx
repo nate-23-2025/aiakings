@@ -64,11 +64,14 @@ export default function Navbar() {
             </Link>
 
             <div className="hidden md:flex items-center gap-8 font-medium text-sm">
-                <Link to="/go-to-market" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/go-to-market' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
-                    Go-To-Market
+                <Link to="/accounting" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/accounting' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                    For Firms
                 </Link>
                 <Link to="/agentic-ai" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/agentic-ai' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
-                    Agentic AI
+                    AI Receptionists
+                </Link>
+                <Link to="/go-to-market" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/go-to-market' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                    Lead Gen
                 </Link>
                 <Link to="/blog" className={`hover:-translate-y-[1px] transition-transform ${location.pathname.startsWith('/blog') ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
                     Blog

@@ -39,7 +39,7 @@ export default function Footer() {
                         AIA KINGS
                     </Link>
                     <p className="opacity-70 max-w-sm font-light">
-                        Houston's #1 Go-To-Market and Agentic AI Solutions agency. I build AI systems that fill your pipeline and run your operations for qualified businesses.
+                        I build AI systems for accounting firms facing the talent crisis and AI receptionists for Houston businesses. Better clients. Less admin. No new hires.
                     </p>
 
                     <div className="mt-8 flex items-center gap-3 data-text text-sm opacity-80">
@@ -50,8 +50,9 @@ export default function Footer() {
 
                 <div className="flex flex-col gap-4">
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Services</span>
-                    <Link to="/go-to-market" className="opacity-70 hover:opacity-100 transition-opacity">Go-To-Market</Link>
-                    <Link to="/agentic-ai" className="opacity-70 hover:opacity-100 transition-opacity">Agentic AI</Link>
+                    <Link to="/accounting" className="opacity-70 hover:opacity-100 transition-opacity">For Accounting Firms</Link>
+                    <Link to="/agentic-ai" className="opacity-70 hover:opacity-100 transition-opacity">AI Receptionists</Link>
+                    <Link to="/go-to-market" className="opacity-70 hover:opacity-100 transition-opacity">Lead Generation</Link>
                 </div>
 
                 <div className="flex flex-col gap-4">
