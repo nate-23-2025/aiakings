@@ -190,14 +190,14 @@ export default function ProtocolTimeline() {
     };
 
     return (
-        <section ref={sectionRef} className="py-40 px-8 bg-[#0D0D12] overflow-hidden">
+        <section ref={sectionRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 bg-[#0D0D12] overflow-hidden">
             <div className="max-w-7xl mx-auto">
                 {/* Section Header */}
-                <div className="mb-20">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-sm mb-4">
+                <div className="mb-12 sm:mb-16 md:mb-20">
+                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">
                         Implementation Protocol
                     </h3>
-                    <h4 className="text-4xl md:text-5xl font-sans font-light max-w-3xl text-white">
+                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-3xl text-white leading-tight">
                         Three phases.{' '}
                         <span className="drama-text text-brand-accent">Zero</span>{' '}
                         guesswork.

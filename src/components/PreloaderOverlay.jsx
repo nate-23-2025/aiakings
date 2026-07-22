@@ -14,6 +14,9 @@ export default function PreloaderOverlay() {
                 onComplete: () => {
                     document.body.style.overflow = '';
                     setVisible(false);
+                    // Signal the intro is done so the hero can time the signature write-on
+                    window.__preloaderDone = true;
+                    window.dispatchEvent(new Event('preloader:done'));
                 },
             });
 

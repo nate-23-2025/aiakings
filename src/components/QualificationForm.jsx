@@ -14,11 +14,13 @@ const TEAM_SIZE_OPTIONS = [
 
 const BUSINESS_TYPE_OPTIONS = [
     { value: '', label: 'Select business type' },
-    { value: 'cpa-accounting', label: 'CPA / Accounting Firm' },
-    { value: 'financial-advisory', label: 'Financial Advisory' },
-    { value: 'bookkeeping-cfo', label: 'Bookkeeping / Fractional CFO' },
-    { value: 'local-business', label: 'Local Business (Houston)' },
-    { value: 'other', label: 'Other' },
+    { value: 'home-services', label: 'Home Services (HVAC / Plumbing / Roofing / Electrical)' },
+    { value: 'dental', label: 'Dental' },
+    { value: 'law', label: 'Law Firm' },
+    { value: 'medical-clinic', label: 'Medical / Clinic' },
+    { value: 'beauty-wellness', label: 'Beauty & Wellness' },
+    { value: 'restaurant', label: 'Restaurant' },
+    { value: 'other', label: 'Other Local Business' },
 ];
 
 export default function QualificationForm() {
@@ -100,7 +102,7 @@ export default function QualificationForm() {
             business_type: formData.business_type,
             team_size: formData.team_size,
             bottleneck: formData.bottleneck || null,
-            assessment_type: selectedType === 'gtm-audit' ? 'Firm Growth Audit' : 'AI Receptionist Demo',
+            assessment_type: selectedType === 'gtm-audit' ? 'Revenue-Leak Audit' : 'AI Receptionist Demo',
         };
 
         try {
@@ -142,7 +144,7 @@ export default function QualificationForm() {
                         </div>
                         <h3 className="text-2xl font-semibold text-white mb-3">Request Received</h3>
                         <p className="text-white/50 text-sm max-w-xs leading-relaxed">
-                            I'll review your information and reach out within 24 hours to schedule your free {selectedType === 'gtm-audit' ? 'firm growth audit' : 'AI receptionist demo'}.
+                            I'll review your information and reach out within 24 hours to schedule your free {selectedType === 'gtm-audit' ? 'revenue-leak audit' : 'AI receptionist demo'}.
                         </p>
                         <button
                             onClick={closeQualForm}
@@ -166,7 +168,7 @@ export default function QualificationForm() {
                                         : 'text-white/50 hover:text-white/70'
                                 }`}
                             >
-                                Firm Growth Audit
+                                Revenue-Leak Audit
                             </button>
                             <button
                                 type="button"
@@ -237,7 +239,7 @@ export default function QualificationForm() {
                             </select>
                             <textarea
                                 name="bottleneck"
-                                placeholder="What's holding your firm back right now? (optional)"
+                                placeholder="What's slowing your business down right now? (optional)"
                                 rows={3}
                                 value={formData.bottleneck}
                                 onChange={handleChange}

@@ -4,19 +4,16 @@ import CalModal from './components/CalModal';
 import QualificationForm from './components/QualificationForm';
 import PreloaderOverlay from './components/PreloaderOverlay';
 import MainLandingPage from './pages/MainLandingPage';
-import GoToMarketPage from './pages/GoToMarketPage';
-import AgenticAIPage from './pages/AgenticAIPage';
-import AccountingPage from './pages/AccountingPage';
+import CustomBuildsPage from './pages/CustomBuildsPage';
 import BlogPage from './pages/BlogPage';
 import BlogPostPage from './pages/BlogPostPage';
 import { CalModalProvider } from './context/CalModalContext';
 import { QualFormProvider } from './context/QualFormContext';
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register GSAP plugins globally
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
@@ -30,9 +27,9 @@ function App() {
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<MainLandingPage />} />
-                <Route path="/go-to-market" element={<GoToMarketPage />} />
-                <Route path="/agentic-ai" element={<AgenticAIPage />} />
-                <Route path="/accounting" element={<AccountingPage />} />
+                <Route path="/custom" element={<CustomBuildsPage />} />
+                {/* Legacy URL — the receptionist experience now lives on the homepage */}
+                <Route path="/ai-receptionist" element={<Navigate to="/custom" replace />} />
                 <Route path="/blog" element={<BlogPage />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
               </Routes>

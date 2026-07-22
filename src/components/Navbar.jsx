@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
+import { Menu, X } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import { useQualForm } from '../context/QualFormContext';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [hideNav, setHideNav] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     const navRef = useRef(null);
     const location = useLocation();
+    const isHome = location.pathname === '/';
     const { openCalModal } = useCalModal();
     const { openQualForm } = useQualForm();
 
@@ -19,6 +22,11 @@ export default function Navbar() {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Close mobile menu whenever the route changes
+    useEffect(() => {
+        setMenuOpen(false);
+    }, [location.pathname]);
 
     useEffect(() => {
         const protocolSection = document.getElementById('protocol-timeline');
@@ -52,6 +60,8 @@ export default function Navbar() {
         return () => ctx.revert();
     }, [scrolled]);
 
+    if (isHome) return null;
+
     return (
         <nav
             ref={navRef}
@@ -59,19 +69,16 @@ export default function Navbar() {
                 hideNav ? 'opacity-0 pointer-events-none translate-y-[-20px]' : 'opacity-100'
             }`}
         >
-            <Link to="/" id="navbar-logo" className="text-xl drama-text tracking-tight opacity-0">
+            <Link to="/" id="navbar-logo" className="text-xl drama-text tracking-tight">
                 AIA KINGS
             </Link>
 
             <div className="hidden md:flex items-center gap-8 font-medium text-sm">
-                <Link to="/accounting" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/accounting' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
-                    For Firms
+                <Link to="/" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                    Home
                 </Link>
-                <Link to="/agentic-ai" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/agentic-ai' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
-                    AI Receptionists
-                </Link>
-                <Link to="/go-to-market" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/go-to-market' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
-                    Lead Gen
+                <Link to="/custom" className={`hover:-translate-y-[1px] transition-transform ${location.pathname === '/custom' ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
+                    Custom Builds
                 </Link>
                 <Link to="/blog" className={`hover:-translate-y-[1px] transition-transform ${location.pathname.startsWith('/blog') ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}>
                     Blog
@@ -82,10 +89,41 @@ export default function Navbar() {
                 <button onClick={openQualForm} className="hidden sm:block border border-white/20 text-current px-5 py-2.5 rounded-[2rem] font-medium text-sm transition-all hover:border-[#C9A84C]/40 hover:scale-[1.03] active:scale-95 duration-300">
                     Free Audit
                 </button>
-                <button onClick={openCalModal} className="group relative overflow-hidden bg-[#C9A84C] text-[#0D0D12] px-6 py-2.5 rounded-[2rem] font-medium text-sm transition-transform hover:scale-[1.03] active:scale-95 duration-300">
-                    <span className="relative z-10">Book Call Now</span>
+                <button onClick={openCalModal} className="group relative overflow-hidden bg-[#C9A84C] text-[#0D0D12] px-5 py-2.5 sm:px-6 rounded-[2rem] font-medium text-sm transition-transform hover:scale-[1.03] active:scale-95 duration-300">
+                    <span className="relative z-10">Book Call</span>
                     <div className="absolute inset-0 bg-[#FAF8F5] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                 </button>
+                {/* Mobile hamburger */}
+                <button
+                    onClick={() => setMenuOpen(v => !v)}
+                    className="md:hidden text-current p-1.5"
+                    aria-label="Toggle menu"
+                    aria-expanded={menuOpen}
+                >
+                    {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+            </div>
+
+            {/* Mobile dropdown menu */}
+            <div
+                className={`md:hidden absolute top-[calc(100%+0.75rem)] left-0 right-0 origin-top transition-all duration-300 ${
+                    menuOpen ? 'opacity-100 scale-y-100 pointer-events-auto' : 'opacity-0 scale-y-95 pointer-events-none'
+                }`}
+            >
+                <div className="bg-[#15151A]/95 backdrop-blur-xl rounded-[2rem] border border-white/10 p-5 flex flex-col gap-1 shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
+                    <Link to="/" className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${location.pathname === '/' ? 'bg-white/5 text-white' : 'text-white/70 hover:text-white hover:bg-white/5'}`}>
+                        Home
+                    </Link>
+                    <Link to="/custom" className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${location.pathname === '/custom' ? 'bg-white/5 text-white' : 'text-white/70 hover:text-white hover:bg-white/5'}`}>
+                        Custom Builds
+                    </Link>
+                    <Link to="/blog" className={`px-4 py-3 rounded-2xl text-sm font-medium transition-colors ${location.pathname.startsWith('/blog') ? 'bg-white/5 text-white' : 'text-white/70 hover:text-white hover:bg-white/5'}`}>
+                        Blog
+                    </Link>
+                    <button onClick={() => { setMenuOpen(false); openQualForm(); }} className="mt-2 border border-white/15 text-white px-4 py-3 rounded-2xl font-medium text-sm hover:border-brand-accent/40 transition-colors">
+                        Free Audit
+                    </button>
+                </div>
             </div>
         </nav>
     );

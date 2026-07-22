@@ -5,12 +5,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const RESULTS = [
-    { stat: '7.5 hrs', label: 'Admin eliminated per client', context: 'Professional services firm' },
-    { stat: '12 steps', label: 'Client lifecycle fully automated', context: 'Professional services firm' },
-    { stat: '6 figures', label: 'Projected annual ROI', context: 'From time savings alone' },
+    { stat: 'Under 1s', label: 'Time to answer every call', context: 'The call agent' },
+    { stat: '24/7', label: 'Nights, weekends, holidays', context: 'Never sends a caller to voicemail' },
+    { stat: 'Seconds', label: 'New-lead response time', context: 'The speed-to-lead agent' },
+    { stat: '5-star', label: 'Reviews, asked for automatically', context: 'The review agent' },
     { stat: '5 min/day', label: 'Owner daily routine (was all-manual)', context: 'Local service business' },
-    { stat: '60 sec', label: 'Missed call auto-response', context: 'AI receptionist' },
-    { stat: '6+ weeks', label: 'System runs unattended', context: 'Designed for zero maintenance' },
+    { stat: '6+ weeks', label: 'Runs unattended', context: 'Designed for zero maintenance' },
 ];
 
 export default function TestimonialsCarousel() {

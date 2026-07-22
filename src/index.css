@@ -18,6 +18,14 @@
     z-index: 50;
     opacity: 0.05;
   }
+  /* Hide scrollbars on the voice card selector + transcript while keeping scroll */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {
@@ -65,4 +73,100 @@ h1, h2, h3, h4, h5, h6 {
 }
 .aurora-blob-3 {
   animation: aurora-drift 18s ease-in-out infinite reverse;
+}
+
+/* Vertical scan line sweep (telemetry feed) */
+@keyframes scan {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(200%); }
+}
+
+/* Voice waveform bars (AI call demo) */
+@keyframes voicewave {
+  0%, 100% { transform: scaleY(0.25); }
+  50%      { transform: scaleY(1); }
+}
+.voicewave-bar {
+  transform-origin: center;
+  animation: voicewave 0.9s ease-in-out infinite;
+}
+
+/* Keeps hero text readable over moving video/dashboard backgrounds (esp. mobile) */
+.hero-legible {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 4px 30px rgba(0, 0, 0, 0.55);
+}
+
+/* Ambient floating glow for depth */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(0, -22px) scale(1.05); }
+}
+.float-slow  { animation: float-slow 9s ease-in-out infinite; }
+.float-slow-2 { animation: float-slow 13s ease-in-out infinite reverse; }
+
+/* --- Voice hero: living orb + atmosphere (luxe, slow motion) --- */
+
+/* Slowly rotating halo behind the orb */
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+.spin-slow { animation: spin-slow 22s linear infinite; }
+.spin-slower { animation: spin-slow 40s linear infinite reverse; }
+
+/* Gentle breathing scale for the idle orb */
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%      { transform: scale(1.05); opacity: 1; }
+}
+.breathe { animation: breathe 4.5s ease-in-out infinite; }
+
+/* Seamless marquee for the activity ticker */
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.marquee-track { animation: marquee 38s linear infinite; }
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* Agent swap: incoming persona name/details fade up as the video cross-fades in */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+.fade-in-up { animation: fade-in-up 0.5s ease-out both; }
+
+/* Faint tech grid overlay, radially masked so it fades at the edges */
+.tech-grid {
+  background-image:
+    linear-gradient(to right, rgba(201,168,76,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201,168,76,0.06) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 40%, transparent 100%);
+}
+
+/* Call timeline: typing indicator + node pulse */
+@keyframes ct-typing {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50%      { opacity: 1;   transform: translateY(-3px); }
+}
+@keyframes ct-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.14); }
+  50%      { box-shadow: 0 0 8px 3px rgba(201,168,76,0.14); }
+}
+
+/* Prevent horizontal overflow site-wide on mobile */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

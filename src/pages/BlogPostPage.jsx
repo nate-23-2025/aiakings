@@ -84,7 +84,7 @@ export default function BlogPostPage() {
             />
 
             {/* Article Header */}
-            <section className="pt-36 sm:pt-40 pb-12 px-6 md:px-8">
+            <section className="pt-28 sm:pt-40 pb-10 sm:pb-12 px-6 md:px-8">
                 <div className="max-w-3xl mx-auto">
                     {/* Breadcrumbs */}
                     <nav aria-label="Breadcrumb" className="post-header flex items-center gap-2 text-white/40 text-sm mb-8">
@@ -128,7 +128,7 @@ export default function BlogPostPage() {
 
                     {/* Cover */}
                     <div
-                        className="post-header w-full h-64 sm:h-80 rounded-[2rem] overflow-hidden mb-12"
+                        className="post-header w-full h-52 sm:h-80 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden mb-10 sm:mb-12"
                         style={{
                             background: post.coverImage
                                 ? `url(${post.coverImage}) center/cover`

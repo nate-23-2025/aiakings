@@ -50,15 +50,15 @@ export default function BlogPage() {
             />
 
             {/* Hero */}
-            <section ref={heroRef} className="pt-40 pb-16 sm:pb-20 px-6 md:px-8">
+            <section ref={heroRef} className="pt-32 sm:pt-40 pb-12 sm:pb-20 px-6 md:px-8">
                 <div className="max-w-7xl mx-auto">
                     <span className="blog-hero-text block text-brand-accent tracking-[0.2em] text-xs font-semibold uppercase mb-4">
                         Insights
                     </span>
-                    <h1 className="blog-hero-text text-4xl sm:text-5xl md:text-6xl font-sans font-medium tracking-tight text-white leading-tight max-w-3xl">
+                    <h1 className="blog-hero-text text-3xl sm:text-5xl md:text-6xl font-sans font-medium tracking-tight text-white leading-tight max-w-3xl">
                         AI Automation & Go-To-Market <span className="drama-text text-brand-accent">Insights.</span>
                     </h1>
-                    <p className="blog-hero-text text-lg text-white/40 font-light mt-6 max-w-xl">
+                    <p className="blog-hero-text text-base sm:text-lg text-white/40 font-light mt-5 sm:mt-6 max-w-xl">
                         Frameworks and strategies for AI agents, cold email, and growth systems from Houston's leading AI automation agency.
                     </p>
                 </div>

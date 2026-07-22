@@ -33,13 +33,13 @@ export default function Footer() {
                 }}
             />
 
-            <div className="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+            <div className="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 relative z-10">
                 <div className="col-span-1 md:col-span-2">
                     <Link to="/" className="text-3xl font-bold tracking-tight mb-4 block">
                         AIA KINGS
                     </Link>
                     <p className="opacity-70 max-w-sm font-light">
-                        I build AI systems for accounting firms facing the talent crisis and AI receptionists for Houston businesses. Better clients. Less admin. No new hires.
+                        Houston's agentic AI agency. Three AI agents that answer every call, follow up with every lead in seconds, and win every review, so local businesses never miss a customer again.
                     </p>
 
                     <div className="mt-8 flex items-center gap-3 data-text text-sm opacity-80">
@@ -49,14 +49,8 @@ export default function Footer() {
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Services</span>
-                    <Link to="/accounting" className="opacity-70 hover:opacity-100 transition-opacity">For Accounting Firms</Link>
-                    <Link to="/agentic-ai" className="opacity-70 hover:opacity-100 transition-opacity">AI Receptionists</Link>
-                    <Link to="/go-to-market" className="opacity-70 hover:opacity-100 transition-opacity">Lead Generation</Link>
-                </div>
-
-                <div className="flex flex-col gap-4">
-                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Resources</span>
+                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Links</span>
+                    <Link to="/custom" className="opacity-70 hover:opacity-100 transition-opacity">Custom Builds</Link>
                     <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link>
                     <a href="mailto:nate@aiautomationkings.com" className="opacity-70 hover:opacity-100 transition-opacity data-text">nate@aiautomationkings.com</a>
                 </div>
