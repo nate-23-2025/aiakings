@@ -1,25 +1,28 @@
 import { useEffect, useRef } from 'react';
-import Cal, { getCalApi } from '@calcom/embed-react';
 import { X } from 'lucide-react';
 import gsap from 'gsap';
 import { useCalModal } from '../context/CalModalContext';
+
+// The booking widget is served from the white-labeled GHL domain. form_embed.js
+// posts the widget's real height back up and resizes the iframe, so the iframe
+// itself never scrolls. The card scrolls instead when the month view runs long.
+const BOOKING_URL = 'https://api.aiautomationkings.com/widget/booking/qwkWGz8DTsKfVRuLkn88';
+const EMBED_SCRIPT = 'https://api.aiautomationkings.com/js/form_embed.js';
+const IFRAME_ID = 'qwkWGz8DTsKfVRuLkn88_1788315968767';
 
 export default function CalModal() {
     const { isOpen, closeCalModal } = useCalModal();
     const overlayRef = useRef(null);
     const cardRef = useRef(null);
 
-    // Initialize Cal.com theme
+    // Load the resize script once. This component is lazy loaded, so it only
+    // ever hits the network when somebody actually reaches for the button.
     useEffect(() => {
-        (async function () {
-            const cal = await getCalApi({ namespace: '15min' });
-            cal('ui', {
-                theme: 'dark',
-                styles: { branding: { brandColor: '#fdb800' } },
-                hideEventTypeDetails: false,
-                layout: 'month_view',
-            });
-        })();
+        if (document.querySelector(`script[src="${EMBED_SCRIPT}"]`)) return;
+        const script = document.createElement('script');
+        script.src = EMBED_SCRIPT;
+        script.async = true;
+        document.body.appendChild(script);
     }, []);
 
     // GSAP open/close animations + scroll lock + escape key
@@ -72,7 +75,7 @@ export default function CalModal() {
         >
             <div
                 ref={cardRef}
-                className="relative w-full max-w-2xl max-h-[90vh] bg-[#15151A] border border-white/10 rounded-[2rem] overflow-hidden shadow-[0_0_60px_rgba(201,168,76,0.15)]"
+                className="relative w-full max-w-3xl max-h-[90vh] bg-[#15151A] border border-white/10 rounded-[2rem] overflow-hidden shadow-[0_0_60px_rgba(201,168,76,0.15)]"
             >
                 {/* Close button */}
                 <button
@@ -82,17 +85,19 @@ export default function CalModal() {
                     <X size={20} />
                 </button>
 
-                {/* Cal.com embed */}
-                <div className="p-2 pt-12 min-h-[500px]">
-                    <Cal
-                        namespace="15min"
-                        calLink="nate-mamo/15min"
-                        style={{ width: '100%', height: '100%', overflow: 'auto' }}
-                        config={{
-                            layout: 'month_view',
-                            theme: 'dark',
-                        }}
-                    />
+                {/* Booking embed. The white panel is deliberate: the widget renders
+                    light out of the box, so it reads as a surface instead of a bug. */}
+                <div className="p-2 pt-12 max-h-[90vh] overflow-y-auto">
+                    <div className="rounded-[1.5rem] bg-white overflow-hidden">
+                        <iframe
+                            id={IFRAME_ID}
+                            src={BOOKING_URL}
+                            title="Book a call with Nate"
+                            allow="payment"
+                            scrolling="no"
+                            style={{ width: '100%', border: 'none', overflow: 'hidden', minHeight: '640px' }}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

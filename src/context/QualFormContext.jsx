@@ -4,9 +4,9 @@ const QualFormContext = createContext();
 
 export function QualFormProvider({ children }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [formType, setFormType] = useState('gtm-audit');
+    const [formType, setFormType] = useState('has-site');
 
-    const openQualForm = useCallback((type = 'gtm-audit') => {
+    const openQualForm = useCallback((type = 'has-site') => {
         setFormType(type);
         setIsOpen(true);
     }, []);

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SITE_NAME = 'AI Automation Kings';
-const DEFAULT_OG_IMAGE = 'https://aiautomationkings.com/favicon.png';
+const DEFAULT_OG_IMAGE = 'https://aiautomationkings.com/og-default.png';
 
 export default function SEOHead({ title, description, ogTitle, ogDescription, ogImage, canonical, type = 'website', jsonLd = [] }) {
     return (

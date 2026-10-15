@@ -1,4 +1,9 @@
 {
+    "redirects": [
+        { "source": "/go-to-market", "destination": "/ai-seo", "permanent": true },
+        { "source": "/agentic-ai", "destination": "/", "permanent": true },
+        { "source": "/accounting", "destination": "/", "permanent": true }
+    ],
     "rewrites": [
         {
             "source": "/(.*)",

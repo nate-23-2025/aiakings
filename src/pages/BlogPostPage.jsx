@@ -199,18 +199,18 @@ export default function BlogPostPage() {
             <section className="py-24 sm:py-32 px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans tracking-tight mb-6 text-white">
-                        Ready to automate your Houston <span className="drama-text text-brand-accent">business?</span>
+                        Getting found is the <span className="drama-text text-brand-accent">whole game.</span>
                     </h2>
                     <p className="text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        For qualified businesses: book a free 15-minute call and I will map out which AI agents would have the biggest impact on your operations.
+                        Book fifteen minutes. I will look your business up the way your customers do and show you what comes back.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 items-center">
                         <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold tracking-wide transition-transform hover:scale-[1.03] active:scale-[0.97] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[48px]">
                             <span className="relative z-10">Book Call Now</span>
                             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                         </button>
-                        <button onClick={() => openQualForm('gtm-audit')} className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 py-4 rounded-[2rem] font-medium tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[48px]">
-                            Request Free Audit
+                        <button onClick={() => openQualForm('has-site')} className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 py-4 rounded-[2rem] font-medium tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[48px]">
+                            Check My Visibility
                         </button>
                     </div>
                 </div>

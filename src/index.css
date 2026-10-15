@@ -14,6 +14,10 @@
   .noise-overlay {
     position: fixed;
     inset: 0;
+    /* Without explicit sizing the SVG keeps its own aspect ratio and renders as
+       a square, which cut a visible seam across the hero on every phone. */
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 50;
     opacity: 0.05;

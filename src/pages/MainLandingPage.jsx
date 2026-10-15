@@ -1,415 +1,346 @@
-import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
-import { useQualForm } from '../context/QualFormContext';
-import DiagnosticShuffler from '../components/features/DiagnosticShuffler';
-import TelemetryTypewriter from '../components/features/TelemetryTypewriter';
-import CursorProtocol from '../components/features/CursorProtocol';
-import ProtocolTimeline from '../components/sections/ProtocolTimeline';
-import DashboardMockupAnimation from '../components/animations/DashboardMockupAnimation';
-import LeadGenAnimation from '../components/animations/LeadGenAnimation';
-import NeuralCore from '../components/animations/NeuralCore';
-import TestimonialsCarousel from '../components/sections/TestimonialsCarousel';
+import SEOHead from '../components/SEOHead';
+import AnswerEngine from '../components/features/AnswerEngine';
+import CallCatcher from '../components/features/CallCatcher';
+import ReviewLoop from '../components/features/ReviewLoop';
+import WhatYouGet from '../components/sections/WhatYouGet';
 import heroVideo from '../components/animations/go_to_market.mp4';
 
+const FITS = [
+    'You do the work locally, in one city or metro',
+    'One more job a week is worth real money to you',
+    'Customers find you by searching, not only by referral',
+    'Owner operated, or close enough that decisions get made fast',
+];
+
+// The three halves of the loop, in the order a customer moves through them.
+const STAGES = [
+    {
+        n: '1',
+        title: 'Get found',
+        body: 'Your site, your pages, and your profile built so the engines answering those questions can actually read you and have a reason to name you. Written for how people ask now, not how they typed a decade ago.',
+        Visual: AnswerEngine,
+    },
+    {
+        n: '2',
+        title: 'Answer everything',
+        body: 'Getting found is worth nothing if the phone rings while you are under a truck. Every call picked up, every question answered, every job put on the calendar, nights and weekends included.',
+        Visual: CallCatcher,
+    },
+    {
+        n: '3',
+        title: 'Get the review',
+        body: 'The job ends and the ask goes out. Every customer, same ask, no filtering and no incentives. Those reviews are what make the next person pick you, and what holds the ranking that got them there.',
+        Visual: ReviewLoop,
+    },
+];
+
+const HOME_JSONLD = [
+    {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+            {
+                '@type': 'Question',
+                name: 'What is answer engine optimization (AEO)?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Answer engine optimization is the work of making a business readable and citable by the tools people now ask instead of scrolling search results, like ChatGPT, Google AI Overviews, and Perplexity. Instead of chasing a keyword ranking, it structures a site, its pages, and its business profile so an engine answering "who should I call for this near me" has clear, current, verifiable information about the business and a reason to name it.',
+                },
+            },
+            {
+                '@type': 'Question',
+                name: 'How is AEO different from SEO?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Traditional SEO competes for a position in a list of links a person then clicks through. AEO competes to be named inside an answer that gets read back, where there is no page two and usually only two or three businesses mentioned. The technical foundations overlap, but AEO puts far more weight on question-shaped content, structured data an engine can parse, consistency across every place the business is listed, and a live review profile.',
+                },
+            },
+            {
+                '@type': 'Question',
+                name: 'Why do reviews matter for getting found by AI?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Reviews are one of the few public, constantly refreshed signals about a local business that an answer engine can actually verify. A profile that stopped collecting reviews reads as stale. Ending every finished job with the same review request, asked of every customer without filtering or incentives, keeps that signal current, which is why review collection belongs in the same system as the ranking work rather than in a separate tool.',
+                },
+            },
+            {
+                '@type': 'Question',
+                name: 'What kind of businesses does AI Automation Kings work with?',
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Local service businesses that do the work in one city or metro, where a job is worth enough that one more a week matters, and where customers find them by searching rather than only by referral. Typically owner operated. Examples include mobile detailing, plumbing, roofing, lawn and landscaping, and similar trades.',
+                },
+            },
+        ],
+    },
+];
+
 export default function MainLandingPage() {
-    const heroRef = useRef(null);
-    const videoRef = useRef(null);
-    const philosophyRef = useRef(null);
-    const servicesRef = useRef(null);
-    const featuresRef = useRef(null);
+    const stepsRef = useRef(null);
+    const gapRef = useRef(null);
+    const loopRef = useRef(null);
     const ctaRef = useRef(null);
+    const videoRef = useRef(null);
     const { openCalModal } = useCalModal();
-    const { openQualForm } = useQualForm();
 
-    // Force video playback on mobile — React doesn't always apply `muted` to the DOM
+    // The 5MB hero video never touches a phone. Desktop gets it after the page
+    // has already painted, and only if the visitor has not asked to save data
+    // or reduce motion.
+    const [showVideo, setShowVideo] = useState(false);
     useEffect(() => {
-        const vid = videoRef.current;
-        if (!vid) return;
+        const bigScreen = window.matchMedia('(min-width: 768px)').matches;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const saveData = navigator.connection?.saveData === true;
+        if (!bigScreen || reducedMotion || saveData) return;
 
-        vid.muted = true;
-        vid.setAttribute('muted', '');
-        vid.setAttribute('playsinline', '');
-        vid.setAttribute('webkit-playsinline', '');
-
-        const tryPlay = () => vid.play().catch(() => {});
-        tryPlay();
-        vid.addEventListener('loadeddata', tryPlay);
-        vid.addEventListener('canplay', tryPlay);
-
-        // Last resort: play on first user interaction
-        const onInteract = () => { tryPlay(); cleanup(); };
-        const cleanup = () => {
-            document.removeEventListener('touchstart', onInteract);
-            document.removeEventListener('click', onInteract);
-        };
-        document.addEventListener('touchstart', onInteract, { once: true });
-        document.addEventListener('click', onInteract, { once: true });
-
+        const load = () => setShowVideo(true);
+        const idle = window.requestIdleCallback
+            ? window.requestIdleCallback(load, { timeout: 3000 })
+            : setTimeout(load, 1200);
         return () => {
-            vid.removeEventListener('loadeddata', tryPlay);
-            vid.removeEventListener('canplay', tryPlay);
-            cleanup();
+            if (window.cancelIdleCallback) window.cancelIdleCallback(idle);
+            else clearTimeout(idle);
         };
     }, []);
 
     useEffect(() => {
-        // Hero Entrance Animation — delayed to sync with preloader curtain open (~2s)
-        let heroCtx = gsap.context(() => {
-            // Aurora blobs fade in
-            gsap.fromTo('.aurora-blob',
-                { opacity: 0, scale: 0.6 },
-                { opacity: 1, scale: 1, duration: 2.5, stagger: 0.3, ease: 'power2.out', delay: 1.6 }
-            );
-            // Text clip-path wipe reveal
-            gsap.fromTo('.hero-text',
-                { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
-                { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 1.4, stagger: 0.25, ease: 'power4.out', delay: 2.0 }
-            );
-            // CTA rises up
-            gsap.fromTo('.hero-cta',
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 3.0 }
-            );
-            // Accent text glow pulse after reveal
-            gsap.fromTo('.hero-accent-glow',
-                { textShadow: '0 0 0px rgba(201,168,76,0)' },
-                { textShadow: '0 0 60px rgba(201,168,76,0.3)', duration: 2, ease: 'power2.out', delay: 3.3 }
-            );
-            // Benefit bullets fade in + slide up
-            gsap.fromTo('.hero-benefits > div',
-                { y: 10, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.5, stagger: 0.15, ease: 'power2.out', delay: 2.8 }
-            );
-            // Visual proof container fades in
-            gsap.fromTo('.visual-proof-animation',
-                { opacity: 0, scale: 0.95 },
-                { opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.5)', delay: 2.5 }
-            );
-        }, heroRef);
+        const vid = videoRef.current;
+        if (!vid) return;
+        vid.muted = true;
+        vid.play().catch(() => {});
+    }, [showVideo]);
 
-        // Hero Scroll Animation — fade out and parallax effect
-        let heroScrollCtx = gsap.context(() => {
-            gsap.to('.hero-content-wrapper', {
-                opacity: 0,
-                scale: 0.95,
-                y: -50,
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: 'top top',
-                    end: '+=400',
-                    scrub: 1,
-                }
-            });
+    // Scroll animations only, and only below the fold. The hero is plain markup
+    // that paints with the document, so nothing a visitor needs is behind a
+    // timeline or a JS bundle.
+    useEffect(() => {
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduced) return;
 
-            gsap.to('.hero-background', {
-                y: 150,
-                scrollTrigger: {
-                    trigger: heroRef.current,
-                    start: 'top top',
-                    end: '+=600',
-                    scrub: 1.5,
-                }
-            });
-        }, heroRef);
-
-        // Philosophy Scroll Animation
-        let philCtx = gsap.context(() => {
-            gsap.fromTo('.philosophy-line',
-                { y: 40, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 1, stagger: 0.3, ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: philosophyRef.current,
-                        start: 'top 75%',
-                    }
-                }
-            );
-        }, philosophyRef);
-
-        // Services Overview Animation
-        let servCtx = gsap.context(() => {
-            gsap.fromTo('.service-card',
-                { y: 60, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: servicesRef.current,
-                        start: 'top 75%',
-                    }
-                }
-            );
-        }, servicesRef);
-
-        // Features Section Animation
-        let featCtx = gsap.context(() => {
-            gsap.fromTo('.features-header',
-                { y: 40, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out',
-                    scrollTrigger: { trigger: featuresRef.current, start: 'top 75%' }
-                }
-            );
-            gsap.fromTo('.features-card',
-                { y: 60, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 1, stagger: 0.25, ease: 'power3.out',
-                    scrollTrigger: { trigger: featuresRef.current, start: 'top 70%' }
-                }
-            );
-        }, featuresRef);
-
-        // CTA Section Animation
-        let ctaCtx = gsap.context(() => {
-            gsap.fromTo('.main-cta-text',
-                { y: 50, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: 'power3.out',
-                    scrollTrigger: { trigger: ctaRef.current, start: 'top 80%' }
-                }
-            );
-            gsap.fromTo('.main-cta-buttons',
-                { y: 30, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
-                    scrollTrigger: { trigger: ctaRef.current, start: 'top 75%' }
-                }
-            );
-        }, ctaRef);
-
-        return () => {
-            heroCtx.revert();
-            heroScrollCtx.revert();
-            philCtx.revert();
-            servCtx.revert();
-            featCtx.revert();
-            ctaCtx.revert();
-        };
+        const ctxs = [
+            gsap.context(() => {
+                gsap.from('.gap-line', {
+                    y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'power2.out',
+                    scrollTrigger: { trigger: gapRef.current, start: 'top 75%' },
+                });
+            }, gapRef),
+            gsap.context(() => {
+                gsap.from('.step-card', {
+                    y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+                    scrollTrigger: { trigger: stepsRef.current, start: 'top 75%' },
+                });
+            }, stepsRef),
+            gsap.context(() => {
+                gsap.from('.loop-line', {
+                    y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out',
+                    scrollTrigger: { trigger: loopRef.current, start: 'top 75%' },
+                });
+            }, loopRef),
+            gsap.context(() => {
+                gsap.from('.main-cta-text', {
+                    y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+                    scrollTrigger: { trigger: ctaRef.current, start: 'top 80%' },
+                });
+            }, ctaRef),
+        ];
+        return () => ctxs.forEach((c) => c.revert());
     }, []);
 
     return (
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
+            <SEOHead
+                title="AIA Kings | Get Your Local Business Named When Customers Ask AI"
+                description="I get local service businesses found in AI answers and search, put a system behind the phone so no lead goes unanswered, and end every job with a review request. Houston, Texas."
+                canonical="https://aiautomationkings.com/"
+                jsonLd={HOME_JSONLD}
+            />
 
-            {/* 1. HERO SECTION */}
-            <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 overflow-hidden">
+            {/* 1. HERO. Everything a visitor needs is here, above the fold, no delay */}
+            <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-5 sm:px-6 md:px-8 overflow-hidden">
 
-                {/* Video background with inward mask gradient */}
+                {/* Background. Video is desktop-only and deferred; the gradient stands alone. */}
                 <div
-                    className="hero-background absolute inset-0 will-change-transform"
+                    className="absolute inset-0"
                     style={{ maskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)', WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)' }}
                 >
-                    <video
-                        ref={videoRef}
-                        autoPlay
-                        loop
-                        muted
-                        defaultMuted
-                        playsInline
-                        preload="auto"
-                        className="absolute inset-0 w-full h-full object-cover object-center opacity-20 sm:opacity-30"
-                        src={heroVideo}
-                    />
-                    <div className="absolute inset-0 bg-brand-primary/40" />
+                    {showVideo && (
+                        <>
+                            <video
+                                ref={videoRef}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                preload="none"
+                                className="absolute inset-0 w-full h-full object-cover object-center opacity-30"
+                                src={heroVideo}
+                            />
+                            <div className="absolute inset-0 bg-brand-primary/40" />
+                        </>
+                    )}
                 </div>
 
-                {/* Aurora glow blobs */}
+                {/* Aurora glow. Pure CSS, visible immediately, no JS reveal. */}
                 <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
-                    <div className="aurora-blob aurora-blob-1 absolute w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full opacity-0"
+                    <div className="aurora-blob aurora-blob-1 absolute w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full"
                          style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%)', top: '-10%', right: '-5%' }} />
-                    <div className="aurora-blob aurora-blob-2 absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full opacity-0"
+                    <div className="aurora-blob aurora-blob-2 absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full"
                          style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.1) 0%, rgba(100,80,30,0.05) 40%, transparent 70%)', bottom: '5%', left: '-10%' }} />
-                    <div className="aurora-blob aurora-blob-3 absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full opacity-0"
-                         style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 60%)', top: '30%', left: '40%' }} />
                 </div>
 
-                {/* Hero content - centered */}
-                <div className="hero-content-wrapper relative z-10 max-w-4xl mx-auto w-full flex flex-col items-center text-center will-change-transform">
+                <div className="relative z-10 max-w-4xl mx-auto w-full flex flex-col items-center text-center">
 
-                    {/* Micro-headline qualifier */}
-                    <p className="hero-text text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] mb-4 md:mb-6">
-                        AI Systems for Financial Services Firms & Local Businesses
+                    {/* Who this is for */}
+                    <p className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-4 md:mb-6">
+                        For local service businesses
                     </p>
 
-                    {/* Main headline */}
-                    <h1 className="hero-text text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-4 md:mb-6 leading-[1.1]">
-                        I Build the AI Systems That Fill Your Pipeline
+                    {/* What I do */}
+                    <h1 className="text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 md:mb-5">
+                        Get Found. Answer Everything. Get The Review.
                     </h1>
 
-                    {/* Drama text */}
-                    <h2 className="hero-text hero-accent-glow text-4xl sm:text-5xl md:text-7xl lg:text-[9rem] leading-[0.9] drama-text text-brand-accent mb-6 md:mb-10">
-                        And Run Themselves.
-                    </h2>
-
-                    {/* Benefit bullets */}
-                    <div className="hero-benefits flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 mb-8 md:mb-12">
-                        <div className="flex items-center gap-2">
-                            <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-accent shrink-0" strokeWidth={2.5} />
-                            <span className="text-white/70 text-xs md:text-sm">AI-powered client acquisition</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-accent shrink-0" strokeWidth={2.5} />
-                            <span className="text-white/70 text-xs md:text-sm">Autonomous firm operations</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-brand-accent shrink-0" strokeWidth={2.5} />
-                            <span className="text-white/70 text-xs md:text-sm">AI receptionists for local businesses</span>
-                        </div>
-                    </div>
-
-                    {/* Dual CTA */}
-                    <div className="hero-cta flex flex-col sm:flex-row gap-3 sm:gap-4 items-center mb-4">
-                        <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 py-4 rounded-[2rem] font-semibold text-sm sm:text-base tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[48px]">
-                            <span className="relative z-10">Book Call Now</span>
-                            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
-                        </button>
-                        <button
-                            onClick={() => openQualForm('gtm-audit')}
-                            className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 py-4 rounded-[2rem] font-medium text-sm sm:text-base tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[48px]"
-                        >
-                            Get Free Audit →
-                        </button>
-                    </div>
-
-                    {/* Risk reversal */}
-                    <p className="text-white/40 text-xs sm:text-sm">
-                        For qualified businesses only. I build systems that pay for themselves.
+                    <p className="drama-text text-brand-accent text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1] mb-5 md:mb-8">
+                        Then do it again.
                     </p>
 
+                    <p className="text-white/70 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-8 md:mb-10 leading-relaxed">
+                        People stopped scrolling search results. They ask, and something answers with two or three names. I build your business into the one those engines can read and have a reason to name, put a system behind your phone so nobody who calls slips through, and end every job with a review request.
+                    </p>
+
+                    {/* One action */}
+                    <button
+                        onClick={openCalModal}
+                        className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 rounded-[2rem] font-semibold text-base sm:text-lg tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[52px] w-full sm:w-auto"
+                    >
+                        <span className="relative z-10">Book a Call</span>
+                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
+                    </button>
+
+                    <p className="text-white/40 text-xs sm:text-sm mt-4">
+                        15 minutes. I will look your business up the way a customer would and tell you what comes back.
+                    </p>
                 </div>
             </section>
 
-            {/* 2. FEATURES - INTERACTIVE ARTIFACTS */}
-            <section ref={featuresRef} className="py-20 sm:py-24 md:py-32 px-6 md:px-8 max-w-7xl mx-auto">
-                <div className="mb-12 sm:mb-16 md:mb-20">
-                    <h3 className="features-header text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Core Systems</h3>
-                    <h4 className="features-header text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">Three systems. One outcome: growth without headcount.</h4>
+            {/* 2. THE GAP. Why the old playbook stopped working */}
+            <section ref={gapRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="gap-line text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight mb-8 md:mb-10">
+                        There is no <span className="drama-text text-brand-accent">page two</span> anymore.
+                    </h2>
+                    <p className="gap-line text-lg sm:text-xl md:text-2xl text-white/50 font-light leading-relaxed mb-6">
+                        Somebody needs a detailer, a plumber, a roofer. They do not open a map and compare twelve pins. They ask, and they get a short list read back to them.
+                    </p>
+                    <p className="gap-line text-lg sm:text-xl md:text-2xl text-white/50 font-light leading-relaxed mb-10">
+                        If your name is not on that list, the customer never learns you exist. You did not lose to a better operator. You lost to one that got mentioned.
+                    </p>
+                    <p className="gap-line text-xl sm:text-2xl md:text-3xl text-white font-light leading-relaxed">
+                        That is the part most owners have not caught up to yet, and it is the part I work on first.
+                    </p>
+                </div>
+            </section>
+
+            {/* 3. THE LOOP, stage by stage */}
+            <section ref={stepsRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 max-w-7xl mx-auto">
+                <div className="mb-12 sm:mb-16">
+                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">How it runs</h3>
+                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
+                        Three pieces. They only work together.
+                    </h4>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div className="features-card flex flex-col gap-6">
-                        <DiagnosticShuffler />
-                        <div>
-                            <h5 className="font-semibold text-xl mb-2 text-white">AI Client Acquisition</h5>
-                            <p className="text-white/50 text-sm leading-relaxed">Qualified meetings on your calendar from AI-personalized outreach. No cold calling on your end.</p>
+                    {STAGES.map((stage) => (
+                        <div key={stage.n} className="step-card flex flex-col gap-6">
+                            <stage.Visual />
+                            <div>
+                                <h5 className="font-semibold text-xl mb-2 text-white">{stage.n}. {stage.title}</h5>
+                                <p className="text-white/50 text-sm leading-relaxed">{stage.body}</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div className="features-card flex flex-col gap-6">
-                        <TelemetryTypewriter />
-                        <div>
-                            <h5 className="font-semibold text-xl mb-2 text-white">AI Firm Operations</h5>
-                            <p className="text-white/50 text-sm leading-relaxed">Client onboarding, document collection, follow-ups, and CRM automation. Your team stays on billable work.</p>
-                        </div>
-                    </div>
-
-                    <div className="features-card flex flex-col gap-6">
-                        <CursorProtocol />
-                        <div>
-                            <h5 className="font-semibold text-xl mb-2 text-white">AI Receptionists</h5>
-                            <p className="text-white/50 text-sm leading-relaxed">24/7 inbound and outbound AI phone agents. Never miss a call, never lose a lead.</p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
 
-            {/* 3. PHILOSOPHY */}
-            <section ref={philosophyRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 relative overflow-hidden bg-[#0A0A0E]">
-                <div
-                    className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=3540&auto=format&fit=crop')] bg-cover bg-center opacity-10 grayscale mix-blend-multiply"
-                />
-                <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-6 sm:gap-8">
-                    <div className="overflow-hidden">
-                        <p className="philosophy-line text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/40 font-light leading-relaxed max-w-3xl">
-                            Most agencies sell you tools and disappear.
-                        </p>
+            {/* 4. WHY IT IS ONE SYSTEM. The actual differentiator */}
+            <section ref={loopRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
+                <div className="max-w-4xl mx-auto">
+                    <h2 className="loop-line text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight mb-8 md:mb-10">
+                        Most agencies sell you <span className="drama-text text-brand-accent">one of the three.</span>
+                    </h2>
+                    <p className="loop-line text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-6">
+                        An SEO guy who gets you found and leaves you to answer your own phone at nine at night. A call service answering calls that were never going to come. A review app nobody remembers to turn on.
+                    </p>
+                    <p className="loop-line text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-10">
+                        Each one looks fine on an invoice and none of them compound.
+                    </p>
+
+                    <div className="loop-line flex flex-col gap-4 border-l-2 border-brand-accent/30 pl-6 mb-10">
+                        <p className="text-white/80 text-lg sm:text-xl font-light">Getting found is what makes the phone ring.</p>
+                        <p className="text-white/80 text-lg sm:text-xl font-light">Answering it is what turns the ring into a job.</p>
+                        <p className="text-white/80 text-lg sm:text-xl font-light">The job is what earns the review.</p>
+                        <p className="text-brand-accent text-lg sm:text-xl font-light">The reviews are what keep you getting found.</p>
                     </div>
-                    <div className="overflow-hidden mt-4 sm:mt-6 md:mt-8 lg:mt-16">
-                        <p className="philosophy-line text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[7rem] leading-none text-white font-sans tracking-tight">
-                            I build systems that <span className="drama-text text-brand-accent">run themselves.</span>
-                        </p>
-                    </div>
+
+                    <p className="loop-line text-xl sm:text-2xl md:text-3xl text-white font-light leading-relaxed">
+                        Run all three and each one feeds the next. Pull one out and the other two go quiet.
+                    </p>
                 </div>
             </section>
 
-            {/* 4. PROTOCOL - HORIZONTAL TIMELINE */}
-            <section id="protocol-timeline">
-                <ProtocolTimeline />
-            </section>
+            {/* 5. WHAT YOU GET */}
+            <WhatYouGet />
 
-            {/* 5. SERVICES OVERVIEW — Two pillars linking to service pages */}
-            <section ref={servicesRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8">
-                <div className="max-w-7xl mx-auto">
-                    <div className="mb-12 sm:mb-16 md:mb-20 text-center">
-                        <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">What I Build</h3>
-                        <h4 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight max-w-3xl mx-auto">
-                            Two plays. <span className="drama-text text-brand-accent">One builder.</span>
-                        </h4>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {/* Financial Services Card */}
-                        <Link to="/accounting" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] shadow-xl">
-                            <div className="w-full h-56 mb-8 rounded-2xl overflow-hidden bg-[#0D0D12]">
-                                <LeadGenAnimation />
-                            </div>
-                            <div className="flex items-center gap-2 mb-4">
-                                <span className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px]">Financial Services</span>
-                            </div>
-                            <h5 className="text-2xl sm:text-3xl font-semibold text-white mb-4">AI Growth System for Firms</h5>
-                            <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-8">
-                                Built for CPAs, accountants, and financial advisors facing the talent crisis. AI-powered lead gen, firm automations, and operations that scale without new hires.
-                            </p>
-                            <div className="flex items-center gap-2 text-brand-accent font-medium text-sm group-hover:gap-3 transition-all duration-300">
-                                <span>Learn More</span>
-                                <ArrowRight className="w-4 h-4" />
-                            </div>
-                        </Link>
-
-                        {/* AI Receptionists Card */}
-                        <Link to="/agentic-ai" className="service-card group bg-[#15151A] border border-white/5 hover:border-brand-accent/20 rounded-[2rem] p-8 sm:p-10 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_8px_30px_rgba(201,168,76,0.08)] shadow-xl">
-                            <div className="w-full h-56 mb-8 rounded-2xl overflow-hidden bg-[#0D0D12] flex items-center justify-center">
-                                <NeuralCore />
-                            </div>
-                            <div className="flex items-center gap-2 mb-4">
-                                <span className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px]">Local Businesses</span>
-                            </div>
-                            <h5 className="text-2xl sm:text-3xl font-semibold text-white mb-4">AI Receptionists</h5>
-                            <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-8">
-                                24/7 inbound and outbound AI phone agents for Houston businesses. Never miss a call, never lose a lead. Med spas, dental, law firms, salons.
-                            </p>
-                            <div className="flex items-center gap-2 text-brand-accent font-medium text-sm group-hover:gap-3 transition-all duration-300">
-                                <span>Learn More</span>
-                                <ArrowRight className="w-4 h-4" />
-                            </div>
-                        </Link>
-                    </div>
+            {/* 6. WHO IT IS FOR. Keeps bad-fit calls off the calendar */}
+            <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8">
+                <div className="max-w-3xl mx-auto">
+                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Who this is for</h3>
+                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-10">
+                        This works if you have <span className="drama-text text-brand-accent">four things.</span>
+                    </h4>
+                    <ul className="flex flex-col gap-5">
+                        {FITS.map((fit) => (
+                            <li key={fit} className="flex items-start gap-4">
+                                <Check className="w-5 h-5 text-brand-accent shrink-0 mt-1" strokeWidth={2.5} />
+                                <span className="text-white/70 text-base sm:text-lg md:text-xl font-light">{fit}</span>
+                            </li>
+                        ))}
+                    </ul>
+                    <p className="text-white/40 text-sm sm:text-base mt-10 leading-relaxed">
+                        If that is not you, say so on the call and I will tell you straight. I would rather lose fifteen minutes than sell you something that will not work.
+                    </p>
                 </div>
             </section>
-
-            {/* 6. TESTIMONIALS */}
-            <TestimonialsCarousel />
 
             {/* 7. FINAL CTA */}
-            <section ref={ctaRef} className="py-24 sm:py-32 md:py-40 px-6 md:px-8 flex justify-center text-center">
-                <div className="max-w-3xl flex flex-col items-center">
-                    <h2 className="main-cta-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans tracking-tight mb-6 sm:mb-8 text-white">Your competitors are already using AI. <span className="drama-text text-brand-accent">Are you?</span></h2>
-                    <p className="main-cta-text text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 sm:mb-12 max-w-xl px-4">
-                        The firms and businesses that thrive will be the ones that build AI into their operations now. The question is whether you'll lead or catch up.
+            <section ref={ctaRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 flex justify-center text-center">
+                <div className="max-w-3xl flex flex-col items-center w-full">
+                    <h2 className="main-cta-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans tracking-tight mb-6 text-white leading-tight">
+                        Someone asked this week. Something answered.
+                    </h2>
+                    <p className="main-cta-text drama-text text-brand-accent text-3xl sm:text-4xl md:text-5xl leading-[1.1] mb-8">
+                        It should have said your name.
                     </p>
-                    <div className="main-cta-buttons flex flex-col sm:flex-row gap-4 items-center">
-                        <button onClick={openCalModal} className="group relative overflow-hidden bg-brand-accent text-brand-primary px-8 sm:px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px]">
-                            <span className="relative z-10">Book Call Now</span>
-                            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
-                        </button>
-                        <button onClick={() => openQualForm('gtm-audit')} className="border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white px-8 sm:px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-medium tracking-wide transition-all active:scale-[0.97] duration-300 min-h-[52px]">
-                            Request Free Audit
-                        </button>
-                    </div>
+                    <p className="main-cta-text text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 max-w-xl">
+                        Book fifteen minutes. I will look your business up the way your customers do and show you exactly what comes back.
+                    </p>
+                    <button
+                        onClick={openCalModal}
+                        className="main-cta-text group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px] w-full sm:w-auto"
+                    >
+                        <span className="relative z-10">Book a Call</span>
+                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
+                    </button>
+                    <a href="mailto:nate@aiautomationkings.com" className="main-cta-text text-white/40 hover:text-white/70 text-sm mt-5 transition-colors data-text">
+                        or email nate@aiautomationkings.com
+                    </a>
                 </div>
             </section>
-
         </div>
     );
 }

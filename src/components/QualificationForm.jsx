@@ -5,21 +5,27 @@ import { useQualForm } from '../context/QualFormContext';
 import { supabase } from '../lib/supabase';
 
 const TEAM_SIZE_OPTIONS = [
-    { value: '', label: 'Select team size' },
-    { value: 'solo-5', label: 'Solo / 1-5 employees' },
-    { value: '5-15', label: '5-15 employees' },
-    { value: '15-50', label: '15-50 employees' },
-    { value: '50-plus', label: '50+ employees' },
+    { value: '', label: 'How many of you are there?' },
+    { value: 'owner-only', label: 'Just me' },
+    { value: '2-5', label: '2 to 5' },
+    { value: '6-15', label: '6 to 15' },
+    { value: '15-plus', label: 'More than 15' },
 ];
 
 const BUSINESS_TYPE_OPTIONS = [
-    { value: '', label: 'Select business type' },
-    { value: 'cpa-accounting', label: 'CPA / Accounting Firm' },
-    { value: 'financial-advisory', label: 'Financial Advisory' },
-    { value: 'bookkeeping-cfo', label: 'Bookkeeping / Fractional CFO' },
-    { value: 'local-business', label: 'Local Business (Houston)' },
-    { value: 'other', label: 'Other' },
+    { value: '', label: 'What kind of work do you do?' },
+    { value: 'auto-detailing', label: 'Auto detailing / mobile detailing' },
+    { value: 'plumbing-hvac', label: 'Plumbing / HVAC' },
+    { value: 'roofing-exterior', label: 'Roofing / exterior' },
+    { value: 'lawn-landscaping', label: 'Lawn / landscaping' },
+    { value: 'cleaning', label: 'Cleaning services' },
+    { value: 'other-trade', label: 'Another local service' },
 ];
+
+// The two halves of the offer. Which one a business needs comes down to
+// whether there is already a site for an engine to read.
+const NO_SITE = 'no-site';
+const HAS_SITE = 'has-site';
 
 export default function QualificationForm() {
     const { isOpen, formType, closeQualForm } = useQualForm();
@@ -100,7 +106,7 @@ export default function QualificationForm() {
             business_type: formData.business_type,
             team_size: formData.team_size,
             bottleneck: formData.bottleneck || null,
-            assessment_type: selectedType === 'gtm-audit' ? 'Firm Growth Audit' : 'AI Receptionist Demo',
+            assessment_type: selectedType === NO_SITE ? 'Website Build' : 'AI SEO Visibility Check',
         };
 
         try {
@@ -140,9 +146,9 @@ export default function QualificationForm() {
                         <div className="w-16 h-16 rounded-full bg-brand-accent/10 flex items-center justify-center mb-6">
                             <CheckCircle className="w-8 h-8 text-brand-accent" />
                         </div>
-                        <h3 className="text-2xl font-semibold text-white mb-3">Request Received</h3>
+                        <h3 className="text-2xl font-semibold text-white mb-3">Got it</h3>
                         <p className="text-white/50 text-sm max-w-xs leading-relaxed">
-                            I'll review your information and reach out within 24 hours to schedule your free {selectedType === 'gtm-audit' ? 'firm growth audit' : 'AI receptionist demo'}.
+                            I will look your business up the way a customer would and get back to you within a day with what comes back.
                         </p>
                         <button
                             onClick={closeQualForm}
@@ -153,31 +159,31 @@ export default function QualificationForm() {
                     </div>
                 ) : (
                     <>
-                        <h3 className="text-2xl font-semibold text-white mb-2 pr-8">Qualify for a Free Audit</h3>
-                        <p className="text-white/40 text-sm mb-8">Tell me about your business and I'll prepare a custom assessment.</p>
+                        <h3 className="text-2xl font-semibold text-white mb-2 pr-8">See what comes back</h3>
+                        <p className="text-white/40 text-sm mb-8">Tell me about your business and I will look you up the way your customers do.</p>
 
                         <div className="flex bg-white/5 rounded-xl p-1 mb-6">
                             <button
                                 type="button"
-                                onClick={() => setSelectedType('gtm-audit')}
+                                onClick={() => setSelectedType(HAS_SITE)}
                                 className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-300 ${
-                                    selectedType === 'gtm-audit'
+                                    selectedType === HAS_SITE
                                         ? 'bg-brand-accent text-brand-primary'
                                         : 'text-white/50 hover:text-white/70'
                                 }`}
                             >
-                                Firm Growth Audit
+                                I have a website
                             </button>
                             <button
                                 type="button"
-                                onClick={() => setSelectedType('ai-assessment')}
+                                onClick={() => setSelectedType(NO_SITE)}
                                 className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium transition-all duration-300 ${
-                                    selectedType === 'ai-assessment'
+                                    selectedType === NO_SITE
                                         ? 'bg-brand-accent text-brand-primary'
                                         : 'text-white/50 hover:text-white/70'
                                 }`}
                             >
-                                AI Receptionist Demo
+                                I do not
                             </button>
                         </div>
 
@@ -194,7 +200,7 @@ export default function QualificationForm() {
                             <input
                                 type="email"
                                 name="email"
-                                placeholder="Business Email"
+                                placeholder="Email"
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
@@ -203,7 +209,7 @@ export default function QualificationForm() {
                             <input
                                 type="text"
                                 name="company"
-                                placeholder="Company Name"
+                                placeholder="Business Name"
                                 required
                                 value={formData.company}
                                 onChange={handleChange}
@@ -237,7 +243,7 @@ export default function QualificationForm() {
                             </select>
                             <textarea
                                 name="bottleneck"
-                                placeholder="What's holding your firm back right now? (optional)"
+                                placeholder="What is the main thing you want fixed? (optional)"
                                 rows={3}
                                 value={formData.bottleneck}
                                 onChange={handleChange}
@@ -256,7 +262,7 @@ export default function QualificationForm() {
                                             Submitting...
                                         </>
                                     ) : (
-                                        selectedType === 'gtm-audit' ? 'Request Free Audit' : 'Request Demo'
+                                        selectedType === NO_SITE ? 'Get a Website Quote' : 'Check My Visibility'
                                     )}
                                 </span>
                                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay" />

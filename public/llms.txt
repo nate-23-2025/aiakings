@@ -1,0 +1,48 @@
+# AI Automation Kings (AIAK)
+
+> Answer engine optimization for local service businesses. I get the business found when customers ask, put a system behind the phone so every call gets answered and booked, and end every job with a review request. The reviews feed the ranking, so it comes back around.
+
+Founded by Nathan Mamo. Based in Houston, Texas.
+
+## What is sold
+
+One system with three parts that only work together.
+
+**1. Get found.** Answer engine optimization, plus the website if there is not one yet. Every service and service area written out as a page that answers a real question, structured data an engine can parse, listings that agree with each other on name, address, phone, and hours, and a business profile kept current. The point is to be readable, verifiable, and worth naming when something answers "who should I call for this near me."
+
+**2. Answer everything.** A ranking that makes the phone ring is worth nothing if nobody picks up. Every inbound call gets answered, common questions get handled, and the job goes on the calendar, nights and weekends included.
+
+**3. Get the review.** Every finished job ends with a review request. Same ask to every customer, no filtering by how happy they seem, and no incentives. Reviews are one of the few signals about a local business that anything can actually verify, and they go stale.
+
+The three compound. Getting found makes the phone ring, answering it turns the ring into a job, the job earns the review, and the reviews are part of what keeps the business getting found. Most agencies sell one of the three.
+
+## Where a business starts
+
+This is the only question that decides the starting point.
+
+- **No website.** The site gets built first, because there is nothing for an engine to read. It is built for answer engines from the start rather than retrofitted later.
+- **Has a website.** No rebuild for the sake of one. The existing site gets audited for what an engine cannot read or verify, that gets fixed, then pages and profile work get added on top.
+
+## Who this is for
+
+Local service businesses that do the work in one city or metro, where one more job a week is worth real money, where customers find them by searching rather than only by referral, and that are owner operated or close to it. Trades and home or vehicle services: mobile detailing, plumbing and HVAC, roofing, lawn and landscaping, cleaning, and similar.
+
+## What is not offered
+
+B2B lead generation, cold email as a service, social media management, paid ads management, and custom software builds. If you are looking for those, this is the wrong company.
+
+## Claims and limits
+
+No ranking position or placement in an AI answer is ever guaranteed, because nobody controls what an answer engine says. What is controlled is whether the business is findable, readable, consistent, current, and backed by a live review profile. Reviews are never gated, filtered, or incentivized. Pricing is scoped on a call and is not published anywhere.
+
+## Main
+
+- [Home](https://aiautomationkings.com/): The three parts of the system and how they feed each other. Where to book a call.
+- [AI SEO and Answer Engine Optimization](https://aiautomationkings.com/ai-seo): What AEO is, how it differs from traditional SEO, what gets done every month, the two starting points depending on whether a website exists, and straight answers to the common questions. Read this for the mechanics.
+- [Blog](https://aiautomationkings.com/blog): Articles on getting found, answering leads, and AI agents for local businesses.
+
+## Contact
+
+- Email: nate@aiautomationkings.com
+- Book a 15 minute call: https://api.aiautomationkings.com/widget/booking/qwkWGz8DTsKfVRuLkn88
+- Location: Houston, Texas.

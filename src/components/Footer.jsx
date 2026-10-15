@@ -9,60 +9,56 @@ export default function Footer() {
     const footerRef = useRef(null);
 
     useEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         const ctx = gsap.context(() => {
-            gsap.fromTo('.footer-content > *',
-                { y: 30, opacity: 0 },
-                {
-                    y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out',
-                    scrollTrigger: { trigger: footerRef.current, start: 'top 90%' }
-                }
-            );
+            gsap.from('.footer-content > *', {
+                y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out',
+                scrollTrigger: { trigger: footerRef.current, start: 'top 90%' },
+            });
         }, footerRef);
         return () => ctx.revert();
     }, []);
 
     return (
-        <footer ref={footerRef} className="bg-brand-primary text-brand-background rounded-t-[4rem] px-8 py-20 mt-32 relative overflow-hidden">
-            {/* Background texture matching the Midnight Luxe motif */}
+        <footer ref={footerRef} className="bg-brand-primary text-brand-background rounded-t-[4rem] px-6 sm:px-8 py-16 sm:py-20 mt-24 relative overflow-hidden">
+            {/* Local gradient wash. The old texture was a multi-megabyte image pulled
+                off an external host on every single page load. */}
             <div
-                className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay"
-                style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2600&auto=format&fit=crop")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                }}
+                className="absolute inset-0 opacity-40 pointer-events-none"
+                style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%)' }}
             />
 
-            <div className="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+            <div className="footer-content max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12 relative z-10">
                 <div className="col-span-1 md:col-span-2">
                     <Link to="/" className="text-3xl font-bold tracking-tight mb-4 block">
                         AIA KINGS
                     </Link>
                     <p className="opacity-70 max-w-sm font-light">
-                        I build AI systems for accounting firms facing the talent crisis and AI receptionists for Houston businesses. Better clients. Less admin. No new hires.
+                        I get local service businesses found when customers ask, make sure every call that comes in gets answered, and end every job with a review request. Then it comes back around.
                     </p>
-
-                    <div className="mt-8 flex items-center gap-3 data-text text-sm opacity-80">
-                        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>Systems Operational</span>
-                    </div>
+                    <a
+                        href="mailto:nate@aiautomationkings.com"
+                        className="mt-6 inline-block text-brand-accent hover:opacity-80 transition-opacity data-text"
+                    >
+                        nate@aiautomationkings.com
+                    </a>
+                    <p className="mt-4 opacity-50 text-sm">Houston, Texas.</p>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Services</span>
-                    <Link to="/accounting" className="opacity-70 hover:opacity-100 transition-opacity">For Accounting Firms</Link>
-                    <Link to="/agentic-ai" className="opacity-70 hover:opacity-100 transition-opacity">AI Receptionists</Link>
-                    <Link to="/go-to-market" className="opacity-70 hover:opacity-100 transition-opacity">Lead Generation</Link>
+                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">What I do</span>
+                    <Link to="/ai-seo" className="opacity-70 hover:opacity-100 transition-opacity">AI SEO &amp; Answer Engines</Link>
+                    <Link to="/ai-seo" className="opacity-70 hover:opacity-100 transition-opacity">Websites</Link>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Resources</span>
+                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Company</span>
                     <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link>
-                    <a href="mailto:nate@aiautomationkings.com" className="opacity-70 hover:opacity-100 transition-opacity data-text">nate@aiautomationkings.com</a>
+                    <a href="mailto:nate@aiautomationkings.com" className="opacity-70 hover:opacity-100 transition-opacity">Contact</a>
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto mt-20 pt-8 border-t border-white/10 text-center opacity-40 text-sm data-text">
+            <div className="max-w-6xl mx-auto mt-16 pt-8 border-t border-white/10 text-center opacity-40 text-sm data-text">
                 &copy; {new Date().getFullYear()} AIA Kings. All Rights Reserved.
             </div>
         </footer>

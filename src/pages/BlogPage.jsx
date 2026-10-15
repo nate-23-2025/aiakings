@@ -45,7 +45,7 @@ export default function BlogPage() {
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
             <SEOHead
                 title="AI Automation &amp; Go-To-Market Blog | AI Automation Kings"
-                description="Frameworks, strategies, and insights on AI agents, cold email, and go-to-market systems for Houston businesses. From Houston's leading AI automation agency."
+                description="Getting found when customers ask, answering every lead that comes in, and keeping reviews coming. Written for local service business owners."
                 canonical="https://aiautomationkings.com/blog"
             />
 
@@ -59,7 +59,7 @@ export default function BlogPage() {
                         AI Automation & Go-To-Market <span className="drama-text text-brand-accent">Insights.</span>
                     </h1>
                     <p className="blog-hero-text text-lg text-white/40 font-light mt-6 max-w-xl">
-                        Frameworks and strategies for AI agents, cold email, and growth systems from Houston's leading AI automation agency.
+                        Getting found when customers ask, answering every lead that comes in, and keeping the reviews coming.
                     </p>
                 </div>
             </section>

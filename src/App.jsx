@@ -1,14 +1,9 @@
+import { lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import CalModal from './components/CalModal';
-import QualificationForm from './components/QualificationForm';
-import PreloaderOverlay from './components/PreloaderOverlay';
+import StickyCTA from './components/StickyCTA';
+import DeferredOverlays from './components/DeferredOverlays';
 import MainLandingPage from './pages/MainLandingPage';
-import GoToMarketPage from './pages/GoToMarketPage';
-import AgenticAIPage from './pages/AgenticAIPage';
-import AccountingPage from './pages/AccountingPage';
-import BlogPage from './pages/BlogPage';
-import BlogPostPage from './pages/BlogPostPage';
 import { CalModalProvider } from './context/CalModalContext';
 import { QualFormProvider } from './context/QualFormContext';
 import { HelmetProvider } from 'react-helmet-async';
@@ -19,6 +14,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // Register GSAP plugins globally
 gsap.registerPlugin(ScrollTrigger);
 
+// The home page ships in the main bundle because that is where visitors land.
+// Every other route is split out so it costs nothing until someone asks for it.
+const AISEOPage = lazy(() => import('./pages/AISEOPage'));
+const BlogPage = lazy(() => import('./pages/BlogPage'));
+const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+
 function App() {
   return (
     <HelmetProvider>
@@ -28,20 +29,19 @@ function App() {
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">
-              <Routes>
-                <Route path="/" element={<MainLandingPage />} />
-                <Route path="/go-to-market" element={<GoToMarketPage />} />
-                <Route path="/agentic-ai" element={<AgenticAIPage />} />
-                <Route path="/accounting" element={<AccountingPage />} />
-                <Route path="/blog" element={<BlogPage />} />
-                <Route path="/blog/:slug" element={<BlogPostPage />} />
-              </Routes>
+              <Suspense fallback={<div className="min-h-screen bg-brand-primary" />}>
+                <Routes>
+                  <Route path="/" element={<MainLandingPage />} />
+                  <Route path="/ai-seo" element={<AISEOPage />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                  <Route path="/blog/:slug" element={<BlogPostPage />} />
+                </Routes>
+              </Suspense>
             </main>
             <Footer />
           </div>
-          <CalModal />
-          <QualificationForm />
-          <PreloaderOverlay />
+          <StickyCTA />
+          <DeferredOverlays />
         </QualFormProvider>
       </CalModalProvider>
     </BrowserRouter>
