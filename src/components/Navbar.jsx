@@ -3,6 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useCalModal } from '../context/CalModalContext';
 
+const TABS = [
+    { to: '/marketer', label: 'Nate the Marketer', short: 'Marketer' },
+    { to: '/developer', label: 'Nate the Dev', short: 'Dev' },
+];
+
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const navRef = useRef(null);
@@ -38,23 +43,23 @@ export default function Navbar() {
                 scrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
         >
-            <Link to="/" id="navbar-logo" className="text-xl drama-text tracking-tight">
+            <Link to="/" id="navbar-logo" className="text-xl drama-text tracking-tight whitespace-nowrap">
                 AIA KINGS
             </Link>
 
-            <div className="hidden md:flex items-center gap-8 font-medium text-sm">
-                <Link
-                    to="/ai-seo"
-                    className={`hover:-translate-y-[1px] transition-transform ${location.pathname.startsWith('/ai-seo') ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}
-                >
-                    AI SEO
-                </Link>
-                <Link
-                    to="/blog"
-                    className={`hover:-translate-y-[1px] transition-transform ${location.pathname.startsWith('/blog') ? 'opacity-100' : 'opacity-70'} hover:opacity-100`}
-                >
-                    Blog
-                </Link>
+            {/* The two sides of the business. Short labels on a phone so both
+                tabs fit next to the logo. */}
+            <div className="flex items-center gap-4 md:gap-8 font-medium text-xs sm:text-sm">
+                {TABS.map(({ to, label, short }) => (
+                    <Link
+                        key={to}
+                        to={to}
+                        className={`hover:-translate-y-[1px] transition-transform whitespace-nowrap ${location.pathname.startsWith(to) ? 'opacity-100 text-brand-accent' : 'opacity-70'} hover:opacity-100`}
+                    >
+                        <span className="md:hidden">{short}</span>
+                        <span className="hidden md:inline">{label}</span>
+                    </Link>
+                ))}
             </div>
 
             {/* Desktop only. On a phone the hero button and the sticky bottom bar

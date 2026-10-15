@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import SEOHead from '../components/SEOHead';
 import AnswerEngine from '../components/features/AnswerEngine';
+import ReviewLoop from '../components/features/ReviewLoop';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,11 +22,11 @@ const SHIFT = [
 const WORK = [
     {
         title: 'The pages get written as answers',
-        body: 'Every service you offer, every area you cover, and every question you get asked on the phone becomes a page that answers it directly. An engine cannot cite you on something you never put in writing.',
+        body: 'Every service you offer, every area you cover, and every question you get asked on the phone becomes a page that answers it directly. Nothing can recommend you for something you never put in writing.',
     },
     {
-        title: 'The site gets made machine readable',
-        body: 'Structured data, clean headings, real hours, real service areas, and a page an agent can parse without guessing. Most local sites are readable by people and close to invisible to anything else.',
+        title: 'The site gets made readable to AI',
+        body: 'Clean headings, real hours, real service areas, and the behind the scenes labels that tell Google and AI exactly what you do and where. Most local sites are readable by people and close to invisible to anything else.',
     },
     {
         title: 'Your listings stop contradicting each other',
@@ -46,20 +48,20 @@ const WORK = [
 
 const FAQ = [
     {
-        q: 'What is answer engine optimization?',
-        a: 'It is the work of making your business readable and citable by the tools people ask instead of scrolling search results. Rather than chasing a position in a list of links, you are making sure that when something answers "who should I call for this near me," your business is one it can see, verify, and has a reason to mention.',
+        q: 'What is AI SEO?',
+        a: 'It is the work of getting your business named by the tools people ask instead of scrolling search results, like ChatGPT and the AI answer at the top of Google. Rather than chasing a spot in a list of links, you are making sure that when something answers "who should I call for this near me," your business is one it can see, trust, and has a reason to mention.',
     },
     {
         q: 'Is this different from regular SEO?',
-        a: 'The technical foundations overlap, so good AEO work makes normal search better too. The difference is where the weight goes. AEO leans much harder on question-shaped content, structured data an engine can parse, consistency across every place you are listed, and a review profile that is actively growing. And the stakes are sharper, because an answer names two or three businesses rather than ten.',
+        a: 'The groundwork overlaps, so this work makes normal Google search better too. The difference is where the weight goes. It leans much harder on pages that answer real questions, a site AI can read without guessing, the same details everywhere you are listed, and reviews that keep coming in. And the stakes are sharper, because an answer names two or three businesses rather than ten.',
     },
     {
         q: 'Can you guarantee I will show up in AI answers?',
-        a: 'No, and be careful with anyone who does. Nobody controls what an answer engine says, the same way nobody ever controlled a Google ranking. What I control is whether your business is findable, readable, consistent, current, and backed by a live review profile. Skip that work and you are not in the running at all.',
+        a: 'No, and be careful with anyone who does. Nobody controls what AI says, the same way nobody ever controlled a Google ranking. What I control is whether your business is findable, readable, consistent, current, and backed by a live review profile. Skip that work and you are not in the running at all.',
     },
     {
         q: 'What if I do not have a website?',
-        a: 'Then that comes first, because there is nothing for an engine to read. I build the site, and it gets built for this from day one rather than retrofitted later. If you already have a site, I work on what is there.',
+        a: 'Then that comes first, because there is nothing for anything to read. That is the Dev side: I build the site, live in days, and it gets built for this from the first line rather than patched later.',
     },
     {
         q: 'How long does this take to show up?',
@@ -75,8 +77,8 @@ const PAGE_JSONLD = [
     {
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Answer Engine Optimization for Local Service Businesses',
-        serviceType: 'Answer Engine Optimization',
+        name: 'AI SEO for Local Service Businesses',
+        serviceType: 'Search Engine Optimization',
         provider: {
             '@type': 'ProfessionalService',
             name: 'AI Automation Kings',
@@ -84,7 +86,7 @@ const PAGE_JSONLD = [
         },
         areaServed: { '@type': 'Country', name: 'US' },
         description:
-            'Answer engine optimization and website builds for local service businesses. Question-shaped pages, structured data, listing consistency, business profile upkeep, and ongoing review collection, so the tools people ask can read the business and have a reason to name it.',
+            'AI SEO and answer engine optimization for local service businesses that already have a website. Question-shaped pages, structured data, listing consistency, business profile upkeep, and ongoing review collection, so Google and AI answer tools can read the business and have a reason to name it.',
     },
     {
         '@context': 'https://schema.org',
@@ -97,7 +99,7 @@ const PAGE_JSONLD = [
     },
 ];
 
-export default function AISEOPage() {
+export default function MarketerPage() {
     const rootRef = useRef(null);
     const { openCalModal } = useCalModal();
 
@@ -121,9 +123,9 @@ export default function AISEOPage() {
     return (
         <div ref={rootRef} className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
             <SEOHead
-                title="AI SEO & Answer Engine Optimization for Local Service Businesses | AIA Kings"
-                description="Answer engine optimization for local service businesses. I make your business readable to the tools customers ask, keep your listings and reviews current, and build the site if you do not have one."
-                canonical="https://aiautomationkings.com/ai-seo"
+                title="AI SEO and Reviews for Local Service Businesses | AIA Kings"
+                description="Already have a website? I get local service businesses named when customers search Google and ask AI, keep your listings current, and make sure every job ends with a review request. Houston, Texas."
+                canonical="https://aiautomationkings.com/marketer"
                 jsonLd={PAGE_JSONLD}
             />
 
@@ -136,13 +138,13 @@ export default function AISEOPage() {
 
                 <div className="relative z-10 max-w-4xl mx-auto">
                     <p className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-5">
-                        Answer engine optimization
+                        Nate the Marketer
                     </p>
                     <h1 className="text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl font-sans font-medium tracking-tight text-white mb-5">
                         Be the business it names.
                     </h1>
                     <p className="text-white/60 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-10 leading-relaxed">
-                        Your next customer is going to ask a question and get a short list back. This is the work that decides whether your business is one of the names on it, and whether anything happens after they call.
+                        You already have a website. Your next customer is going to search, or ask AI, and get a short list back. This is the work that decides whether your business is one of the names on it, and whether they pick you once they see it.
                     </p>
                     <button
                         onClick={openCalModal}
@@ -186,28 +188,31 @@ export default function AISEOPage() {
                 </div>
             </section>
 
-            {/* THE TWO STARTING POINTS */}
+            {/* WHERE I START */}
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
                 <div className="max-w-5xl mx-auto">
                     <h2 className="reveal text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-12">
-                        Where you start depends on <span className="drama-text text-brand-accent">one thing.</span>
+                        I start with <span className="drama-text text-brand-accent">what you have.</span>
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div className="reveal bg-[#15151A] border border-white/[0.07] rounded-[2rem] p-7 sm:p-9">
-                            <span className="font-mono text-[10px] uppercase tracking-widest text-brand-accent">If you have no website</span>
-                            <h3 className="text-2xl font-semibold text-white mt-4 mb-4">I build you one.</h3>
+                            <span className="font-mono text-[10px] uppercase tracking-widest text-brand-accent">You have a website</span>
+                            <h3 className="text-2xl font-semibold text-white mt-4 mb-4">No rebuild for the sake of a rebuild.</h3>
                             <p className="text-white/50 text-sm sm:text-base leading-relaxed">
-                                There is nothing for an engine to read right now, so nothing else can start. You get a site built for this from the first line rather than patched for it two years later. Fast, works on a phone, phone number you can tap, and every service and area you cover written out as its own answer.
+                                I go through what you have, find what Google and AI cannot read or cannot trust, fix it, then start adding the pages and the profile work that give them something to name. If the site genuinely cannot get there, I will say so.
                             </p>
                         </div>
 
-                        <div className="reveal bg-[#15151A] border border-white/[0.07] rounded-[2rem] p-7 sm:p-9">
-                            <span className="font-mono text-[10px] uppercase tracking-widest text-brand-accent">If you already have one</span>
-                            <h3 className="text-2xl font-semibold text-white mt-4 mb-4">I work on what is there.</h3>
-                            <p className="text-white/50 text-sm sm:text-base leading-relaxed">
-                                No rebuild for the sake of a rebuild. I go through what you have, find what an engine cannot read or cannot verify, fix it, then start adding the pages and the profile work that give it something to cite. If the site genuinely cannot get there, I will say so.
+                        <div className="reveal bg-[#15151A] border border-white/[0.07] rounded-[2rem] p-7 sm:p-9 flex flex-col">
+                            <span className="font-mono text-[10px] uppercase tracking-widest text-white/40">You do not have one yet</span>
+                            <h3 className="text-2xl font-semibold text-white mt-4 mb-4">That comes first.</h3>
+                            <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-6">
+                                There is nothing for anything to read yet, so nothing else can start. That is Nate the Dev, and it is live in days.
                             </p>
+                            <Link to="/developer" className="mt-auto text-brand-accent hover:opacity-80 transition-opacity text-sm font-medium">
+                                See Nate the Dev &rarr;
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -238,28 +243,33 @@ export default function AISEOPage() {
                         <div className="reveal hidden lg:block sticky top-28">
                             <AnswerEngine />
                             <p className="text-white/25 text-xs mt-4 leading-relaxed">
-                                Illustration, not a live result. Nobody controls what an answer engine says, which is exactly why the work above is the part worth paying for.
+                                Illustration, not a live result. Nobody controls what AI says, which is exactly why the work above is the part worth paying for.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* WHY IT DOES NOT STOP AT RANKING */}
+            {/* REVIEWS */}
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
-                <div className="max-w-4xl mx-auto">
-                    <h2 className="reveal text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-8">
-                        Getting named is only worth something <span className="drama-text text-brand-accent">if you pick up.</span>
-                    </h2>
-                    <p className="reveal text-white/50 text-base sm:text-lg md:text-xl font-light leading-relaxed mb-6">
-                        The whole point of this work is a phone that rings more often. That is also where most of it gets wasted. The call comes in at seven at night, you are finishing a job, and by the time you listen to the voicemail the customer has already booked someone else.
-                    </p>
-                    <p className="reveal text-white/50 text-base sm:text-lg md:text-xl font-light leading-relaxed mb-6">
-                        So the ranking work does not ship alone. Something answers every call, handles the usual questions, and puts the job on the calendar. When the job is done, the review request goes out, same ask to every customer.
-                    </p>
-                    <p className="reveal text-xl sm:text-2xl text-white font-light leading-relaxed">
-                        And those reviews are a live signal about your business, which is where the ranking work started. It comes back around.
-                    </p>
+                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16 items-center">
+                    <div>
+                        <h2 className="reveal text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-8">
+                            Getting found gets you on the list. <span className="drama-text text-brand-accent">Reviews get you picked.</span>
+                        </h2>
+                        <p className="reveal text-white/50 text-base sm:text-lg md:text-xl font-light leading-relaxed mb-6">
+                            You have done hundreds of good jobs, and the shop down the road with worse work has more reviews than you. Customers see that number before they ever see your work.
+                        </p>
+                        <p className="reveal text-white/50 text-base sm:text-lg md:text-xl font-light leading-relaxed mb-6">
+                            So every finished job ends with the same ask, sent for you, every time. No remembering, no awkward moment at the truck. Every customer gets the same request, with no filtering and no incentives, because that is how a profile stays clean.
+                        </p>
+                        <p className="reveal text-xl sm:text-2xl text-white font-light leading-relaxed">
+                            And fresh reviews are part of what keeps you getting found. It comes back around.
+                        </p>
+                    </div>
+                    <div className="reveal">
+                        <ReviewLoop />
+                    </div>
                 </div>
             </section>
 

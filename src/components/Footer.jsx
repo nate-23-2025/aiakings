@@ -34,7 +34,7 @@ export default function Footer() {
                         AIA KINGS
                     </Link>
                     <p className="opacity-70 max-w-sm font-light">
-                        I get local service businesses found when customers ask, make sure every call that comes in gets answered, and end every job with a review request. Then it comes back around.
+                        I build websites for local service businesses, get them found when customers search and ask AI, make sure every call gets answered, and end every job with a review request.
                     </p>
                     <a
                         href="mailto:nate@aiautomationkings.com"
@@ -47,13 +47,12 @@ export default function Footer() {
 
                 <div className="flex flex-col gap-4">
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">What I do</span>
-                    <Link to="/ai-seo" className="opacity-70 hover:opacity-100 transition-opacity">AI SEO &amp; Answer Engines</Link>
-                    <Link to="/ai-seo" className="opacity-70 hover:opacity-100 transition-opacity">Websites</Link>
+                    <Link to="/marketer" className="opacity-70 hover:opacity-100 transition-opacity">Nate the Marketer</Link>
+                    <Link to="/developer" className="opacity-70 hover:opacity-100 transition-opacity">Nate the Dev</Link>
                 </div>
 
                 <div className="flex flex-col gap-4">
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Company</span>
-                    <Link to="/blog" className="opacity-70 hover:opacity-100 transition-opacity">Blog</Link>
                     <a href="mailto:nate@aiautomationkings.com" className="opacity-70 hover:opacity-100 transition-opacity">Contact</a>
                 </div>
             </div>

@@ -1,6 +1,9 @@
 {
     "redirects": [
-        { "source": "/go-to-market", "destination": "/ai-seo", "permanent": true },
+        { "source": "/ai-seo", "destination": "/marketer", "permanent": true },
+        { "source": "/go-to-market", "destination": "/marketer", "permanent": true },
+        { "source": "/blog/:path*", "destination": "/", "permanent": true },
+        { "source": "/blog", "destination": "/", "permanent": true },
         { "source": "/agentic-ai", "destination": "/", "permanent": true },
         { "source": "/accounting", "destination": "/", "permanent": true }
     ],

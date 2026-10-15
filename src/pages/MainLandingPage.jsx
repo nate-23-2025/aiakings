@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Check, ArrowRight } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import SEOHead from '../components/SEOHead';
 import AnswerEngine from '../components/features/AnswerEngine';
@@ -16,25 +17,33 @@ const FITS = [
     'Owner operated, or close enough that decisions get made fast',
 ];
 
+const DOORS = [
+    { to: '/developer', q: 'No website?', a: 'I build you one.', who: 'Nate the Dev' },
+    { to: '/marketer', q: 'Have a website?', a: 'I get it found.', who: 'Nate the Marketer' },
+];
+
 // The three halves of the loop, in the order a customer moves through them.
 const STAGES = [
     {
         n: '1',
         title: 'Get found',
-        body: 'Your site, your pages, and your profile built so the engines answering those questions can actually read you and have a reason to name you. Written for how people ask now, not how they typed a decade ago.',
+        body: 'Your site, your pages, and your Google profile built so Google and AI can actually read you and have a reason to name you. Written for how people ask now, not how they typed a decade ago.',
         Visual: AnswerEngine,
+        tab: { to: '/marketer', label: 'Nate the Marketer' },
     },
     {
         n: '2',
         title: 'Answer everything',
         body: 'Getting found is worth nothing if the phone rings while you are under a truck. Every call picked up, every question answered, every job put on the calendar, nights and weekends included.',
         Visual: CallCatcher,
+        tab: { to: '/developer', label: 'Nate the Dev' },
     },
     {
         n: '3',
         title: 'Get the review',
         body: 'The job ends and the ask goes out. Every customer, same ask, no filtering and no incentives. Those reviews are what make the next person pick you, and what holds the ranking that got them there.',
         Visual: ReviewLoop,
+        tab: { to: '/marketer', label: 'Nate the Marketer' },
     },
 ];
 
@@ -153,14 +162,14 @@ export default function MainLandingPage() {
     return (
         <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
             <SEOHead
-                title="AIA Kings | Get Your Local Business Named When Customers Ask AI"
-                description="I get local service businesses found in AI answers and search, put a system behind the phone so no lead goes unanswered, and end every job with a review request. Houston, Texas."
+                title="AIA Kings | Websites and AI SEO for Local Service Businesses"
+                description="No website? I build one, live in days. Have a website? I get it found on Google and in AI answers. Every call answered and every job ending with a review request. Local service businesses, Houston, Texas."
                 canonical="https://aiautomationkings.com/"
                 jsonLd={HOME_JSONLD}
             />
 
             {/* 1. HERO. Everything a visitor needs is here, above the fold, no delay */}
-            <section className="relative min-h-[100dvh] flex flex-col items-center justify-center px-5 sm:px-6 md:px-8 overflow-hidden">
+            <section className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-28 pb-16 md:pt-32 px-5 sm:px-6 md:px-8 overflow-hidden">
 
                 {/* Background. Video is desktop-only and deferred; the gradient stands alone. */}
                 <div
@@ -200,19 +209,36 @@ export default function MainLandingPage() {
                     </p>
 
                     {/* What I do */}
-                    <h1 className="text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white mb-3 md:mb-5">
+                    <h1 className="text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl font-sans font-medium tracking-tight text-white mb-3 md:mb-5">
                         Get Found. Answer Everything. Get The Review.
                     </h1>
 
-                    <p className="drama-text text-brand-accent text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1] mb-5 md:mb-8">
+                    <p className="drama-text text-brand-accent text-3xl sm:text-4xl md:text-6xl leading-[1] mb-5 md:mb-8">
                         Then do it again.
                     </p>
 
                     <p className="text-white/70 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-8 md:mb-10 leading-relaxed">
-                        People stopped scrolling search results. They ask, and something answers with two or three names. I build your business into the one those engines can read and have a reason to name, put a system behind your phone so nobody who calls slips through, and end every job with a review request.
+                        People stopped scrolling search results. They ask, and something answers with two or three names. I make your business one of them, make sure every call gets picked up, and end every job with a review request.
                     </p>
 
-                    {/* One action */}
+                    {/* The two doors. The answer to "do you have a website" decides which one. */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl mb-6 text-left">
+                        {DOORS.map((door) => (
+                            <Link
+                                key={door.to}
+                                to={door.to}
+                                className="group bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-brand-accent/40 rounded-2xl px-5 py-4 transition-colors"
+                            >
+                                <span className="block font-mono text-[10px] uppercase tracking-widest text-white/40 mb-1">{door.q}</span>
+                                <span className="flex items-center justify-between gap-3 text-white text-base sm:text-lg font-medium">
+                                    {door.a}
+                                    <ArrowRight className="w-4 h-4 text-brand-accent shrink-0 transition-transform group-hover:translate-x-1" />
+                                </span>
+                                <span className="block text-brand-accent/80 text-xs mt-1">{door.who}</span>
+                            </Link>
+                        ))}
+                    </div>
+
                     <button
                         onClick={openCalModal}
                         className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 rounded-[2rem] font-semibold text-base sm:text-lg tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[52px] w-full sm:w-auto"
@@ -260,7 +286,10 @@ export default function MainLandingPage() {
                             <stage.Visual />
                             <div>
                                 <h5 className="font-semibold text-xl mb-2 text-white">{stage.n}. {stage.title}</h5>
-                                <p className="text-white/50 text-sm leading-relaxed">{stage.body}</p>
+                                <p className="text-white/50 text-sm leading-relaxed mb-3">{stage.body}</p>
+                                <Link to={stage.tab.to} className="text-brand-accent hover:opacity-80 transition-opacity text-sm font-medium">
+                                    {stage.tab.label} &rarr;
+                                </Link>
                             </div>
                         </div>
                     ))}
@@ -271,13 +300,13 @@ export default function MainLandingPage() {
             <section ref={loopRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-4xl mx-auto">
                     <h2 className="loop-line text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight mb-8 md:mb-10">
-                        Most agencies sell you <span className="drama-text text-brand-accent">one of the three.</span>
+                        Most owners buy these <span className="drama-text text-brand-accent">from three different people.</span>
                     </h2>
                     <p className="loop-line text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-6">
-                        An SEO guy who gets you found and leaves you to answer your own phone at nine at night. A call service answering calls that were never going to come. A review app nobody remembers to turn on.
+                        One person for the website, another for the listings, a call service for the phone, and a review app nobody remembers to turn on.
                     </p>
                     <p className="loop-line text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-10">
-                        Each one looks fine on an invoice and none of them compound.
+                        Each one looks fine on an invoice, and none of them talk to each other.
                     </p>
 
                     <div className="loop-line flex flex-col gap-4 border-l-2 border-brand-accent/30 pl-6 mb-10">
