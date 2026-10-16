@@ -7,12 +7,12 @@ import { prefersReducedMotion } from '../lib/motion';
 import SEOHead from '../components/SEOHead';
 import CTAButton from '../components/motion/CTAButton';
 import HeroGlow from '../components/motion/HeroGlow';
-import NateVideo from '../components/motion/NateVideo';
 import CallSteps from '../components/sections/CallSteps';
 import { Rows } from '../components/sections/PanelParts';
 import AnswerEngine from '../components/features/AnswerEngine';
 import ReviewLoop from '../components/features/ReviewLoop';
-import SignalWeb from '../components/features/SignalWeb';
+import WebSearchHero from '../components/features/WebSearchHero';
+import FaqAccordion from '../components/sections/FaqAccordion';
 import SiteAssembler from '../components/features/SiteAssembler';
 import CallCatcher from '../components/features/CallCatcher';
 import ReviewCompare from '../components/sections/ReviewCompare';
@@ -210,17 +210,6 @@ export default function MarketerPage() {
 
             {/* HERO */}
             <section className="relative pt-36 pb-20 sm:pt-44 sm:pb-28 px-5 sm:px-6 md:px-8 overflow-hidden">
-                {/* Me at the monitors, faint, behind everything. Desktop only, starts
-                    at the first scroll or tap, and no still image, so the headline
-                    stays the first thing that paints. */}
-                <div
-                    aria-hidden="true"
-                    className="absolute inset-0 z-0 pointer-events-none opacity-30"
-                    style={{ maskImage: 'radial-gradient(ellipse 60% 70% at 72% 45%, black 25%, transparent 75%)', WebkitMaskImage: 'radial-gradient(ellipse 60% 70% at 72% 45%, black 25%, transparent 75%)' }}
-                >
-                    <NateVideo clips={['nate-command-physical', 'nate-dive-physical']} className="absolute inset-0" objectPosition="60% 40%" stillOnPhones waitForInput poster={false} />
-                    <div className="absolute inset-0 bg-brand-primary/35" />
-                </div>
                 <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                     <div className="aurora-blob aurora-blob-1 absolute w-[500px] h-[500px] rounded-full"
                          style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)', top: '-20%', right: '-10%' }} />
@@ -228,6 +217,13 @@ export default function MarketerPage() {
                          style={{ background: 'radial-gradient(circle, rgba(91,123,213,0.14) 0%, rgba(91,123,213,0.04) 45%, transparent 70%)', bottom: '-25%', left: '-12%' }} />
                 </div>
                 <HeroGlow />
+                {/* A beam of light on the headline, with gold dust drifting up through it */}
+                <div aria-hidden="true" className="hero-beam z-0" />
+                <div aria-hidden="true" className="hero-dust absolute left-[6%] w-[44%] bottom-0 top-0 z-0 pointer-events-none">
+                    {Array.from({ length: 14 }, (_, n) => (
+                        <span key={n} style={{ left: `${(n * 37) % 100}%`, '--d': `${(n * 1.3) % 9}s`, '--t': `${10 + (n % 5) * 2}s` }} />
+                    ))}
+                </div>
 
                 <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] gap-14 lg:gap-12 items-center">
                     <div>
@@ -250,7 +246,7 @@ export default function MarketerPage() {
                         </div>
                     </div>
                     <div className="focus-in" style={{ '--d': '0.3s' }}>
-                        <SignalWeb />
+                        <WebSearchHero />
                     </div>
                 </div>
             </section>
@@ -506,14 +502,7 @@ export default function MarketerPage() {
                     <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-12">
                         Straight answers.
                     </h2>
-                    <div className="flex flex-col gap-8">
-                        {FAQ.map(({ q, a }) => (
-                            <div key={q} data-reveal className="border-b border-white/[0.07] pb-8 last:border-0">
-                                <h3 className="text-white text-lg sm:text-xl font-medium mb-3">{q}</h3>
-                                <p className="text-white/50 text-sm sm:text-base leading-relaxed">{a}</p>
-                            </div>
-                        ))}
-                    </div>
+                    <FaqAccordion items={FAQ} />
                 </div>
             </section>
 

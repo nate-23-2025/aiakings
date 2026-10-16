@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { X } from 'lucide-react';
 import gsap from 'gsap';
 import { useCalModal } from '../context/CalModalContext';
+import { lockScroll, unlockScroll } from '../lib/scrollLock';
 
 // The booking widget is served from the white-labeled GHL domain. form_embed.js
 // posts the widget's real height back up and resizes the iframe, so the iframe
@@ -28,7 +29,7 @@ export default function CalModal() {
     // GSAP open/close animations + scroll lock + escape key
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = 'hidden';
+            lockScroll('cal-modal');
 
             gsap.set(overlayRef.current, { display: 'flex' });
             gsap.fromTo(overlayRef.current,
@@ -40,7 +41,7 @@ export default function CalModal() {
                 { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: 0.1 }
             );
         } else {
-            document.body.style.overflow = '';
+            unlockScroll('cal-modal');
 
             if (overlayRef.current) {
                 gsap.to(cardRef.current, {

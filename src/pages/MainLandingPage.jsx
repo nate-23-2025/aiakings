@@ -6,6 +6,7 @@ import { useReveal } from '../hooks/useReveal';
 import { prefersReducedMotion } from '../lib/motion';
 import SEOHead from '../components/SEOHead';
 import CTAButton from '../components/motion/CTAButton';
+import BeamRing from '../components/motion/BeamRing';
 import HeroGlow from '../components/motion/HeroGlow';
 import HomeDoors from '../components/sections/HomeDoors';
 import MyBuilds from '../components/sections/MyBuilds';
@@ -256,7 +257,8 @@ export default function MainLandingPage() {
 
             {/* 5. FINAL CTA */}
             <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 flex justify-center text-center bg-[#0A0A0E]/60">
-                <div className="max-w-3xl flex flex-col items-center w-full">
+                <div className="relative max-w-4xl w-full flex flex-col items-center rounded-[2.5rem] border border-white/[0.06] bg-[#111116]/70 px-5 py-14 sm:px-12 sm:py-16">
+                    <BeamRing />
                     <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans tracking-tight mb-6 text-white leading-tight">
                         Someone asked this week. Something answered.
                     </h2>

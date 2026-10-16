@@ -11,9 +11,15 @@ import HeroGlow from '../components/motion/HeroGlow';
 import NateVideo from '../components/motion/NateVideo';
 import CallSteps from '../components/sections/CallSteps';
 import { PanelHead, Rows } from '../components/sections/PanelParts';
-import AgentRun from '../components/features/AgentRun';
 import AgentDetail from '../components/dev/AgentDetail';
-import { AGENT_USES, DEV_FITS } from '../data/agents';
+import AgentPipeline from '../components/dev/AgentPipeline';
+import AgentBento from '../components/dev/AgentBento';
+import BuildTimeline from '../components/dev/BuildTimeline';
+import IntegrationBeams from '../components/dev/IntegrationBeams';
+import NumberTicker from '../components/motion/NumberTicker';
+import BeamRing from '../components/motion/BeamRing';
+import FaqAccordion from '../components/sections/FaqAccordion';
+import { DEV_FITS } from '../data/agents';
 
 // Also used inside the HQ popup, so it loads as its own small chunk.
 const HQVisual = lazy(() => import('../components/features/HQVisual'));
@@ -329,6 +335,18 @@ export default function DeveloperPage() {
 
             {/* HERO. Two facts where a personal page would put follower counts. */}
             <section id="agents" className="relative pt-32 pb-14 sm:pt-40 sm:pb-20 px-5 sm:px-6 md:px-8 overflow-hidden">
+                {/* Me at the monitors, faint, behind everything, looping. It starts
+                    once the page is idle so the headline paints first, and there is
+                    no still image competing with it. Off for data saver and
+                    reduced motion. */}
+                <div
+                    aria-hidden="true"
+                    className="absolute inset-0 z-0 pointer-events-none opacity-30"
+                    style={{ maskImage: 'radial-gradient(ellipse 60% 70% at 72% 45%, black 25%, transparent 75%)', WebkitMaskImage: 'radial-gradient(ellipse 60% 70% at 72% 45%, black 25%, transparent 75%)' }}
+                >
+                    <NateVideo clips={['nate-command-physical', 'nate-dive-physical']} className="absolute inset-0" objectPosition="60% 40%" idleStart poster={false} />
+                    <div className="absolute inset-0 bg-brand-primary/35" />
+                </div>
                 <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                     <div className="aurora-blob aurora-blob-1 absolute w-[500px] h-[500px] rounded-full"
                          style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)', top: '-20%', right: '-10%' }} />
@@ -337,8 +355,8 @@ export default function DeveloperPage() {
                 </div>
                 <HeroGlow />
 
-                <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] gap-14 lg:gap-12 items-center">
-                    <div>
+                <div className="relative z-10 max-w-6xl mx-auto">
+                    <div className="max-w-3xl">
                         <ul className="focus-in flex gap-10 sm:gap-14 mb-7 sm:mb-9">
                             <li>
                                 <span className="block text-3xl sm:text-4xl font-semibold tracking-tight text-white">One job</span>
@@ -368,9 +386,6 @@ export default function DeveloperPage() {
                             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                         </Link>
                     </div>
-                    <div className="focus-in" style={{ '--d': '0.3s' }}>
-                        <AgentRun />
-                    </div>
                 </div>
             </section>
 
@@ -382,6 +397,9 @@ export default function DeveloperPage() {
                         title={<>What an agent <span className="drama-text text-brand-accent">actually is.</span></>}
                         lede="Not a chatbot. A chatbot answers questions. An agent finishes the job, and every one I build has the same three parts."
                     />
+                    <div data-reveal="scale" className="mb-10 sm:mb-14">
+                        <AgentPipeline />
+                    </div>
                     <Rows items={AGENT_PARTS} />
                 </div>
             </section>
@@ -392,15 +410,7 @@ export default function DeveloperPage() {
                         title={<>What agents can do <span className="drama-text text-brand-accent">for a business.</span></>}
                         lede="The jobs that eat your day, handled at any hour, inside the tools you already run."
                     />
-                    <div data-reveal-group className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {AGENT_USES.map(({ title, body }, i) => (
-                            <div key={title} data-spotlight className="relative rounded-2xl border border-white/[0.07] bg-[#15151A] p-5 sm:p-6">
-                                <span className="font-mono text-[10px] tracking-widest text-brand-accent">{String(i + 1).padStart(2, '0')}</span>
-                                <h4 className="mt-3 text-white font-semibold text-base sm:text-lg">{title}</h4>
-                                <p className="mt-2 text-white/50 text-sm leading-relaxed">{body}</p>
-                            </div>
-                        ))}
-                    </div>
+                    <AgentBento />
                 </div>
             </section>
 
@@ -440,13 +450,28 @@ export default function DeveloperPage() {
                         title={<>How I build <span className="drama-text text-brand-accent">them.</span></>}
                         lede="Small first, proven, then bigger."
                     />
-                    <Rows items={AGENT_STEPS} />
-                    <p data-reveal className="mt-6 text-white/30 text-xs italic">Built with Claude Code and Codex.</p>
+                    <BuildTimeline items={AGENT_STEPS} />
+                    <p data-reveal className="mt-8 text-white/30 text-xs italic">Built with Claude Code and Codex.</p>
+                </div>
+            </section>
+
+            {/* CONNECTED. The tools an agent works inside, with light flowing in. */}
+            <section className={WRAP}>
+                <div className={PANEL}>
+                    <PanelHead
+                        title={<>Connected to the tools <span className="drama-text text-brand-accent">you already run.</span></>}
+                        lede="No new software to learn. Your agent works inside your phone, calendar, customer records, inbox, and payments. Connecting things is the part I specialize in."
+                    />
+                    <div data-reveal="scale">
+                        <IntegrationBeams />
+                    </div>
+                    <p data-reveal className="mt-6 text-center text-white/35 text-sm">And the other software you already pay for.</p>
                 </div>
             </section>
 
             <section id="built" className={`scroll-mt-24 ${WRAP}`}>
-                <div className={PANEL}>
+                <div className={`relative ${PANEL}`}>
+                    <BeamRing />
                     <PanelHead
                         title={<>Agents I <span className="drama-text text-brand-accent">have built.</span></>}
                         lede="Some for clients, some I run my own business on."
@@ -487,7 +512,7 @@ export default function DeveloperPage() {
                     <ul data-reveal-group className="border-t border-white/[0.07]">
                         {AGENT_FACTS.map(({ stat, label, source, href }) => (
                             <li key={stat} className="grid grid-cols-1 md:grid-cols-[9rem_minmax(0,1fr)_auto] gap-x-8 gap-y-2 md:items-baseline border-b border-white/[0.07] py-6 sm:py-7">
-                                <span className="text-4xl sm:text-5xl font-light text-white tracking-tight leading-none">{stat}</span>
+                                <NumberTicker value={stat} className="text-4xl sm:text-5xl font-light text-white tracking-tight leading-none" />
                                 <span className="text-white/70 text-base leading-relaxed">{label}</span>
                                 <a href={href} target="_blank" rel="noopener" className="link-underline justify-self-start font-mono text-[10px] uppercase tracking-widest text-white/35 hover:text-white/60">
                                     {source} &#8599;
@@ -533,14 +558,7 @@ export default function DeveloperPage() {
                         <h2 data-reveal="lines" className={`${H2} lg:sticky lg:top-28 self-start`}>
                             Straight answers.
                         </h2>
-                        <div className="border-t border-white/[0.07]">
-                            {FAQ.map(({ q, a }) => (
-                                <div key={q} data-reveal className="border-b border-white/[0.07] py-6">
-                                    <h3 className="text-white text-lg sm:text-xl font-medium mb-3">{q}</h3>
-                                    <p className="text-white/50 text-sm sm:text-base leading-relaxed">{a}</p>
-                                </div>
-                            ))}
-                        </div>
+                        <FaqAccordion items={FAQ} />
                     </div>
                 </div>
             </section>

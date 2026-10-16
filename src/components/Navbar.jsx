@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCalModal } from '../context/CalModalContext';
 import CTAButton from './motion/CTAButton';
+import MobileMenu from './MobileMenu';
 
 const TABS = [
-    { to: '/marketer', label: 'Nate the Marketer', short: 'Marketer' },
-    { to: '/developer', label: 'Nate the Dev', short: 'Dev' },
+    { to: '/marketer', label: 'Nate the Marketer' },
+    { to: '/developer', label: 'Nate the Dev' },
 ];
 
 export default function Navbar() {
@@ -13,6 +14,9 @@ export default function Navbar() {
     const [hidden, setHidden] = useState(false);
     const location = useLocation();
     const { openCalModal } = useCalModal();
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuBtnRef = useRef(null);
+    const closeMenu = useCallback(() => setMenuOpen(false), []);
 
     // Dark glass once the page moves. Out of the way while reading down, back
     // the moment the visitor scrolls up looking for it. React bails out when
@@ -38,6 +42,7 @@ export default function Navbar() {
     }, []);
 
     return (
+        <>
         <nav
             className={`nav-shell fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center justify-between gap-6 pl-6 pr-6 md:pr-2 py-2 rounded-[3rem] w-auto md:w-[90%] max-w-5xl text-[#FAF8F5] border border-transparent ${
                 scrolled ? 'is-scrolled' : ''
@@ -47,10 +52,9 @@ export default function Navbar() {
                 AIA KINGS
             </Link>
 
-            {/* The two sides of the business. Short labels on a phone so both
-                tabs fit next to the logo. */}
-            <div className="flex items-center gap-4 md:gap-8 font-medium text-xs sm:text-sm">
-                {TABS.map(({ to, label, short }) => {
+            {/* The two sides of the business. On a phone they live in the menu. */}
+            <div className="hidden md:flex items-center gap-8 font-medium text-sm">
+                {TABS.map(({ to, label }) => {
                     const active = location.pathname.startsWith(to);
                     return (
                         <Link
@@ -58,8 +62,7 @@ export default function Navbar() {
                             to={to}
                             className={`nav-tab relative whitespace-nowrap transition-opacity duration-300 hover:opacity-100 ${active ? 'is-active opacity-100' : 'opacity-70'}`}
                         >
-                            <span className="md:hidden">{short}</span>
-                            <span className="hidden md:inline">{label}</span>
+                            {label}
                         </Link>
                     );
                 })}
@@ -70,6 +73,22 @@ export default function Navbar() {
             <CTAButton size="sm" glow={false} onClick={openCalModal} className="hidden md:block">
                 Book a Call
             </CTAButton>
+
+            {/* Phone only: opens the full-screen menu */}
+            <button
+                ref={menuBtnRef}
+                type="button"
+                onClick={() => setMenuOpen(true)}
+                aria-label="Open menu"
+                aria-expanded={menuOpen}
+                aria-controls="mobile-menu"
+                className="md:hidden flex items-center gap-2.5 -mr-2 pl-3 pr-2 py-1.5 rounded-full text-[#FAF8F5]/85"
+            >
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Menu</span>
+                <span className="mm-burger" aria-hidden="true"><span /><span /></span>
+            </button>
         </nav>
+        <MobileMenu open={menuOpen} onClose={closeMenu} returnFocusTo={menuBtnRef} />
+        </>
     );
 }

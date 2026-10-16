@@ -3,6 +3,7 @@ import { X, CheckCircle, Loader2 } from 'lucide-react';
 import gsap from 'gsap';
 import { useQualForm } from '../context/QualFormContext';
 import { supabase } from '../lib/supabase';
+import { lockScroll, unlockScroll } from '../lib/scrollLock';
 
 const TEAM_SIZE_OPTIONS = [
     { value: '', label: 'How many of you are there?' },
@@ -54,7 +55,7 @@ export default function QualificationForm() {
 
     useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = 'hidden';
+            lockScroll('qual-form');
 
             gsap.set(overlayRef.current, { display: 'flex' });
             gsap.fromTo(overlayRef.current,
@@ -66,7 +67,7 @@ export default function QualificationForm() {
                 { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: 'power3.out', delay: 0.1 }
             );
         } else {
-            document.body.style.overflow = '';
+            unlockScroll('qual-form');
 
             if (overlayRef.current) {
                 gsap.to(cardRef.current, {

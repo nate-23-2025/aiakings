@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { useCalModal } from '../../context/CalModalContext';
 import CTAButton from '../motion/CTAButton';
+import BeamRing from '../motion/BeamRing';
 import { DEV_FITS } from '../../data/agents';
 
 // The two ways in, right under the hero. Two door cards act as tabs; the guide
@@ -133,6 +134,7 @@ export default function HomeDoors({ door, setDoor }) {
                                         : 'border-white/10 bg-[#15151A]/80 hover:border-white/25'
                                 }`}
                             >
+                                {on && <BeamRing />}
                                 <span className="flex items-center justify-between gap-4 mb-5">
                                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand-accent">{d.who}</span>
                                     <span className={`grid place-items-center w-6 h-6 rounded-full border transition-colors duration-300 ${on ? 'border-brand-accent bg-brand-accent' : 'border-white/25'}`}>

@@ -8,7 +8,9 @@ import { prefersReducedMotion } from '../../lib/motion';
 // Nothing downloads until the player is on screen, it pauses whenever it
 // scrolls away, and reduced motion or data saver get the still.
 // `stillOnPhones` keeps big background clips off phone data.
-// `waitForInput` is for a hero: the clip waits for the first scroll, tap, or
+// `idleStart` waits until the browser is idle after loading, so a background
+// clip never competes with the headline for bandwidth, then loops on its own.
+// `waitForInput` is stricter: the clip waits for the first scroll, tap, or
 // key. Chrome counts a full-width video as the page's largest paint, and stops
 // counting at the first input, so waiting keeps the headline as the thing that
 // paints first. Pair it with `poster={false}` so no big still competes either.
@@ -18,7 +20,7 @@ const HANDOFF_S = 0.6;
 const posterFor = (name) => `/videos/posters/${name}.jpg`;
 const srcFor = (name) => `/videos/${name}.mp4`;
 
-export default function NateVideo({ clips, className = '', objectPosition = 'center', stillOnPhones = false, waitForInput = false, poster = true }) {
+export default function NateVideo({ clips, className = '', objectPosition = 'center', stillOnPhones = false, waitForInput = false, idleStart = false, poster = true }) {
     const wrapRef = useRef(null);
     const vidRefs = useRef([]);
     const handing = useRef(false);
@@ -41,6 +43,7 @@ export default function NateVideo({ clips, className = '', objectPosition = 'cen
         if (!enabled || !el) return;
         const events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
         let waiting = false;
+        let idleId = 0;
         const arm = () => {
             setArmed(true);
             events.forEach((ev) => window.removeEventListener(ev, arm));
@@ -50,14 +53,17 @@ export default function NateVideo({ clips, className = '', objectPosition = 'cen
             if (!entry.isIntersecting || waiting) return;
             waiting = true;
             if (waitForInput) events.forEach((ev) => window.addEventListener(ev, arm, { passive: true, once: true }));
+            else if (idleStart) idleId = window.requestIdleCallback ? window.requestIdleCallback(arm, { timeout: 2000 }) : setTimeout(arm, 1200);
             else arm();
         }, { rootMargin: '200px' });
         io.observe(el);
         return () => {
             io.disconnect();
             events.forEach((ev) => window.removeEventListener(ev, arm));
+            if (window.cancelIdleCallback) window.cancelIdleCallback(idleId);
+            clearTimeout(idleId);
         };
-    }, [enabled, waitForInput]);
+    }, [enabled, waitForInput, idleStart]);
 
     // Play the active clip while on screen, pause everything when not.
     useEffect(() => {
@@ -69,27 +75,34 @@ export default function NateVideo({ clips, className = '', objectPosition = 'cen
         });
     }, [armed, inView, active]);
 
-    // Hand off to the next clip a beat before this one ends.
+    // Hand off to the next clip a beat before this one ends. If a throttled tab
+    // misses that window and the clip runs out, 'ended' hands off instead, so
+    // the loop never stalls.
     useEffect(() => {
         if (!armed || clips.length < 2) return;
         const v = vidRefs.current[active];
         if (!v) return;
-        const onTime = () => {
-            if (handing.current || !v.duration) return;
-            if (v.duration - v.currentTime <= HANDOFF_S) {
-                handing.current = true;
-                const next = (active + 1) % clips.length;
-                const nv = vidRefs.current[next];
-                if (nv) {
-                    nv.currentTime = 0;
-                    nv.play().catch(() => {});
-                }
-                setActive(next);
-                setTimeout(() => { handing.current = false; }, CROSSFADE_MS);
+        const handOff = () => {
+            if (handing.current) return;
+            handing.current = true;
+            const next = (active + 1) % clips.length;
+            const nv = vidRefs.current[next];
+            if (nv) {
+                nv.currentTime = 0;
+                nv.play().catch(() => {});
             }
+            setActive(next);
+            setTimeout(() => { handing.current = false; }, CROSSFADE_MS);
+        };
+        const onTime = () => {
+            if (v.duration && v.duration - v.currentTime <= HANDOFF_S) handOff();
         };
         v.addEventListener('timeupdate', onTime);
-        return () => v.removeEventListener('timeupdate', onTime);
+        v.addEventListener('ended', handOff);
+        return () => {
+            v.removeEventListener('timeupdate', onTime);
+            v.removeEventListener('ended', handOff);
+        };
     }, [armed, active, clips.length]);
 
     const fitStyle = { objectPosition };

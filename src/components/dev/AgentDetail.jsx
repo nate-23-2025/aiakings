@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Check, Lock } from 'lucide-react';
 import CTAButton from '../motion/CTAButton';
+import { lockScroll, unlockScroll } from '../../lib/scrollLock';
 
 // The breakdown behind one row of "Agents I have built". Rendered into the
 // body so no transformed ancestor can trap it. Escape, the close button, or a
@@ -27,12 +28,11 @@ export default function AgentDetail({ agent, onClose, onBook }) {
     useEffect(() => {
         returnTo.current = document.activeElement;
         const raf = requestAnimationFrame(() => setShown(true));
-        const prevOverflow = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
+        lockScroll('agent-detail');
         closeRef.current?.focus({ preventScroll: true });
         return () => {
             cancelAnimationFrame(raf);
-            document.body.style.overflow = prevOverflow;
+            unlockScroll('agent-detail');
             returnTo.current?.focus?.({ preventScroll: true });
         };
     }, []);

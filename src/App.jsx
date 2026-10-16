@@ -6,6 +6,7 @@ import DeferredOverlays from './components/DeferredOverlays';
 import ScrollProgress from './components/motion/ScrollProgress';
 import PointerFX from './components/motion/PointerFX';
 import AmbientLight from './components/motion/AmbientLight';
+import IntroOverlay from './components/intro/IntroOverlay';
 import MainLandingPage from './pages/MainLandingPage';
 import { CalModalProvider } from './context/CalModalContext';
 import { QualFormProvider } from './context/QualFormContext';
@@ -22,6 +23,8 @@ gsap.registerPlugin(ScrollTrigger);
 // Every other route is split out so it costs nothing until someone asks for it.
 const MarketerPage = lazy(() => import('./pages/MarketerPage'));
 const DeveloperPage = lazy(() => import('./pages/DeveloperPage'));
+// Only needed from the first click on, so it loads right after the first paint.
+const PageTransitions = lazy(() => import('./components/intro/PageTransitions'));
 
 // Every in-app navigation starts at the top and fades the new page in. The
 // first paint is left alone so the landing page shows up instantly.
@@ -105,6 +108,8 @@ function App() {
             <Footer />
           </div>
           <StickyCTA />
+          <Suspense fallback={null}><PageTransitions /></Suspense>
+          <IntroOverlay />
           <ScrollProgress />
           <PointerFX />
           <DeferredOverlays />

@@ -6,6 +6,17 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0D0D12" />
+  <!-- The intro plays once per visit. Decided here, before the first paint, so
+       the hero waits for it. Cleared after a few seconds no matter what. -->
+  <script>
+    try {
+      if (!sessionStorage.getItem('aiak-intro') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        sessionStorage.setItem('aiak-intro', '1');
+        document.documentElement.dataset.intro = 'playing';
+        setTimeout(function () { delete document.documentElement.dataset.intro; }, 5000);
+      }
+    } catch (e) {}
+  </script>
   <title>AIA Kings | Websites, AI SEO, and AI Agents</title>
   <meta name="description" content="For local service businesses, I build the website, reviews, and AI SEO that get you found and called. For teams ready for more, I build AI agents and AI systems that take the busywork off your plate. Houston, Texas." data-rh="true">
 

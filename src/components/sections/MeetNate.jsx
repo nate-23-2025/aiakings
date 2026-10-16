@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { useCalModal } from '../../context/CalModalContext';
 import CTAButton from '../motion/CTAButton';
 import { Play } from 'lucide-react';
-import SignatureDraw from '../features/SignatureDraw';
+
+// The signature path is large and sits below the fold, so it loads on its own.
+const SignatureDraw = lazy(() => import('../features/SignatureDraw'));
 import { useInView } from '../../hooks/useInView';
 import { prefersReducedMotion } from '../../lib/motion';
 
@@ -131,7 +133,9 @@ export default function MeetNate() {
                         </div>
 
                         <div aria-hidden="true" className="nate-signature pointer-events-none">
-                            <SignatureDraw draw={sign} strokeWidth={20} drawDuration={4.2} className="w-full h-auto" />
+                            <Suspense fallback={null}>
+                                <SignatureDraw draw={sign} strokeWidth={20} drawDuration={4.2} className="w-full h-auto" />
+                            </Suspense>
                         </div>
                     </div>
                 </div>
