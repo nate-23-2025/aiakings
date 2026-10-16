@@ -54,7 +54,7 @@ export default function Navbar() {
                     <Link
                         key={to}
                         to={to}
-                        className={`hover:-translate-y-[1px] transition-transform whitespace-nowrap ${location.pathname.startsWith(to) ? 'opacity-100 text-brand-accent' : 'opacity-70'} hover:opacity-100`}
+                        className={`hover:-translate-y-[1px] transition-transform whitespace-nowrap ${location.pathname.startsWith(to) ? 'opacity-100 underline decoration-brand-accent decoration-2 underline-offset-[6px]' : 'opacity-70'} hover:opacity-100`}
                     >
                         <span className="md:hidden">{short}</span>
                         <span className="hidden md:inline">{label}</span>

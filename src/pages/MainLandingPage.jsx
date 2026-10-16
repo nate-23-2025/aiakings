@@ -8,6 +8,7 @@ import AnswerEngine from '../components/features/AnswerEngine';
 import CallCatcher from '../components/features/CallCatcher';
 import ReviewLoop from '../components/features/ReviewLoop';
 import WhatYouGet from '../components/sections/WhatYouGet';
+import MyBuilds from '../components/sections/MyBuilds';
 import heroVideo from '../components/animations/go_to_market.mp4';
 
 const FITS = [
@@ -325,8 +326,11 @@ export default function MainLandingPage() {
             {/* 5. WHAT YOU GET */}
             <WhatYouGet />
 
-            {/* 6. WHO IT IS FOR. Keeps bad-fit calls off the calendar */}
-            <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8">
+            {/* 6. PROOF. Real sites, live */}
+            <MyBuilds />
+
+            {/* 7. WHO IT IS FOR. Keeps bad-fit calls off the calendar */}
+            <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-3xl mx-auto">
                     <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Who this is for</h3>
                     <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-10">
@@ -346,7 +350,7 @@ export default function MainLandingPage() {
                 </div>
             </section>
 
-            {/* 7. FINAL CTA */}
+            {/* 8. FINAL CTA */}
             <section ref={ctaRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center w-full">
                     <h2 className="main-cta-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans tracking-tight mb-6 text-white leading-tight">

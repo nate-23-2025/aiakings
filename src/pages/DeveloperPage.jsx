@@ -6,6 +6,7 @@ import { Check } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import SEOHead from '../components/SEOHead';
 import CallCatcher from '../components/features/CallCatcher';
+import MyBuilds from '../components/sections/MyBuilds';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -183,8 +184,11 @@ export default function DeveloperPage() {
                 </div>
             </section>
 
+            {/* PROOF. Real sites, live */}
+            <MyBuilds />
+
             {/* WORDPRESS. Hit the platform, never the owner who bought it */}
-            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
+            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-4xl mx-auto">
                     <p className="reveal text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-5">
                         Already on WordPress?
@@ -215,7 +219,7 @@ export default function DeveloperPage() {
             </section>
 
             {/* THE PHONE */}
-            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
+            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16 items-center">
                     <div>
                         <h2 className="reveal text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-8">
@@ -240,7 +244,7 @@ export default function DeveloperPage() {
             </section>
 
             {/* HAND OFF TO THE MARKETER */}
-            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
+            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
                 <div className="max-w-4xl mx-auto">
                     <h2 className="reveal text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-6">
                         Already have a site that works? <span className="drama-text text-brand-accent">Then you need it found.</span>
@@ -258,7 +262,7 @@ export default function DeveloperPage() {
             </section>
 
             {/* FAQ, on the page and in the schema */}
-            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
+            <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
                 <div className="max-w-3xl mx-auto">
                     <h2 className="reveal text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-12">
                         Straight answers.
