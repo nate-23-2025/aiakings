@@ -1,52 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Link } from 'react-router-dom';
-import { Check, ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
+import { useReveal } from '../hooks/useReveal';
+import { prefersReducedMotion } from '../lib/motion';
 import SEOHead from '../components/SEOHead';
-import AnswerEngine from '../components/features/AnswerEngine';
-import CallCatcher from '../components/features/CallCatcher';
-import ReviewLoop from '../components/features/ReviewLoop';
-import WhatYouGet from '../components/sections/WhatYouGet';
+import CTAButton from '../components/motion/CTAButton';
+import HeroGlow from '../components/motion/HeroGlow';
+import HomeDoors from '../components/sections/HomeDoors';
 import MyBuilds from '../components/sections/MyBuilds';
+import MeetNate from '../components/sections/MeetNate';
 import CallSteps from '../components/sections/CallSteps';
 import heroVideo from '../components/animations/go_to_market.mp4';
 
-const FITS = [
-    'You do the work locally, in one city or metro',
-    'One more job a week is worth real money to you',
-    'Customers find you by searching, not only by referral',
-    'Owner operated, or close enough that decisions get made fast',
-];
+// The home page, kept simple: a hero that speaks to both sides, two doors
+// with a guide for each (HomeDoors), who builds it (MeetNate), live builds as
+// proof, and one last ask.
 
-const DOORS = [
-    { to: '/developer', q: 'No website?', a: 'I build you one.', who: 'Nate the Dev' },
-    { to: '/marketer', q: 'Have a website?', a: 'I get it found.', who: 'Nate the Marketer' },
-];
-
-// The three halves of the loop, in the order a customer moves through them.
-const STAGES = [
-    {
-        n: '1',
-        title: 'Get found',
-        body: 'Your site, your pages, and your Google profile built so Google and AI can actually read you and have a reason to name you. Written for how people ask now, not how they typed a decade ago.',
-        Visual: AnswerEngine,
-        tab: { to: '/marketer', label: 'Nate the Marketer' },
-    },
-    {
-        n: '2',
-        title: 'Answer everything',
-        body: 'Getting found is worth nothing if the phone rings while you are under a truck. Every call picked up, every question answered, every job put on the calendar, nights and weekends included.',
-        Visual: CallCatcher,
-        tab: { to: '/developer', label: 'Nate the Dev' },
-    },
-    {
-        n: '3',
-        title: 'Get the review',
-        body: 'The job ends and the ask goes out. Every customer, same ask, no filtering and no incentives. Those reviews are what make the next person pick you, and what holds the ranking that got them there.',
-        Visual: ReviewLoop,
-        tab: { to: '/marketer', label: 'Nate the Marketer' },
-    },
+// The hero's two cards. Each one jumps to the doors with its door chosen.
+const ROUTES = [
+    { door: 'marketing', q: 'Need more customers?', a: 'Website, reviews, AI SEO', who: 'Nate the Marketer' },
+    { door: 'dev', q: 'Need more hours in the day?', a: 'AI agents and AI systems', who: 'Nate the Dev' },
 ];
 
 const HOME_JSONLD = [
@@ -91,12 +65,13 @@ const HOME_JSONLD = [
 ];
 
 export default function MainLandingPage() {
-    const stepsRef = useRef(null);
-    const gapRef = useRef(null);
-    const loopRef = useRef(null);
-    const ctaRef = useRef(null);
+    const rootRef = useRef(null);
+    const heroRef = useRef(null);
     const videoRef = useRef(null);
     const { openCalModal } = useCalModal();
+    const [door, setDoor] = useState('marketing');
+
+    useReveal(rootRef);
 
     // The 5MB hero video never touches a phone. Desktop gets it after the page
     // has already painted, and only if the visitor has not asked to save data
@@ -125,56 +100,52 @@ export default function MainLandingPage() {
         vid.play().catch(() => {});
     }, [showVideo]);
 
-    // Scroll animations only, and only below the fold. The hero is plain markup
-    // that paints with the document, so nothing a visitor needs is behind a
-    // timeline or a JS bundle.
+    // The hero paints with the document and its entrance is CSS, so nothing a
+    // visitor needs waits on a timeline. What runs here only starts once they
+    // scroll: on desktop the hero drifts back as the page moves past it, with
+    // the background slower than the words for a little depth.
     useEffect(() => {
-        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (reduced) return;
-
-        const ctxs = [
-            gsap.context(() => {
-                gsap.from('.gap-line', {
-                    y: 30, opacity: 0, duration: 0.8, stagger: 0.2, ease: 'power2.out',
-                    scrollTrigger: { trigger: gapRef.current, start: 'top 75%' },
-                });
-            }, gapRef),
-            gsap.context(() => {
-                gsap.from('.step-card', {
-                    y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-                    scrollTrigger: { trigger: stepsRef.current, start: 'top 75%' },
-                });
-            }, stepsRef),
-            gsap.context(() => {
-                gsap.from('.loop-line', {
-                    y: 30, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power2.out',
-                    scrollTrigger: { trigger: loopRef.current, start: 'top 75%' },
-                });
-            }, loopRef),
-            gsap.context(() => {
-                gsap.from('.main-cta-text', {
-                    y: 40, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out',
-                    scrollTrigger: { trigger: ctaRef.current, start: 'top 80%' },
-                });
-            }, ctaRef),
-        ];
-        return () => ctxs.forEach((c) => c.revert());
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
+            const st = { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: true };
+            gsap.to('[data-hero-content]', { y: 120, opacity: 0.15, scale: 0.97, ease: 'none', scrollTrigger: st });
+            gsap.to('[data-hero-bg]', { y: 180, ease: 'none', scrollTrigger: st });
+        });
+        return () => mm.revert();
     }, []);
 
+    const scrollTo = (id) => {
+        document.getElementById(id)?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    };
+
+    const openDoor = (which) => (e) => {
+        e.preventDefault();
+        setDoor(which);
+        // Scroll once the chosen guide has rendered, so the target is final.
+        requestAnimationFrame(() => requestAnimationFrame(() => scrollTo('doors')));
+    };
+
+    const scrollToBuilds = (e) => {
+        if (!document.getElementById('builds')) return;
+        e.preventDefault();
+        scrollTo('builds');
+    };
+
     return (
-        <div className="bg-brand-primary min-h-screen text-brand-background overflow-x-hidden">
+        <div ref={rootRef} className="seams min-h-screen text-brand-background overflow-x-hidden">
             <SEOHead
-                title="AIA Kings | Websites and AI SEO for Local Service Businesses"
-                description="No website? I build one, live in days. Have a website? I get it found on Google and in AI answers. Every call answered and every job ending with a review request. Local service businesses, Houston, Texas."
+                title="AIA Kings | Websites, AI SEO, and AI Agents"
+                description="For local service businesses, I build the website, reviews, and AI SEO that get you found and called. For teams ready for more, I build AI agents and AI systems that take the busywork off your plate. Houston, Texas."
                 canonical="https://aiautomationkings.com/"
                 jsonLd={HOME_JSONLD}
             />
 
             {/* 1. HERO. Everything a visitor needs is here, above the fold, no delay */}
-            <section className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-28 pb-16 md:pt-32 px-5 sm:px-6 md:px-8 overflow-hidden">
+            <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-28 pb-16 md:pt-32 px-5 sm:px-6 md:px-8 overflow-hidden">
 
                 {/* Background. Video is desktop-only and deferred; the gradient stands alone. */}
                 <div
+                    data-hero-bg
                     className="absolute inset-0"
                     style={{ maskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)', WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)' }}
                 >
@@ -196,190 +167,109 @@ export default function MainLandingPage() {
                 </div>
 
                 {/* Aurora glow. Pure CSS, visible immediately, no JS reveal. */}
-                <div className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
+                <div data-hero-bg className="absolute inset-0 z-[1] overflow-hidden pointer-events-none">
                     <div className="aurora-blob aurora-blob-1 absolute w-[500px] h-[500px] md:w-[700px] md:h-[700px] rounded-full"
                          style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%)', top: '-10%', right: '-5%' }} />
                     <div className="aurora-blob aurora-blob-2 absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] rounded-full"
-                         style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.1) 0%, rgba(100,80,30,0.05) 40%, transparent 70%)', bottom: '5%', left: '-10%' }} />
+                         style={{ background: 'radial-gradient(circle, rgba(91,123,213,0.15) 0%, rgba(91,123,213,0.05) 40%, transparent 70%)', bottom: '5%', left: '-10%' }} />
                 </div>
 
-                <div className="relative z-10 max-w-4xl mx-auto w-full flex flex-col items-center text-center">
+                {/* Cursor light, desktop only */}
+                <HeroGlow />
+
+                {/* Entrance is a CSS focus pull. Opacity never starts at zero, so
+                    the text counts as painted on the very first frame. */}
+                <div data-hero-content className="relative z-10 max-w-4xl mx-auto w-full flex flex-col items-center text-center">
 
                     {/* Who this is for */}
-                    <p className="text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-4 md:mb-6">
-                        For local service businesses
+                    <p className="focus-in text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-4 md:mb-6">
+                        Websites, AI SEO, and AI agents
                     </p>
 
-                    {/* What I do */}
-                    <h1 className="text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl font-sans font-medium tracking-tight text-white mb-3 md:mb-5">
-                        Get Found. Answer Everything. Get The Review.
+                    {/* What I do, for both sides. Each phrase lights up in turn: the first
+                        two are the local owner, the third is the team that wants hours back. */}
+                    <h1 className="focus-in text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl font-sans font-medium tracking-tight text-white mb-3 md:mb-5" style={{ '--d': '0.06s' }}>
+                        <span className="loop-phrase whitespace-nowrap" style={{ '--i': 0 }}>Get Found.</span>{' '}
+                        <span className="loop-phrase whitespace-nowrap" style={{ '--i': 1 }}>Get Booked.</span>{' '}
+                        <span className="loop-phrase whitespace-nowrap" style={{ '--i': 2 }}>Get Your Time Back.</span>
                     </h1>
 
-                    <p className="drama-text text-brand-accent text-3xl sm:text-4xl md:text-6xl leading-[1] mb-5 md:mb-8">
-                        Then do it again.
+                    <p className="focus-in drama-text text-brand-accent text-3xl sm:text-4xl md:text-6xl leading-[1] mb-5 md:mb-8" style={{ '--d': '0.14s' }}>
+                        <span className="gold-gradient-text again-sweep">Then let it run.</span>
                     </p>
 
-                    <p className="text-white/70 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-8 md:mb-10 leading-relaxed">
-                        Your customers ask, and they get two or three names back. I make sure yours is one of them, and that every call gets picked up.
+                    <p className="focus-in text-white/70 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-8 md:mb-10 leading-relaxed" style={{ '--d': '0.22s' }}>
+                        For local service businesses, I build the website, the reviews, and the AI SEO that get you found and called. For teams ready for more, I build AI agents that take the busywork off your plate.
                     </p>
 
-                    {/* The two doors. The answer to "do you have a website" decides which one. */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl mb-6 text-left">
-                        {DOORS.map((door) => (
-                            <Link
-                                key={door.to}
-                                to={door.to}
-                                className="group bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-brand-accent/40 rounded-2xl px-5 py-4 transition-colors"
+                    {/* Two ways in. Each card scrolls to the doors below with that door chosen. */}
+                    <div className="focus-in grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl mb-6 text-left" style={{ '--d': '0.3s' }}>
+                        {ROUTES.map((r) => (
+                            <a
+                                key={r.door}
+                                href="#doors"
+                                onClick={openDoor(r.door)}
+                                data-spotlight
+                                className="group relative bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-brand-accent/40 rounded-2xl px-5 py-4 transition-colors"
                             >
-                                <span className="block font-mono text-[10px] uppercase tracking-widest text-white/40 mb-1">{door.q}</span>
+                                <span className="block font-mono text-[10px] uppercase tracking-widest text-white/40 mb-1">{r.q}</span>
                                 <span className="flex items-center justify-between gap-3 text-white text-base sm:text-lg font-medium">
-                                    {door.a}
-                                    <ArrowRight className="w-4 h-4 text-brand-accent shrink-0 transition-transform group-hover:translate-x-1" />
+                                    {r.a}
+                                    <ArrowDown className="w-4 h-4 text-brand-accent shrink-0 transition-transform group-hover:translate-y-0.5" />
                                 </span>
-                                <span className="block text-brand-accent/80 text-xs mt-1">{door.who}</span>
-                            </Link>
+                                <span className="block text-brand-accent/80 text-xs mt-1">{r.who}</span>
+                            </a>
                         ))}
                     </div>
 
-                    <button
-                        onClick={openCalModal}
-                        className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 rounded-[2rem] font-semibold text-base sm:text-lg tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[52px] w-full sm:w-auto"
-                    >
-                        <span className="relative z-10">Book a 15-Minute Call</span>
-                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
-                    </button>
+                    <div className="focus-in w-full sm:w-auto" style={{ '--d': '0.38s' }}>
+                        <CTAButton onClick={openCalModal} glint className="w-full sm:w-auto">
+                            Book a 15-Minute Call
+                        </CTAButton>
+                    </div>
 
-                    <p className="text-white/40 text-xs sm:text-sm mt-4">
-                        I will look your business up the way a customer would and tell you what comes back.
+                    <p className="focus-in text-white/40 text-xs sm:text-sm mt-4" style={{ '--d': '0.44s' }}>
+                        Fifteen minutes. If I cannot help, I will tell you straight.
                     </p>
 
                     {/* Proof before the scroll. Owners trust what they can click. */}
-                    <a href="#builds" className="mt-6 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:text-sm text-white/50 hover:text-white transition-colors">
+                    <a href="#builds" onClick={scrollToBuilds} className="focus-in mt-6 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:text-sm text-white/50 hover:text-white transition-colors" style={{ '--d': '0.5s' }}>
                         <span className="font-mono text-[10px] uppercase tracking-widest text-brand-accent">Recent builds</span>
                         <span>Father &amp; Son&apos;s Detailing</span>
                         <span className="text-white/20">/</span>
                         <span>HealthCo Center</span>
                         <span className="text-white/20">/</span>
                         <span>Rapunzel Salon</span>
-                        <span className="text-brand-accent">&darr;</span>
+                        <span className="bob text-brand-accent">&darr;</span>
                     </a>
                 </div>
             </section>
 
-            {/* 2. THE GAP. Why the old playbook stopped working */}
-            <section ref={gapRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
-                <div className="max-w-4xl mx-auto">
-                    <h2 className="gap-line text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight mb-8 md:mb-10">
-                        There is no <span className="drama-text text-brand-accent">page two</span> anymore.
-                    </h2>
-                    <p className="gap-line text-lg sm:text-xl md:text-2xl text-white/50 font-light leading-relaxed mb-6">
-                        Somebody needs a detailer, a plumber, a roofer. They do not open a map and compare twelve pins. They ask, and they get a short list read back to them.
-                    </p>
-                    <p className="gap-line text-lg sm:text-xl md:text-2xl text-white/50 font-light leading-relaxed mb-10">
-                        If your name is not on that list, the customer never learns you exist. You did not lose to a better operator. You lost to one that got mentioned.
-                    </p>
-                    <p className="gap-line text-xl sm:text-2xl md:text-3xl text-white font-light leading-relaxed">
-                        That is the part most owners have not caught up to yet, and it is the part I work on first.
-                    </p>
-                </div>
-            </section>
+            {/* 2. THE TWO DOORS, each with its guide and who it is for */}
+            <HomeDoors door={door} setDoor={setDoor} />
 
-            {/* 3. THE LOOP, stage by stage */}
-            <section ref={stepsRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 max-w-7xl mx-auto">
-                <div className="mb-12 sm:mb-16">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">How it runs</h3>
-                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light max-w-2xl text-white leading-tight">
-                        Three pieces. They only work together.
-                    </h4>
-                </div>
+            {/* 3. WHO BUILDS THIS. The person behind both doors */}
+            <MeetNate />
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {STAGES.map((stage) => (
-                        <div key={stage.n} className="step-card flex flex-col gap-6">
-                            <stage.Visual />
-                            <div>
-                                <h5 className="font-semibold text-xl mb-2 text-white">{stage.n}. {stage.title}</h5>
-                                <p className="text-white/50 text-sm leading-relaxed mb-3">{stage.body}</p>
-                                <Link to={stage.tab.to} className="text-brand-accent hover:opacity-80 transition-opacity text-sm font-medium">
-                                    {stage.tab.label} &rarr;
-                                </Link>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            {/* 4. PROOF. Real sites, live */}
+            <MyBuilds />
 
-            {/* PROOF. Real sites, live, right after the pitch for what gets built */}
-            <MyBuilds className="bg-[#0A0A0E]" />
-
-            {/* 4. WHY IT IS ONE SYSTEM. The actual differentiator */}
-            <section ref={loopRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8">
-                <div className="max-w-4xl mx-auto">
-                    <h2 className="loop-line text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight mb-8 md:mb-10">
-                        Most owners buy these <span className="drama-text text-brand-accent">from three different people.</span>
-                    </h2>
-                    <p className="loop-line text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-6">
-                        One person for the website, another for the listings, a call service for the phone, and a review app nobody remembers to turn on.
-                    </p>
-                    <p className="loop-line text-lg sm:text-xl text-white/50 font-light leading-relaxed mb-10">
-                        Each one looks fine on an invoice, and none of them talk to each other.
-                    </p>
-
-                    <div className="loop-line flex flex-col gap-4 border-l-2 border-brand-accent/30 pl-6 mb-10">
-                        <p className="text-white/80 text-lg sm:text-xl font-light">Getting found is what makes the phone ring.</p>
-                        <p className="text-white/80 text-lg sm:text-xl font-light">Answering it is what turns the ring into a job.</p>
-                        <p className="text-white/80 text-lg sm:text-xl font-light">The job is what earns the review.</p>
-                        <p className="text-brand-accent text-lg sm:text-xl font-light">The reviews are what keep you getting found.</p>
-                    </div>
-
-                    <p className="loop-line text-xl sm:text-2xl md:text-3xl text-white font-light leading-relaxed">
-                        Run all three and each one feeds the next. Pull one out and the other two go quiet.
-                    </p>
-                </div>
-            </section>
-
-            {/* 5. WHAT YOU GET */}
-            <WhatYouGet />
-
-            {/* 6. WHO IT IS FOR. Keeps bad-fit calls off the calendar */}
-            <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8">
-                <div className="max-w-3xl mx-auto">
-                    <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Who this is for</h3>
-                    <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-10">
-                        This works if you have <span className="drama-text text-brand-accent">four things.</span>
-                    </h4>
-                    <ul className="flex flex-col gap-5">
-                        {FITS.map((fit) => (
-                            <li key={fit} className="flex items-start gap-4">
-                                <Check className="w-5 h-5 text-brand-accent shrink-0 mt-1" strokeWidth={2.5} />
-                                <span className="text-white/70 text-base sm:text-lg md:text-xl font-light">{fit}</span>
-                            </li>
-                        ))}
-                    </ul>
-                    <p className="text-white/40 text-sm sm:text-base mt-10 leading-relaxed">
-                        If that is not you, say so on the call and I will tell you straight. I would rather lose fifteen minutes than sell you something that will not work.
-                    </p>
-                </div>
-            </section>
-
-            {/* 7. FINAL CTA */}
-            <section ref={ctaRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 flex justify-center text-center">
+            {/* 5. FINAL CTA */}
+            <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 flex justify-center text-center bg-[#0A0A0E]/60">
                 <div className="max-w-3xl flex flex-col items-center w-full">
-                    <h2 className="main-cta-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans tracking-tight mb-6 text-white leading-tight">
+                    <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans tracking-tight mb-6 text-white leading-tight">
                         Someone asked this week. Something answered.
                     </h2>
-                    <p className="main-cta-text drama-text text-brand-accent text-3xl sm:text-4xl md:text-5xl leading-[1.1] mb-8">
+                    <p data-reveal className="drama-text text-brand-accent text-3xl sm:text-4xl md:text-5xl leading-[1.1] mb-8">
                         It should have said your name.
                     </p>
-                    <CallSteps className="main-cta-text mb-10" />
-                    <button
-                        onClick={openCalModal}
-                        className="main-cta-text group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px] w-full sm:w-auto"
-                    >
-                        <span className="relative z-10">Book a 15-Minute Call</span>
-                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
-                    </button>
-                    <a href="mailto:nate@aiautomationkings.com" className="main-cta-text text-white/40 hover:text-white/70 text-sm mt-5 transition-colors data-text">
+                    <CallSteps className="mb-10" />
+                    <div data-reveal className="w-full sm:w-auto">
+                        <CTAButton onClick={openCalModal} size="xl" halo glint className="w-full sm:w-auto">
+                            Book a 15-Minute Call
+                        </CTAButton>
+                    </div>
+                    <a data-reveal href="mailto:nate@aiautomationkings.com" className="link-underline text-white/40 hover:text-white/70 text-sm mt-6 data-text">
                         or email nate@aiautomationkings.com
                     </a>
                 </div>

@@ -1,15 +1,17 @@
 # AI Automation Kings (AIAK)
 
-> Websites and AI SEO for local service businesses. If a business has no website, I build one. If it has one, I get it found on Google and in AI answers. Every call gets answered, and every job ends with a review request.
+> Websites and AI SEO for local service businesses. If a business has no website, I build one. If it has one, I get it found on Google and in AI answers. Every call gets answered, and every job ends with a review request. I also build AI agents and AI operating systems for bigger operations, and as the next step for clients.
 
 Founded by Nathan Mamo. Based in Houston, Texas. One person, two sides of the work, shown on the site as two tabs.
 
-## Nate the Dev
+## Nate the Marketer
 
-For a business with no website, or one that is holding it back.
+For local service businesses: everything that gets them found, called, and picked.
 
-- **The website.** A fast site with one job: get someone to call. Live in days, not months. Built from the first line so Google and AI answer tools can read it properly. Every build gets a second review before it goes live. It works the way the business works rather than bending the business to a template.
+- **The website.** For a business with none: a fast site with one job, get someone to call. Live in days, not months. Built from the first line so Google and AI answer tools can read it properly. Every build gets a second review before it goes live. It works the way the business works rather than bending the business to a template.
+- **AI SEO.** For a business that has a site: no rebuild for the sake of one. The site gets checked for what Google and AI cannot read or trust, that gets fixed, then every service, service area, and common customer question becomes a page that answers it. Listings are made to agree on name, address, phone, and hours, and the Google profile is kept current. A monthly report in plain English.
 - **The phone.** Every inbound call gets answered, the usual questions get handled, and the job goes on the calendar, nights and weekends included.
+- **Reviews.** Every finished job ends with a review request. Same ask to every customer, no filtering by how happy they seem, and no incentives. Fresh reviews are part of what keeps a business getting found.
 - **The account.** Calls, texts, reviews, and bookings in one place the owner can open on a phone, billed monthly.
 
 ## Recent builds
@@ -20,30 +22,41 @@ Live client sites, among many more.
 - [HealthCo Center](https://www.healthcopharmacy.com/): Pharmacy, infusion, and wellness, Houston, TX.
 - [Rapunzel Salon & Barbershop](https://rapunzel-salon-ga.com/): Salon and barbershop, Warner Robins, GA.
 
-## Nate the Marketer
+## Nate the Dev
 
-For a business that already has a website.
+For teams ready for systems, and the next step for clients whose site, reviews, and rankings are running.
 
-- **AI SEO.** No rebuild for the sake of one. The existing site gets checked for what Google and AI cannot read or trust, that gets fixed, then every service, service area, and common customer question becomes a page that answers it. Listings are made to agree on name, address, phone, and hours, and the Google profile is kept current. A monthly report in plain English.
-- **Reviews.** Every finished job ends with a review request. Same ask to every customer, no filtering by how happy they seem, and no incentives. Fresh reviews are part of what keeps a business getting found.
+- **AI agents.** Custom agents that answer calls, follow up on leads, keep customer records current, handle paperwork, research and report, and run back-office work inside the tools a business already uses.
+- **AI operating systems.** Several agents sharing one memory and one set of rules, each owning a job, with a person overseeing all of it.
+- **How they are built.** One clearly scoped job first, proven before it expands. Each agent gets only the access its job needs, anything risky waits for a person's approval, and every action is logged. Checked twice and tested before it touches a real customer. Built with Claude Code and Codex. Specialty: connecting agents to the tools a business already runs.
+
+## AI agent work
+
+- HealthCo: lead developer building their AI agent architecture.
+- Allen AI: co-founder and CTO, custom AI for law firms. Built the system the business runs on, from first inquiry to referral, and a phone receptionist for law firms.
+- Phone agents that pick up, answer questions, and book the job.
+- Solomon, a research agent that pulls sourced stats and writes the report. Daniel, an SEO audit agent that checks a site against what Google and AI need and writes the owner a report.
+- AIAK HQ, the AI operating system the business itself runs on.
 
 ## Who this is for
 
 Local service businesses that do the work in one city or metro, where one more job a week is worth real money, where customers find them by searching rather than only by referral, and that are owner operated or close to it. Mobile detailing, plumbing and HVAC, roofing, lawn and landscaping, cleaning, and similar trades.
 
+The agent work (Nate the Dev) is for teams where the same tasks eat hours every week, tools do not talk to each other, or a working process should run without someone remembering every step. It is also the next step for clients whose site, reviews, and rankings are already running.
+
 ## What is not offered
 
-B2B lead generation, cold email as a service, social media management, paid ads management, and work for businesses outside local services.
+B2B lead generation, cold email as a service, social media management, and paid ads management.
 
 ## Claims and limits
 
-No ranking position or placement in an AI answer is ever guaranteed, because nobody controls what Google or an AI tool says. What is controlled is whether the business is findable, readable, consistent, current, and backed by a live review profile. Reviews are never gated, filtered, or incentivized. Pricing is scoped on a call and is not published anywhere.
+No ranking position or placement in an AI answer is ever guaranteed, because nobody controls what Google or an AI tool says. What is controlled is whether the business is findable, readable, consistent, current, and backed by a live review profile. Reviews are never gated, filtered, or incentivized. Pricing is scoped on a call and is not published anywhere. AI agent work starts with one clearly scoped job, proven before it expands, and no business result is promised.
 
 ## Main
 
-- [Home](https://aiautomationkings.com/): The two starting points (no website, or has a website), how getting found, answering calls, and reviews feed each other, and who this is for.
-- [Nate the Dev](https://aiautomationkings.com/developer): Website builds, why WordPress costs a small business more than it looks, how calls get answered, and common questions.
-- [Nate the Marketer](https://aiautomationkings.com/marketer): AI SEO for an existing site, what gets done every month, reviews, and straight answers on what can and cannot be promised.
+- [Home](https://aiautomationkings.com/): Two ways in. Websites, reviews, and AI SEO for local service businesses, and AI agents and AI operating systems for teams ready for more, each with how it works and who it is for.
+- [Nate the Dev](https://aiautomationkings.com/developer): AI agents and AI operating systems. What an agent is, what agents can do for a business, how they get built safely, agent work done with breakdowns, the research with sources, and who it is for.
+- [Nate the Marketer](https://aiautomationkings.com/marketer): Websites, AI SEO, every call answered, and reviews for local service businesses. Live client sites, why WordPress costs a small business more than it looks, what gets done every month, and straight answers on what can and cannot be promised.
 
 ## Contact
 

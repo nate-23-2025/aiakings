@@ -3,6 +3,10 @@
 @theme {
   --color-brand-primary: #0D0D12;
   --color-brand-accent: #C9A84C;
+  /* Sapphire: the cool counterweight to champagne, a blue dial with gold hands.
+     Atmosphere and secondary states only. Gold stays on every call to action. */
+  --color-brand-sapphire: #5B7BD5;
+  --color-brand-sapphire-light: #8EA5EE;
   --color-brand-background: #FAF8F5;
   --color-brand-text: #2A2A35;
   --font-sans: "Inter", sans-serif;
@@ -24,8 +28,15 @@
   }
 }
 
+::selection {
+  background: rgba(91, 123, 213, 0.4);
+  color: #fff;
+}
+
+/* Every page is dark now. An ivory body showed through as a band above the
+   footer, behind its rounded corners, and on every overscroll bounce. */
 body {
-  background-color: var(--color-brand-background);
+  background-color: var(--color-brand-primary);
   color: var(--color-brand-text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -69,4 +80,808 @@ h1, h2, h3, h4, h5, h6 {
 }
 .aurora-blob-3 {
   animation: aurora-drift 18s ease-in-out infinite reverse;
+}
+
+/* ==========================================================================
+   Motion. Every effect below is decoration on top of content that already
+   reads fine standing still. Initial "hidden" states only exist inside the
+   no-preference query, so a visitor who asked for less motion gets the
+   finished frame of everything.
+   ========================================================================== */
+
+/* --- Headline line masks. Room for Playfair's italic overhang and descenders,
+       which the mask would otherwise shave off. --- */
+.split-line-mask {
+  padding: 0.08em 0.12em 0.18em;
+  margin: -0.08em -0.12em -0.18em;
+}
+
+/* --- Hero. The text is on screen from the first frame (opacity never starts
+       at zero), so the largest paint is not held back by the entrance. --- */
+@keyframes focus-in {
+  from { opacity: 0.4; filter: blur(14px); transform: translateY(16px) scale(0.985); }
+  to   { opacity: 1; filter: none; transform: none; }
+}
+
+/* The loop, drawn in the headline: each stage lights up in turn, forever. */
+@keyframes phrase-lit {
+  0%, 100% { color: #fff; text-shadow: none; }
+  4%, 26%  { color: #E2C46F; text-shadow: 0 0 32px rgba(201, 168, 76, 0.45); }
+  32%      { color: #fff; text-shadow: none; }
+}
+
+@keyframes gold-sweep {
+  from { background-position: 100% 0; }
+  to   { background-position: 0 0; }
+}
+@keyframes again-sweep {
+  0%       { background-position: 100% 0; }
+  20%, 100% { background-position: 0 0; }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+
+.gold-gradient-text {
+  /* inline-block plus side padding, or the italic overhang falls outside the
+     painted background and the last letter loses its tail */
+  display: inline-block;
+  padding-inline: 0.15em;
+  margin-inline: -0.15em;
+  background: linear-gradient(100deg, var(--color-brand-accent) 40%, #F7E9BE 50%, var(--color-brand-accent) 60%) 100% 0 / 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .focus-in {
+    animation: focus-in 1.1s cubic-bezier(0.16, 0.84, 0.3, 1) backwards;
+    animation-delay: var(--d, 0s);
+  }
+  .loop-phrase {
+    animation: phrase-lit 7.5s ease-in-out infinite;
+    animation-delay: calc(1.3s + var(--i, 0) * 2.5s);
+  }
+  .again-sweep {
+    animation: again-sweep 7.5s ease-in-out infinite 7.1s;
+  }
+  .bob {
+    display: inline-block;
+    animation: bob 1.8s ease-in-out infinite;
+  }
+
+  /* Italic gold phrases catch the light once as they scroll in. */
+  .is-in .drama-text.text-brand-accent,
+  .is-in.drama-text.text-brand-accent {
+    background: linear-gradient(100deg, var(--color-brand-accent) 42%, #F7E9BE 50%, var(--color-brand-accent) 58%) 100% 0 / 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-inline: 0.12em;
+    margin-inline: -0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    animation: gold-sweep 1.8s cubic-bezier(0.3, 0.1, 0.3, 1) 0.35s both;
+  }
+}
+
+/* --- Gold buttons --- */
+.cta-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 255, 255, 0.55) 47%, rgba(255, 255, 255, 0.15) 54%, transparent 66%);
+  transform: translateX(-120%);
+}
+@keyframes cta-glint {
+  0%        { transform: translateX(-120%); }
+  16%, 100% { transform: translateX(120%); }
+}
+@keyframes cta-halo {
+  0%        { box-shadow: 0 0 40px rgba(201, 168, 76, 0.3), 0 0 0 0 rgba(201, 168, 76, 0.45); }
+  70%, 100% { box-shadow: 0 0 40px rgba(201, 168, 76, 0.3), 0 0 0 18px rgba(201, 168, 76, 0); }
+}
+@media (hover: hover) {
+  .cta-gold:hover .cta-sheen {
+    transform: translateX(120%);
+    transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cta-glint .cta-sheen { animation: cta-glint 7s cubic-bezier(0.4, 0, 0.2, 1) 2.2s infinite; }
+  .cta-glint:hover .cta-sheen { animation: none; }
+  .cta-halo { animation: cta-halo 2.8s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; }
+  .cta-halo:hover { animation: none; }
+}
+
+/* --- Cursor spotlight. PointerFX writes --mx/--my on whichever card is under
+       the mouse. A soft wash under the content plus a lit edge. --- */
+[data-spotlight] {
+  isolation: isolate;
+}
+[data-spotlight]::before,
+[data-spotlight]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+[data-spotlight]::before {
+  z-index: -1;
+  background:
+    radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(91, 123, 213, 0.11), transparent 45%),
+    radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(201, 168, 76, 0.06), transparent 60%);
+}
+[data-spotlight]::after {
+  z-index: 2;
+  padding: 1px;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(201, 168, 76, 0.6), transparent 60%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight]:hover::before,
+  [data-spotlight]:hover::after {
+    opacity: 1;
+  }
+}
+
+/* --- Navbar --- */
+.nav-shell {
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.3s ease;
+}
+.nav-shell.is-scrolled {
+  background-color: rgba(13, 13, 18, 0.72);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+.nav-shell.is-hidden {
+  transform: translateY(-160%);
+}
+.nav-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--color-brand-accent);
+  transform: scaleX(0);
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.nav-tab:hover::after { transform: scaleX(0.35); }
+.nav-tab.is-active::after { transform: scaleX(1); }
+
+/* --- Scroll progress --- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 90;
+  pointer-events: none;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, rgba(91, 123, 213, 0), #5B7BD5 25%, #C9A84C 65%, #F1DC9B);
+}
+
+/* --- Route changes. Only after the first in-app navigation, never on the
+       landing paint. --- */
+@keyframes route-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* backwards, not both: once it ends, no transform is left on the wrapper.
+     Even an empty leftover transform turns this wrapper into the frame that
+     fixed elements pin to, and the gallery's pin would fly off the top. */
+  [data-navigated] .route-view { animation: route-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+}
+
+/* --- Strike-through that draws itself, then the new answer slides in --- */
+.strike {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
+  background-repeat: no-repeat;
+  background-position: 0 58%;
+  background-size: 100% 1px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-inview] .strike {
+    background-size: 0 1px;
+    transition: background-size 0.7s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+  }
+  [data-inview].is-in .strike { background-size: 100% 1px; }
+
+  [data-inview] .after-strike {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--d, 0s) + 0.45s);
+  }
+  [data-inview].is-in .after-strike { opacity: 1; transform: none; }
+}
+
+/* --- Icons that draw their own stroke (checks and crosses) --- */
+@media (prefers-reduced-motion: no-preference) {
+  [data-inview] .draw path {
+    stroke-dasharray: 26;
+    stroke-dashoffset: -26;
+    transition: stroke-dashoffset 0.7s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0.15s);
+  }
+  [data-inview].is-in .draw path { stroke-dashoffset: 0; }
+}
+
+/* --- Text bubbles: three dots first, then the message lands --- */
+.chat-typing { display: none; }
+.chat-typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  animation: typing-dot 1s ease-in-out infinite;
+}
+.chat-typing span:nth-child(2) { animation-delay: 0.15s; }
+.chat-typing span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typing-dot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
+  40%           { transform: translateY(-3px); opacity: 1; }
+}
+@keyframes typing-life {
+  0%       { opacity: 0; transform: scale(0.7); }
+  15%, 82% { opacity: 1; transform: none; }
+  100%     { opacity: 0; transform: scale(0.9); }
+}
+@keyframes bubble-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.94); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-inview] .chat-typing { display: inline-flex; opacity: 0; }
+  [data-inview].is-in .chat-typing { animation: typing-life 1.2s ease both var(--d, 0s); }
+  [data-inview] .chat-bubble { opacity: 0; transform-origin: 0 100%; }
+  [data-inview].is-in .chat-bubble { animation: bubble-pop 0.55s cubic-bezier(0.2, 1.3, 0.35, 1) both calc(var(--d, 0s) + 1.05s); }
+}
+
+/* --- Progress bars that fill in order (the three booking steps) --- */
+.step-bar {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #C9A84C, #F1DC9B);
+  transform-origin: 0 50%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-inview] .step-bar {
+    transform: scaleX(0);
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1) var(--d, 0s);
+  }
+  [data-inview].is-in .step-bar { transform: scaleX(1); }
+}
+
+/* --- Hairline that sweeps across the top of each tile --- */
+.tile-line {
+  position: absolute;
+  top: 0;
+  left: 18%;
+  right: 18%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+  opacity: 0.5;
+}
+@keyframes tile-line {
+  0%   { transform: scaleX(0); opacity: 1; }
+  60%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0.5; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-inview] .tile-line { transform: scaleX(0); }
+  [data-inview].is-in .tile-line { animation: tile-line 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) both var(--d, 0s); }
+}
+
+/* --- The three-stage connector above the loop cards --- */
+.flow-fill { transform-origin: 0 50%; }
+.flow-dot {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 999px;
+  background: #F1DC9B;
+  box-shadow: 0 0 14px 3px rgba(201, 168, 76, 0.6);
+  opacity: 0;
+}
+@keyframes flow-travel {
+  0%   { left: var(--flow-a); opacity: 0; }
+  6%   { opacity: 1; }
+  84%  { left: var(--flow-b); opacity: 1; }
+  92%, 100% { left: var(--flow-b); opacity: 0; }
+}
+@keyframes flow-node-lit {
+  0%, 14%, 100% { border-color: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.45); box-shadow: none; }
+  3%, 9%        { border-color: rgba(201, 168, 76, 0.9); color: #F1DC9B; box-shadow: 0 0 22px rgba(201, 168, 76, 0.45); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  [data-inview] .flow-fill { transform: scaleX(0); transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1) 0.2s; }
+  [data-inview].is-in .flow-fill { transform: scaleX(1); }
+  [data-inview].is-in .flow-dot { animation: flow-travel 6s linear 1.4s infinite; }
+  [data-inview].is-in .flow-node { animation: flow-node-lit 6s linear infinite; animation-delay: calc(1.4s + var(--i) * 2.52s); }
+}
+
+/* --- The loop ring --- */
+.loop-comet {
+  transform-origin: 150px 150px;
+  transform-box: view-box;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes node-pulse {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+.loop-node-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .loop-comet { animation: spin 5.5s linear infinite; }
+  .loop-node-pulse { animation: node-pulse 1.6s ease-out infinite; }
+}
+
+/* --- Signals feeding the business (Marketer hero) --- */
+@keyframes signal-travel {
+  0%       { stroke-dashoffset: 8; opacity: 0; }
+  8%       { opacity: 1; }
+  70%      { stroke-dashoffset: -100; opacity: 1; }
+  76%, 100% { stroke-dashoffset: -100; opacity: 0; }
+}
+@keyframes chip-lit {
+  0%, 16%, 100% { border-color: rgba(255, 255, 255, 0.1); }
+  3%, 10%       { border-color: rgba(201, 168, 76, 0.75); }
+}
+@keyframes chip-float {
+  0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+  50%      { transform: translate(-50%, -50%) translateY(-6px); }
+}
+@keyframes core-ring {
+  0%   { transform: scale(0.85); opacity: 0.7; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+.signal-pulse { stroke-dasharray: 8 200; stroke-dashoffset: 8; opacity: 0; }
+.core-ring { opacity: 0; }
+.signal-chip { transform: translate(-50%, -50%); }
+@media (prefers-reduced-motion: no-preference) {
+  .signal-pulse { animation: signal-travel 6s linear infinite; animation-delay: calc(var(--i) * 1.2s); }
+  .signal-chip {
+    animation: chip-float 5s ease-in-out infinite, chip-lit 6s linear infinite;
+    animation-delay: calc(var(--i) * -0.9s), calc(var(--i) * 1.2s);
+  }
+  .core-ring { animation: core-ring 1.2s ease-out 0.6s infinite; }
+}
+
+/* --- Ripples behind the after-hours call card --- */
+.ripple-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  border-radius: 999px;
+  transform: translate(-50%, -50%) scale(0.6);
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes ripple {
+  0%   { transform: translate(-50%, -50%) scale(0.55); opacity: 0; }
+  15%  { opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ripple-ring { animation: ripple 4.5s cubic-bezier(0.2, 0.6, 0.3, 1) infinite; animation-delay: var(--d, 0s); }
+}
+
+/* --- Caret for the site that builds itself --- */
+@keyframes caret {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .caret { animation: caret 1s steps(1) infinite; }
+}
+
+/* --- Links that underline from the left --- */
+.link-underline {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.3s ease, color 0.3s ease;
+}
+.link-underline:hover { background-size: 100% 1px; }
+
+/* --- Endless strip (the trades the Dev page builds for) --- */
+.marquee {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .marquee-track { animation: marquee 42s linear infinite; }
+  .marquee:hover .marquee-track { animation-play-state: paused; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee { -webkit-mask-image: none; mask-image: none; }
+  .marquee-track { width: auto; flex-wrap: wrap; row-gap: 0.75rem; }
+  .marquee-dupe { display: none; }
+}
+
+/* --- "Live" status dot that pings --- */
+.live-dot { position: relative; }
+@keyframes live-ping {
+  0%        { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(2.8); opacity: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .live-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: currentColor;
+    animation: live-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+/* --- Sideways gallery. Pinned and driven by the scroll on desktop; a plain
+       swipeable row everywhere else, including for reduced motion. --- */
+.gallery-track {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-track > * { scroll-snap-align: start; }
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .gallery-track { overflow: visible; scroll-snap-type: none; }
+}
+
+/* --- Sources dropping into a report (Solomon's diagram) --- */
+@keyframes pour {
+  0%   { transform: translateY(0); opacity: 0; }
+  20%  { opacity: 1; }
+  100% { transform: translateY(34px); opacity: 0; }
+}
+
+/* ==========================================================================
+   Atmosphere. The light, grid, grain, and seams behind every page.
+   ========================================================================== */
+
+/* --- The two big lights (positions come from AmbientLight) --- */
+.ambient-orb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  will-change: transform;
+}
+.ambient-orb::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+.ambient-gold { width: 72vmax; height: 72vmax; }
+.ambient-gold::before {
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.13) 0%, rgba(201, 168, 76, 0.05) 38%, transparent 66%);
+}
+.ambient-sapphire { width: 82vmax; height: 82vmax; }
+.ambient-sapphire::before {
+  background: radial-gradient(circle, rgba(91, 123, 213, 0.15) 0%, rgba(91, 123, 213, 0.05) 40%, transparent 68%);
+}
+@keyframes breathe {
+  from { transform: scale(0.88); opacity: 0.75; }
+  to   { transform: scale(1.08); opacity: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-gold::before { animation: breathe 9s ease-in-out infinite alternate; }
+  .ambient-sapphire::before { animation: breathe 12s ease-in-out -4s infinite alternate; }
+}
+
+/* --- Engineering paper under glass --- */
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.075) 1px, transparent 1.5px);
+  -webkit-mask-image: linear-gradient(180deg, #000, rgba(0, 0, 0, 0.55));
+  mask-image: linear-gradient(180deg, #000, rgba(0, 0, 0, 0.55));
+}
+
+/* --- The dots that wake up around the cursor --- */
+.ambient-wake {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  will-change: transform;
+  background-image:
+    radial-gradient(circle, rgba(225, 196, 111, 0.5) 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(91, 123, 213, 0.16), transparent 62%);
+  background-repeat: repeat, no-repeat;
+  -webkit-mask-image: radial-gradient(circle, #000 0%, rgba(0, 0, 0, 0.6) 35%, transparent 68%);
+  mask-image: radial-gradient(circle, #000 0%, rgba(0, 0, 0, 0.6) 35%, transparent 68%);
+}
+
+/* --- Living grain. A small noise tile, nudged a few times a second, on its
+       own layer, so it shimmers like film without repainting the page. --- */
+.grain {
+  position: fixed;
+  inset: -240px;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.06;
+  background-size: 240px 240px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes grain {
+  0%   { transform: translate(0, 0); }
+  17%  { transform: translate(-60px, 40px); }
+  33%  { transform: translate(80px, -100px); }
+  50%  { transform: translate(-120px, 140px); }
+  67%  { transform: translate(40px, -60px); }
+  83%  { transform: translate(-100px, -20px); }
+  100% { transform: translate(0, 0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .grain { animation: grain 0.75s steps(1) infinite; }
+}
+
+/* --- Seams. A light line draws itself across the top of each section as it
+       scrolls in. Where the browser cannot tie it to scroll, it just shows. --- */
+.seams > section { position: relative; }
+.seams > section + section:not([data-noseam])::before,
+.seams > section + section:not([data-noseam])::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(91, 123, 213, 0.55) 25%, rgba(225, 196, 111, 0.85) 50%, rgba(91, 123, 213, 0.55) 75%, transparent);
+  transform-origin: 50% 50%;
+}
+.seams > section + section:not([data-noseam])::after {
+  height: 8px;
+  top: -4px;
+  filter: blur(6px);
+  opacity: 0.7;
+}
+@keyframes seam-draw {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .seams > section + section:not([data-noseam])::before,
+    .seams > section + section:not([data-noseam])::after {
+      animation: seam-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 80%;
+    }
+  }
+}
+
+/* --- The home page door guides. Each piece rises in when its guide is shown.
+       backwards, so nothing is left behind once it finishes. --- */
+@keyframes door-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .door-in { animation: door-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; animation-delay: var(--d, 0s); }
+}
+
+/* --- A slow push-in on a still photo, so it breathes like footage --- */
+@keyframes slow-zoom {
+  from { transform: scale(1.02); }
+  to   { transform: scale(1.09); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .slow-zoom { animation: slow-zoom 14s ease-in-out infinite alternate; transform-origin: 50% 35%; }
+}
+
+/* --- The builder: a portrait with a floating video card --- */
+.nate-media {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  align-items: start;
+  padding-bottom: clamp(3rem, 5vw, 5rem);
+}
+.nate-media::before {
+  content: "";
+  position: absolute;
+  inset: 8% -5% 12% 8%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 45% 40%, rgba(201,168,76,0.09), transparent 65%);
+}
+.nate-portrait {
+  position: relative;
+  grid-column: 1 / 9;
+  grid-row: 1;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: clamp(1.25rem, 2.4vw, 2rem);
+  background: #09090C;
+  box-shadow: 0 32px 90px -24px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.nate-portrait::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: inherit;
+  pointer-events: none;
+}
+.nate-portrait img {
+  filter: grayscale(1) contrast(1.06) brightness(0.96);
+}
+.nate-portrait-shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(9,9,12,0.25) 75%, rgba(9,9,12,0.88) 100%);
+}
+.nate-portrait-caption {
+  position: absolute;
+  left: clamp(1rem, 2.2vw, 2rem);
+  bottom: clamp(1rem, 2.2vw, 2rem);
+}
+.nate-video-stack {
+  grid-column: 5 / -1;
+  grid-row: 1;
+  width: 92%;
+  justify-self: end;
+  align-self: end;
+  min-width: 0;
+  z-index: 2;
+  transform: translateY(14%);
+}
+.nate-teaser {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border: 1px solid rgba(201,168,76,0.3);
+  border-radius: clamp(0.875rem, 1.8vw, 1.5rem);
+  background: radial-gradient(ellipse at 30% 0%, rgba(201,168,76,0.08), transparent 65%), linear-gradient(145deg, #232228, #111116 80%);
+  box-shadow: 0 0 0 6px #101014, 0 24px 64px -12px rgba(0,0,0,0.85), inset 0 1px 0 rgba(255,255,255,0.07);
+}
+.nate-teaser-label {
+  position: absolute;
+  top: clamp(0.75rem, 1.5vw, 1.25rem);
+  left: clamp(0.75rem, 1.5vw, 1.25rem);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: clamp(7px, 0.8vw, 10px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.85);
+}
+.nate-signature {
+  width: 82%;
+  margin: clamp(1rem, 2vw, 1.75rem) 2% 0 auto;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 3px 12px rgba(0,0,0,0.7));
+}
+
+/* --- Caution tape over the video slot that is coming soon --- */
+.caution-tape {
+  position: absolute;
+  left: -25%;
+  right: -25%;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #FFD60A;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+.caution-tape::before,
+.caution-tape::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: repeating-linear-gradient(-45deg, #111 0 6px, #FFD60A 6px 12px);
+}
+.caution-tape::before { top: 0; }
+.caution-tape::after { bottom: 0; }
+.caution-track {
+  display: flex;
+  width: max-content;
+}
+.caution-word {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #111;
+  white-space: nowrap;
+  padding-left: 12px;
+}
+.caution-dot { padding-left: 12px; }
+@media (max-width: 639px) {
+  .caution-tape { height: 20px; }
+  .caution-tape::before,
+  .caution-tape::after { height: 3px; }
+  .caution-word { font-size: 8px; letter-spacing: 0.16em; }
+}
+
+/* Warm yellow keeps the playful tape within the champagne palette. */
+.nate-teaser .caution-tape {
+  height: 25px;
+  background: #E8CA64;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.4);
+}
+.nate-teaser .caution-tape::before,
+.nate-teaser .caution-tape::after {
+  height: 3px;
+  background: repeating-linear-gradient(-45deg, #17140E 0 5px, #E8CA64 5px 10px);
+}
+.nate-teaser .caution-word { font-size: 9px; letter-spacing: 0.18em; }
+@media (max-width: 639px) {
+  .nate-teaser { box-shadow: 0 0 0 4px #101014, 0 18px 40px -10px rgba(0,0,0,0.8); }
+  .nate-teaser .caution-tape { height: 19px; }
+  .nate-teaser .caution-word { font-size: 8px; letter-spacing: 0.14em; }
+}
+@keyframes tape-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .caution-track { animation: tape-scroll 16s linear infinite; }
+  .caution-track-reverse { animation-direction: reverse; animation-duration: 20s; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .nate-teaser .caution-track { animation-duration: 24s; }
+  .nate-teaser .caution-track-reverse { animation-duration: 28s; }
+}
+
+
+/* Safety net. Anything animated that was missed above still stops. */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

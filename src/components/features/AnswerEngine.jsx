@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Check, Search } from 'lucide-react';
 import { prefersReducedMotion } from '../../lib/motion';
+import { useInView } from '../../hooks/useInView';
 
 // Stage one of the loop. Somebody asks, and a short list of names comes back.
 // The answer is deliberately mocked with "Your business" and two unnamed bars
@@ -38,18 +39,19 @@ function advance(s) {
 export default function AnswerEngine() {
     const [reduced] = useState(prefersReducedMotion);
     const [state, setState] = useState(() => (prefersReducedMotion() ? SETTLED : START));
+    const [ref, inView] = useInView();
 
     useEffect(() => {
-        if (reduced) return;
+        if (reduced || !inView) return;
         const id = setInterval(() => setState(advance), TICK_MS);
         return () => clearInterval(id);
-    }, [reduced]);
+    }, [reduced, inView]);
 
     const typed = ASKS[state.i].slice(0, state.chars);
     const answered = state.phase === 'answered';
 
     return (
-        <div className="bg-[#15151A] border border-white/5 rounded-[2rem] p-6 sm:p-7 h-80 flex flex-col relative shadow-2xl overflow-hidden">
+        <div ref={ref} data-spotlight className="bg-[#15151A] border border-white/5 rounded-[2rem] p-6 sm:p-7 h-80 flex flex-col relative shadow-2xl overflow-hidden">
             <div className="flex items-center gap-2 mb-5">
                 <div className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
                 <span className="text-[10px] uppercase tracking-widest text-brand-accent font-semibold">The Ask</span>

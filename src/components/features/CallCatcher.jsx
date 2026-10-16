@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { PhoneCall } from 'lucide-react';
 import { prefersReducedMotion } from '../../lib/motion';
+import { useInView } from '../../hooks/useInView';
 
 // Stage two. The times a local owner physically cannot pick up are the times
 // the phone rings most, so the log is deliberately set after hours.
@@ -18,19 +19,20 @@ const HOLD_BEATS = 2;
 export default function CallCatcher() {
     const [reduced] = useState(prefersReducedMotion);
     const [step, setStep] = useState(() => (prefersReducedMotion() ? CALLS.length : 1));
+    const [ref, inView] = useInView();
 
     useEffect(() => {
-        if (reduced) return;
+        if (reduced || !inView) return;
         const tick = setInterval(() => {
             setStep((n) => (n >= CALLS.length + HOLD_BEATS ? 1 : n + 1));
         }, 1300);
         return () => clearInterval(tick);
-    }, [reduced]);
+    }, [reduced, inView]);
 
     const visible = Math.min(step, CALLS.length);
 
     return (
-        <div className="bg-[#15151A] border border-white/5 rounded-[2rem] p-6 sm:p-7 h-80 flex flex-col relative shadow-2xl overflow-hidden">
+        <div ref={ref} data-spotlight className="bg-[#15151A] border border-white/5 rounded-[2rem] p-6 sm:p-7 h-80 flex flex-col relative shadow-2xl overflow-hidden">
             <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2">
                     <PhoneCall size={13} className="text-brand-accent" />

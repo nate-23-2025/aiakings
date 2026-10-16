@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { RefreshCw, Star } from 'lucide-react';
 import { prefersReducedMotion } from '../../lib/motion';
+import { useInView } from '../../hooks/useInView';
 
 // Stage three, and the reason the other two keep working. The request goes out
 // on every finished job, the review lands, and the ranking it feeds is what
@@ -10,15 +11,16 @@ export default function ReviewLoop() {
     // so the request bubble is on screen the whole time.
     const [reduced] = useState(prefersReducedMotion);
     const [phase, setPhase] = useState(() => (prefersReducedMotion() ? 3 : 1));
+    const [ref, inView] = useInView();
 
     useEffect(() => {
-        if (reduced) return;
+        if (reduced || !inView) return;
         const tick = setInterval(() => setPhase((p) => (p >= 3 ? 1 : p + 1)), 1500);
         return () => clearInterval(tick);
-    }, [reduced]);
+    }, [reduced, inView]);
 
     return (
-        <div className="bg-[#15151A] border border-white/5 rounded-[2rem] p-6 sm:p-7 h-80 flex flex-col relative shadow-2xl overflow-hidden">
+        <div ref={ref} data-spotlight className="bg-[#15151A] border border-white/5 rounded-[2rem] p-6 sm:p-7 h-80 flex flex-col relative shadow-2xl overflow-hidden">
             <div className="flex items-center gap-2 mb-5">
                 <div className="w-2 h-2 rounded-full bg-brand-accent animate-pulse" />
                 <span className="text-[10px] uppercase tracking-widest text-brand-accent font-semibold">Job finished</span>

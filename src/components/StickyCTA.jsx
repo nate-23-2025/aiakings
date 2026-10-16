@@ -26,9 +26,10 @@ export default function StickyCTA() {
             <div className="flex items-center gap-3">
                 <button
                     onClick={openCalModal}
-                    className="flex-grow bg-brand-accent text-brand-primary rounded-[2rem] py-3.5 font-semibold text-base min-h-[52px] active:scale-[0.98] transition-transform"
+                    className="cta-gold cta-glint relative isolate overflow-hidden flex-grow bg-brand-accent text-brand-primary rounded-[2rem] py-3.5 font-semibold text-base min-h-[52px] active:scale-[0.98] transition-transform"
                 >
-                    Book a Call
+                    <span aria-hidden="true" className="cta-sheen" />
+                    <span className="relative z-10">Book a Call</span>
                 </button>
                 <a
                     href="mailto:nate@aiautomationkings.com"

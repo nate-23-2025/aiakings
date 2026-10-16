@@ -6,8 +6,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0D0D12" />
-  <title>AIA Kings | Websites and AI SEO for Local Service Businesses</title>
-  <meta name="description" content="No website? I build one, live in days. Have a website? I get it found on Google and in AI answers. Every call answered and every job ending with a review request. Local service businesses, Houston, Texas." data-rh="true">
+  <title>AIA Kings | Websites, AI SEO, and AI Agents</title>
+  <meta name="description" content="For local service businesses, I build the website, reviews, and AI SEO that get you found and called. For teams ready for more, I build AI agents and AI systems that take the busywork off your plate. Houston, Texas." data-rh="true">
 
   <!-- Fonts load without blocking the first paint. The headline and the button
        render in a fallback face immediately and swap when the webfont lands. -->
@@ -56,14 +56,17 @@
       "Google Business Profile optimization",
       "online review generation",
       "AI receptionist",
-      "missed call recovery"
+      "missed call recovery",
+      "AI agents",
+      "AI operating systems"
     ],
     "serviceType": [
       "Answer Engine Optimization",
       "AI SEO",
       "Local Business Website Design",
       "Review Generation",
-      "AI Receptionist"
+      "AI Receptionist",
+      "AI Agent Development"
     ],
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
@@ -100,6 +103,14 @@
             "name": "AI receptionist",
             "description": "Every inbound call answered, common questions handled, and the job put on the calendar, including nights and weekends."
           }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI agents and AI operating systems",
+            "description": "Custom AI agents and multi-agent systems that do real work inside the tools a business already uses, with human approval on anything risky."
+          }
         }
       ]
     }
@@ -108,13 +119,8 @@
 </head>
 
 <body>
-  <!-- Global Noise Overlay -->
-  <svg class="noise-overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
-    <filter id="noiseFilter">
-      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
-    </filter>
-    <rect width="100%" height="100%" filter="url(#noiseFilter)" />
-  </svg>
+  <!-- Film grain over everything. Styled and animated in src/index.css (.grain). -->
+  <div class="grain" aria-hidden="true"></div>
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

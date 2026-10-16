@@ -12,6 +12,9 @@ export default defineConfig({
         // read the headline and find the button loads in its own chunk.
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
+          // SplitText only drives headlines below the fold, so it loads after
+          // first paint in its own chunk rather than riding along with gsap.
+          if (id.includes('gsap/SplitText')) return 'gsap-split';
           if (id.includes('gsap')) return 'gsap';
           if (id.includes('react-markdown') || id.includes('remark') || id.includes('micromark') || id.includes('mdast') || id.includes('hast') || id.includes('unist')) return 'markdown';
           if (id.includes('@supabase')) return 'supabase';
