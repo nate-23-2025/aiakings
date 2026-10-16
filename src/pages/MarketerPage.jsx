@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 import { Check } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import SEOHead from '../components/SEOHead';
+import CallSteps from '../components/sections/CallSteps';
 import AnswerEngine from '../components/features/AnswerEngine';
 import ReviewLoop from '../components/features/ReviewLoop';
+import ReviewCompare from '../components/sections/ReviewCompare';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,7 +152,7 @@ export default function MarketerPage() {
                         onClick={openCalModal}
                         className="group relative overflow-hidden bg-brand-accent text-brand-primary px-9 py-4 rounded-[2rem] font-semibold text-base tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[52px] w-full sm:w-auto"
                     >
-                        <span className="relative z-10">Book a Call</span>
+                        <span className="relative z-10">Book a 15-Minute Call</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-overlay"></div>
                     </button>
                 </div>
@@ -238,6 +240,14 @@ export default function MarketerPage() {
                                     </div>
                                 ))}
                             </div>
+
+                            <button
+                                onClick={openCalModal}
+                                className="reveal mt-12 group relative overflow-hidden bg-brand-accent text-brand-primary px-9 py-4 rounded-[2rem] font-semibold text-base tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 min-h-[52px] w-full sm:w-auto"
+                            >
+                                <span className="relative z-10">See Where You Show Up Today</span>
+                                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-overlay"></div>
+                            </button>
                         </div>
 
                         <div className="reveal hidden lg:block sticky top-28">
@@ -252,7 +262,8 @@ export default function MarketerPage() {
 
             {/* REVIEWS */}
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
-                <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16 items-center">
+                <div className="max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16 items-center">
                     <div>
                         <h2 className="reveal text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-8">
                             Getting found gets you on the list. <span className="drama-text text-brand-accent">Reviews get you picked.</span>
@@ -270,6 +281,9 @@ export default function MarketerPage() {
                     <div className="reveal">
                         <ReviewLoop />
                     </div>
+                </div>
+
+                <ReviewCompare />
                 </div>
             </section>
 
@@ -297,13 +311,14 @@ export default function MarketerPage() {
                         Want to see what comes back today?
                     </h2>
                     <p className="reveal text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        Book fifteen minutes. I will look your business up the way your customers do, on the call, and you can see it with me.
+                        I will look your business up the way your customers do, on the call, and you can see it with me.
                     </p>
+                    <CallSteps className="reveal mb-10" />
                     <button
                         onClick={openCalModal}
                         className="reveal group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px] w-full sm:w-auto"
                     >
-                        <span className="relative z-10">Book a Call</span>
+                        <span className="relative z-10">Book a 15-Minute Call</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-overlay"></div>
                     </button>
                 </div>

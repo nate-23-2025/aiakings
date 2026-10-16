@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Check } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import SEOHead from '../components/SEOHead';
+import CallSteps from '../components/sections/CallSteps';
 import CallCatcher from '../components/features/CallCatcher';
 import MyBuilds from '../components/sections/MyBuilds';
 
@@ -153,9 +154,12 @@ export default function DeveloperPage() {
                         onClick={openCalModal}
                         className="group relative overflow-hidden bg-brand-accent text-brand-primary px-9 py-4 rounded-[2rem] font-semibold text-base tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[52px] w-full sm:w-auto"
                     >
-                        <span className="relative z-10">Book a Call</span>
+                        <span className="relative z-10">Book a 15-Minute Call</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-overlay"></div>
                     </button>
+                    <a href="#builds" className="block sm:inline-block sm:ml-6 mt-4 sm:mt-0 text-center text-white/60 hover:text-white text-sm transition-colors">
+                        Or see sites I have built &darr;
+                    </a>
                 </div>
             </section>
 
@@ -285,13 +289,14 @@ export default function DeveloperPage() {
                         Want to see your site the way a customer does?
                     </h2>
                     <p className="reveal text-base sm:text-lg text-white/50 font-light mb-10 max-w-xl">
-                        Book fifteen minutes. I will pull up your business on a phone, next to whoever is showing up above you, and you can see it with me.
+                        I will pull up your business on a phone, next to whoever is showing up above you, and you can see it with me.
                     </p>
+                    <CallSteps className="reveal mb-10" />
                     <button
                         onClick={openCalModal}
                         className="reveal group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px] w-full sm:w-auto"
                     >
-                        <span className="relative z-10">Book a Call</span>
+                        <span className="relative z-10">Book a 15-Minute Call</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-overlay"></div>
                     </button>
                 </div>

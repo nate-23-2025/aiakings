@@ -9,6 +9,7 @@ import CallCatcher from '../components/features/CallCatcher';
 import ReviewLoop from '../components/features/ReviewLoop';
 import WhatYouGet from '../components/sections/WhatYouGet';
 import MyBuilds from '../components/sections/MyBuilds';
+import CallSteps from '../components/sections/CallSteps';
 import heroVideo from '../components/animations/go_to_market.mp4';
 
 const FITS = [
@@ -219,7 +220,7 @@ export default function MainLandingPage() {
                     </p>
 
                     <p className="text-white/70 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-8 md:mb-10 leading-relaxed">
-                        People stopped scrolling search results. They ask, and something answers with two or three names. I make your business one of them, make sure every call gets picked up, and end every job with a review request.
+                        Your customers ask, and they get two or three names back. I make sure yours is one of them, and that every call gets picked up.
                     </p>
 
                     {/* The two doors. The answer to "do you have a website" decides which one. */}
@@ -244,13 +245,24 @@ export default function MainLandingPage() {
                         onClick={openCalModal}
                         className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 rounded-[2rem] font-semibold text-base sm:text-lg tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[52px] w-full sm:w-auto"
                     >
-                        <span className="relative z-10">Book a Call</span>
+                        <span className="relative z-10">Book a 15-Minute Call</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                     </button>
 
                     <p className="text-white/40 text-xs sm:text-sm mt-4">
-                        15 minutes. I will look your business up the way a customer would and tell you what comes back.
+                        I will look your business up the way a customer would and tell you what comes back.
                     </p>
+
+                    {/* Proof before the scroll. Owners trust what they can click. */}
+                    <a href="#builds" className="mt-6 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs sm:text-sm text-white/50 hover:text-white transition-colors">
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-brand-accent">Recent builds</span>
+                        <span>Father &amp; Son&apos;s Detailing</span>
+                        <span className="text-white/20">/</span>
+                        <span>HealthCo Center</span>
+                        <span className="text-white/20">/</span>
+                        <span>Rapunzel Salon</span>
+                        <span className="text-brand-accent">&darr;</span>
+                    </a>
                 </div>
             </section>
 
@@ -297,8 +309,11 @@ export default function MainLandingPage() {
                 </div>
             </section>
 
+            {/* PROOF. Real sites, live, right after the pitch for what gets built */}
+            <MyBuilds className="bg-[#0A0A0E]" />
+
             {/* 4. WHY IT IS ONE SYSTEM. The actual differentiator */}
-            <section ref={loopRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
+            <section ref={loopRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8">
                 <div className="max-w-4xl mx-auto">
                     <h2 className="loop-line text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-light text-white leading-tight mb-8 md:mb-10">
                         Most owners buy these <span className="drama-text text-brand-accent">from three different people.</span>
@@ -326,11 +341,8 @@ export default function MainLandingPage() {
             {/* 5. WHAT YOU GET */}
             <WhatYouGet />
 
-            {/* 6. PROOF. Real sites, live */}
-            <MyBuilds />
-
-            {/* 7. WHO IT IS FOR. Keeps bad-fit calls off the calendar */}
-            <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]">
+            {/* 6. WHO IT IS FOR. Keeps bad-fit calls off the calendar */}
+            <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8">
                 <div className="max-w-3xl mx-auto">
                     <h3 className="text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">Who this is for</h3>
                     <h4 className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-10">
@@ -350,7 +362,7 @@ export default function MainLandingPage() {
                 </div>
             </section>
 
-            {/* 8. FINAL CTA */}
+            {/* 7. FINAL CTA */}
             <section ref={ctaRef} className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 flex justify-center text-center">
                 <div className="max-w-3xl flex flex-col items-center w-full">
                     <h2 className="main-cta-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans tracking-tight mb-6 text-white leading-tight">
@@ -359,14 +371,12 @@ export default function MainLandingPage() {
                     <p className="main-cta-text drama-text text-brand-accent text-3xl sm:text-4xl md:text-5xl leading-[1.1] mb-8">
                         It should have said your name.
                     </p>
-                    <p className="main-cta-text text-base sm:text-lg md:text-xl text-white/50 font-light mb-10 max-w-xl">
-                        Book fifteen minutes. I will look your business up the way your customers do and show you exactly what comes back.
-                    </p>
+                    <CallSteps className="main-cta-text mb-10" />
                     <button
                         onClick={openCalModal}
                         className="main-cta-text group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 sm:py-5 rounded-[2.5rem] text-base sm:text-lg font-semibold tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_40px_rgba(201,168,76,0.3)] min-h-[52px] w-full sm:w-auto"
                     >
-                        <span className="relative z-10">Book a Call</span>
+                        <span className="relative z-10">Book a 15-Minute Call</span>
                         <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] mix-blend-overlay"></div>
                     </button>
                     <a href="mailto:nate@aiautomationkings.com" className="main-cta-text text-white/40 hover:text-white/70 text-sm mt-5 transition-colors data-text">

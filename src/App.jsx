@@ -7,6 +7,7 @@ import MainLandingPage from './pages/MainLandingPage';
 import { CalModalProvider } from './context/CalModalContext';
 import { QualFormProvider } from './context/QualFormContext';
 import { HelmetProvider } from 'react-helmet-async';
+import { Analytics } from '@vercel/analytics/react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -41,6 +42,7 @@ function App() {
           </div>
           <StickyCTA />
           <DeferredOverlays />
+          <Analytics />
         </QualFormProvider>
       </CalModalProvider>
     </BrowserRouter>

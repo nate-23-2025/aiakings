@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react';
+import { useCalModal } from '../../context/CalModalContext';
 
 // Real client sites, live. Each card shows the desktop view in a browser frame
 // with the phone view tucked over the corner, because most of their customers
@@ -31,8 +32,10 @@ const BUILDS = [
 ];
 
 export default function MyBuilds({ className = '' }) {
+    const { openCalModal } = useCalModal();
+
     return (
-        <section className={`py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 ${className}`}>
+        <section id="builds" className={`scroll-mt-24 py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 ${className}`}>
             <div className="max-w-7xl mx-auto">
                 <div className="mb-12 sm:mb-16">
                     <span className="block text-brand-accent uppercase tracking-[0.2em] font-mono text-xs sm:text-sm mb-3 sm:mb-4">
@@ -99,6 +102,18 @@ export default function MyBuilds({ className = '' }) {
                 <p className="mt-14 sm:mt-16 text-center text-xl sm:text-2xl md:text-3xl font-light text-white">
                     And <span className="drama-text text-brand-accent">many more.</span>
                 </p>
+
+                {/* Right after the proof is when a visitor is most sold, so the
+                    ask sits here instead of waiting for the bottom of the page. */}
+                <div className="mt-10 flex flex-col items-center text-center">
+                    <button
+                        onClick={openCalModal}
+                        className="group relative overflow-hidden bg-brand-accent text-brand-primary px-10 py-4 rounded-[2rem] font-semibold text-base sm:text-lg tracking-wide transition-transform active:scale-[0.97] sm:hover:scale-[1.03] duration-300 shadow-[0_0_30px_rgba(201,168,76,0.25)] min-h-[52px] w-full sm:w-auto"
+                    >
+                        <span className="relative z-10">Want One Like These? Book a Call</span>
+                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-overlay"></div>
+                    </button>
+                </div>
             </div>
         </section>
     );
