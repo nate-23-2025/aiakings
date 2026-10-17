@@ -710,14 +710,11 @@ h1, h2, h3, h4, h5, h6 {
   .slow-zoom { animation: slow-zoom 14s ease-in-out infinite alternate; transform-origin: 50% 35%; }
 }
 
-/* --- The builder: a portrait with a floating video card --- */
+/* --- The builder: a portrait with a video card over its lower left --- */
 .nate-media {
   position: relative;
   isolation: isolate;
-  display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
-  align-items: start;
-  padding-bottom: clamp(3rem, 5vw, 5rem);
+  padding-bottom: clamp(4.5rem, 9vw, 7.5rem);
 }
 .nate-media::before {
   content: "";
@@ -725,13 +722,18 @@ h1, h2, h3, h4, h5, h6 {
   inset: 8% -5% 12% 8%;
   z-index: -1;
   pointer-events: none;
-  background: radial-gradient(ellipse at 45% 40%, rgba(201,168,76,0.09), transparent 65%);
+  background: radial-gradient(ellipse at 55% 40%, rgba(201,168,76,0.09), transparent 65%);
+}
+/* The portrait takes the right 80%; the card reaches out past its left edge. */
+.nate-frame {
+  position: relative;
+  width: 80%;
+  margin-left: 20%;
+  aspect-ratio: 4 / 5;
 }
 .nate-portrait {
-  position: relative;
-  grid-column: 1 / 9;
-  grid-row: 1;
-  aspect-ratio: 4 / 5;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.13);
   border-radius: clamp(1.25rem, 2.4vw, 2rem);
@@ -746,9 +748,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: inherit;
   pointer-events: none;
 }
-.nate-portrait img {
-  filter: grayscale(1) contrast(1.06) brightness(0.96);
-}
 .nate-portrait-shade {
   position: absolute;
   inset: 0;
@@ -757,18 +756,29 @@ h1, h2, h3, h4, h5, h6 {
 }
 .nate-portrait-caption {
   position: absolute;
-  left: clamp(1rem, 2.2vw, 2rem);
+  right: clamp(1rem, 2.2vw, 2rem);
   bottom: clamp(1rem, 2.2vw, 2rem);
+  text-align: right;
 }
-.nate-video-stack {
-  grid-column: 5 / -1;
-  grid-row: 1;
-  width: 92%;
-  justify-self: end;
-  align-self: end;
-  min-width: 0;
+/* Measured against nate-suit-900: the wrist sits about 36% across and 76%
+   down the photo. The card spans from 25% outside the left edge to 46% in,
+   and 66% to 98% down, which covers it with room to spare even at the far end
+   of the slow zoom. */
+.nate-teaser-at {
+  position: absolute;
   z-index: 2;
-  transform: translateY(14%);
+  left: -25%;
+  width: 71%;
+  top: 66%;
+}
+.nate-signature {
+  position: absolute;
+  z-index: 3;
+  left: -22%;
+  top: 99%;
+  width: 62%;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 3px 12px rgba(0,0,0,0.7));
 }
 .nate-teaser {
   position: relative;
@@ -792,12 +802,6 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(201,168,76,0.85);
-}
-.nate-signature {
-  width: 82%;
-  margin: clamp(1rem, 2vw, 1.75rem) 2% 0 auto;
-  transform: rotate(-8deg);
-  filter: drop-shadow(0 3px 12px rgba(0,0,0,0.7));
 }
 
 /* --- Caution tape over the video slot that is coming soon --- */
@@ -1420,6 +1424,16 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
   transition-delay: calc(0.25s + var(--i, 0) * 0.07s);
 }
+
+/* --- Home doors: the guide unfolds under the chosen door --- */
+.door-guide {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.75s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.45s ease;
+}
+.door-guide.is-open { grid-template-rows: 1fr; opacity: 1; }
+.door-guide > div { min-height: 0; overflow: hidden; }
 
 /* Safety net. Anything animated that was missed above still stops. */
 @media (prefers-reduced-motion: reduce) {

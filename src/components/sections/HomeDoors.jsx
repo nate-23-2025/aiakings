@@ -1,16 +1,17 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Check } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
 import { useCalModal } from '../../context/CalModalContext';
 import CTAButton from '../motion/CTAButton';
+import { prefersReducedMotion } from '../../lib/motion';
 import BeamRing from '../motion/BeamRing';
 import { DEV_FITS } from '../../data/agents';
 
-// The two ways in, right under the hero. Two door cards act as tabs; the guide
-// for the chosen door sits underneath: how it works, who it is for, proof, and
-// the next click. Marketing is chosen by default because most visitors come
-// from a cold call about a website or AI SEO. Both guides stay in the page for
-// search engines; the inactive one is just hidden.
+// The two ways in, right under the hero. Nothing is open at first: the visitor
+// picks a door, and the section unfolds underneath with that door's guide (how
+// it works, who it is for, proof, and the next click). Picking the other door
+// switches the guide; picking the open one folds it shut. The hero's two cards
+// open a door directly. Both guides stay in the page for search engines.
 //
 // The guides animate with CSS (they show and hide, so scroll-triggered reveals
 // would measure a hidden panel wrong). Each visual loads in its own chunk, and
@@ -101,6 +102,29 @@ const LABEL = 'font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb
 
 export default function HomeDoors({ door, setDoor }) {
     const { openCalModal } = useCalModal();
+    const gridRef = useRef(null);
+    // The guide keeps showing the last door while it collapses, so it folds
+    // shut with its content instead of snapping to nothing.
+    const [lastDoor, setLastDoor] = useState(door);
+    if (door && door !== lastDoor) setLastDoor(door);
+    const shown = door ?? lastDoor;
+
+    // Open a door, switch doors, or tap the open one again to close it. When a
+    // door opens from closed, bring the chosen door to the top so the guide
+    // unfolds in view (on a phone the doors are stacked, so it is that door,
+    // not the pair).
+    const choose = (id) => {
+        const opening = door === null;
+        setDoor(door === id ? null : id);
+        if (!opening) return;
+        requestAnimationFrame(() => {
+            const el = document.getElementById(`door-${id}`) ?? gridRef.current;
+            const top = el?.getBoundingClientRect().top ?? 0;
+            if (top > 160 || top < 0) {
+                window.scrollTo({ top: top + window.scrollY - 96, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+            }
+        });
+    };
 
     return (
         <section id="doors" className="scroll-mt-20 py-20 sm:py-28 md:py-32 px-5 sm:px-6 md:px-8">
@@ -112,27 +136,30 @@ export default function HomeDoors({ door, setDoor }) {
                     <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight">
                         Two ways I work <span className="drama-text text-brand-accent">with a business.</span>
                     </h2>
+                    <p data-reveal className="mt-4 text-white/50 text-base sm:text-lg font-light">
+                        Pick the one that sounds like you, and I will show you how it works.
+                    </p>
                 </div>
 
                 {/* The doors */}
-                <div data-reveal-group role="tablist" aria-label="Two ways to work with me" className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div ref={gridRef} data-reveal-group role="group" aria-label="Two ways to work with me" className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {DOORS.map((d) => {
                         const on = door === d.id;
+                        const other = door !== null && !on;
                         return (
                             <button
                                 key={d.id}
                                 type="button"
-                                role="tab"
                                 id={`door-${d.id}`}
-                                aria-selected={on}
-                                aria-controls={`guide-${d.id}`}
-                                onClick={() => setDoor(d.id)}
+                                aria-expanded={on}
+                                aria-controls="door-guide"
+                                onClick={() => choose(d.id)}
                                 data-spotlight
-                                className={`group relative text-left rounded-[1.75rem] border p-6 sm:p-7 transition-[border-color,background-color,box-shadow] duration-300 ${
+                                className={`group relative text-left rounded-[1.75rem] border p-6 sm:p-7 transition-[border-color,background-color,box-shadow,opacity] duration-300 ${
                                     on
                                         ? 'border-brand-accent/60 bg-[#17150F]/90 shadow-[0_0_50px_rgba(201,168,76,0.14)]'
                                         : 'border-white/10 bg-[#15151A]/80 hover:border-white/25'
-                                }`}
+                                } ${other ? 'opacity-60 hover:opacity-100' : ''}`}
                             >
                                 {on && <BeamRing />}
                                 <span className="flex items-center justify-between gap-4 mb-5">
@@ -150,14 +177,21 @@ export default function HomeDoors({ door, setDoor }) {
                                         </span>
                                     ))}
                                 </span>
+                                <span className={`mt-6 pt-4 border-t flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-300 ${on ? 'border-brand-accent/25 text-brand-accent' : 'border-white/[0.07] text-white/45 group-hover:text-white/75'}`}>
+                                    {on ? 'Showing how it works' : 'See how it works'}
+                                    <ChevronDown size={15} className={`transition-transform duration-500 ${on ? 'rotate-180' : 'group-hover:translate-y-0.5'}`} />
+                                </span>
                             </button>
                         );
                     })}
                 </div>
 
-                {/* The guide for the chosen door */}
-                <div data-reveal className="mt-4 rounded-[2rem] sm:rounded-[2.5rem] border border-white/[0.06] bg-[#111116]/80 p-6 sm:p-10 lg:p-12">
-                    <div id="guide-marketing" role="tabpanel" aria-labelledby="door-marketing" hidden={door !== 'marketing'}>
+                {/* The guide for the chosen door. Folded shut until a door is picked;
+                    both guides stay in the page for search engines. */}
+                <div id="door-guide" className={`door-guide ${door ? 'is-open' : ''}`}>
+                <div>
+                <div className="mt-4 rounded-[2rem] sm:rounded-[2.5rem] border border-white/[0.06] bg-[#111116]/80 p-6 sm:p-10 lg:p-12">
+                    <div id="guide-marketing" role="region" aria-labelledby="door-marketing" hidden={shown !== 'marketing'}>
                         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_400px] gap-10 lg:gap-14">
                             <div>
                                 <p className={LABEL}>How it works</p>
@@ -182,7 +216,7 @@ export default function HomeDoors({ door, setDoor }) {
                         </div>
                     </div>
 
-                    <div id="guide-dev" role="tabpanel" aria-labelledby="door-dev" hidden={door !== 'dev'}>
+                    <div id="guide-dev" role="region" aria-labelledby="door-dev" hidden={shown !== 'dev'}>
                         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] gap-10 lg:gap-14">
                             <div>
                                 <p className={LABEL}>How it works</p>
@@ -203,7 +237,7 @@ export default function HomeDoors({ door, setDoor }) {
                                 </div>
                             </div>
                             <div className="door-in" style={{ '--d': '0.2s' }}>
-                                {door === 'dev' && (
+                                {shown === 'dev' && (
                                     <Suspense fallback={<div className="h-[520px] rounded-[2rem] border border-white/[0.08] bg-[#15151A]" />}>
                                         <AgentRun />
                                     </Suspense>
@@ -220,6 +254,8 @@ export default function HomeDoors({ door, setDoor }) {
                             ))}
                         </ul>
                     </div>
+                </div>
+                </div>
                 </div>
             </div>
         </section>

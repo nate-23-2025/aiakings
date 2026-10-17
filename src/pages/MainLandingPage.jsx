@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ArrowDown } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import { useReveal } from '../hooks/useReveal';
-import { prefersReducedMotion } from '../lib/motion';
+import { playOrWaitForTap, prefersReducedMotion } from '../lib/motion';
 import SEOHead from '../components/SEOHead';
 import CTAButton from '../components/motion/CTAButton';
 import BeamRing from '../components/motion/BeamRing';
@@ -13,6 +13,7 @@ import MyBuilds from '../components/sections/MyBuilds';
 import MeetNate from '../components/sections/MeetNate';
 import CallSteps from '../components/sections/CallSteps';
 import heroVideo from '../components/animations/go_to_market.mp4';
+import heroVideoPhone from '../components/animations/go_to_market-phone.mp4';
 
 // The home page, kept simple: a hero that speaks to both sides, two doors
 // with a guide for each (HomeDoors), who builds it (MeetNate), live builds as
@@ -70,21 +71,25 @@ export default function MainLandingPage() {
     const heroRef = useRef(null);
     const videoRef = useRef(null);
     const { openCalModal } = useCalModal();
-    const [door, setDoor] = useState('marketing');
+    const [door, setDoor] = useState(null);
 
     useReveal(rootRef);
 
-    // The 5MB hero video never touches a phone. Desktop gets it after the page
-    // has already painted, and only if the visitor has not asked to save data
-    // or reduce motion.
-    const [showVideo, setShowVideo] = useState(false);
+    // The hero video loads once the page has painted, so it never holds up the
+    // headline, and never for a visitor who asked to save data or reduce
+    // motion. Phones get their own cut: tall, a fraction of the size, and it
+    // plays forward then back so the loop never jumps. It stays invisible
+    // until it is actually playing, so a phone that will not autoplay shows
+    // the plain gradient until the first tap.
+    const [heroSrc, setHeroSrc] = useState(null);
+    const [heroPlaying, setHeroPlaying] = useState(false);
     useEffect(() => {
-        const bigScreen = window.matchMedia('(min-width: 768px)').matches;
         const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const saveData = navigator.connection?.saveData === true;
-        if (!bigScreen || reducedMotion || saveData) return;
+        if (reducedMotion || saveData) return;
 
-        const load = () => setShowVideo(true);
+        const src = window.matchMedia('(min-width: 768px)').matches ? heroVideo : heroVideoPhone;
+        const load = () => setHeroSrc(src);
         const idle = window.requestIdleCallback
             ? window.requestIdleCallback(load, { timeout: 3000 })
             : setTimeout(load, 1200);
@@ -94,12 +99,23 @@ export default function MainLandingPage() {
         };
     }, []);
 
+    // Plays while the hero is on screen, pauses once it is scrolled past.
     useEffect(() => {
         const vid = videoRef.current;
         if (!vid) return;
         vid.muted = true;
-        vid.play().catch(() => {});
-    }, [showVideo]);
+        let stop = () => {};
+        const io = new IntersectionObserver(([entry]) => {
+            stop();
+            if (entry.isIntersecting) stop = playOrWaitForTap(vid);
+            else vid.pause();
+        });
+        io.observe(heroRef.current);
+        return () => {
+            io.disconnect();
+            stop();
+        };
+    }, [heroSrc]);
 
     // The hero paints with the document and its entrance is CSS, so nothing a
     // visitor needs waits on a timeline. What runs here only starts once they
@@ -144,23 +160,24 @@ export default function MainLandingPage() {
             {/* 1. HERO. Everything a visitor needs is here, above the fold, no delay */}
             <section ref={heroRef} className="relative min-h-[100dvh] flex flex-col items-center justify-center pt-28 pb-16 md:pt-32 px-5 sm:px-6 md:px-8 overflow-hidden">
 
-                {/* Background. Video is desktop-only and deferred; the gradient stands alone. */}
+                {/* Background. The video is deferred; the gradient stands alone until it plays. */}
                 <div
                     data-hero-bg
                     className="absolute inset-0"
                     style={{ maskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)', WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 45%, black 30%, transparent 80%)' }}
                 >
-                    {showVideo && (
+                    {heroSrc && (
                         <>
                             <video
                                 ref={videoRef}
-                                autoPlay
                                 loop
                                 muted
                                 playsInline
-                                preload="none"
-                                className="absolute inset-0 w-full h-full object-cover object-center opacity-30"
-                                src={heroVideo}
+                                preload="auto"
+                                aria-hidden="true"
+                                onPlaying={() => setHeroPlaying(true)}
+                                className={`absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${heroPlaying ? 'opacity-45 md:opacity-30' : 'opacity-0'}`}
+                                src={heroSrc}
                             />
                             <div className="absolute inset-0 bg-brand-primary/40" />
                         </>
@@ -199,19 +216,21 @@ export default function MainLandingPage() {
                         <span className="gold-gradient-text again-sweep">Then let it run.</span>
                     </p>
 
-                    <p className="focus-in text-white/70 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-8 md:mb-10 leading-relaxed" style={{ '--d': '0.22s' }}>
+                    {/* Not on a phone, where the headline and the button carry the hero. */}
+                    <p className="focus-in hidden sm:block text-white/70 text-lg md:text-xl font-light max-w-2xl mb-8 md:mb-10 leading-relaxed" style={{ '--d': '0.22s' }}>
                         For local service businesses, I build the website, the reviews, and the AI SEO that get you found and called. For teams ready for more, I build AI agents that take the busywork off your plate.
                     </p>
 
-                    {/* Two ways in. Each card scrolls to the doors below with that door chosen. */}
-                    <div className="focus-in grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full max-w-2xl mb-6 text-left" style={{ '--d': '0.3s' }}>
+                    {/* Two ways in. Each card scrolls to the doors below with that door
+                        chosen. Not on a phone: the doors are the next thing they scroll to. */}
+                    <div className="focus-in hidden sm:grid grid-cols-2 gap-4 w-full max-w-2xl mb-6 text-left" style={{ '--d': '0.3s' }}>
                         {ROUTES.map((r) => (
                             <a
                                 key={r.door}
                                 href="#doors"
                                 onClick={openDoor(r.door)}
                                 data-spotlight
-                                className="group relative bg-white/[0.04] hover:bg-white/[0.07] border border-white/10 hover:border-brand-accent/40 rounded-2xl px-5 py-4 transition-colors"
+                                className="group relative bg-[#0E0E12]/55 hover:bg-[#0E0E12]/45 backdrop-blur-md border border-white/10 hover:border-brand-accent/40 rounded-2xl px-5 py-4 transition-colors"
                             >
                                 <span className="block font-mono text-[10px] uppercase tracking-widest text-white/40 mb-1">{r.q}</span>
                                 <span className="flex items-center justify-between gap-3 text-white text-base sm:text-lg font-medium">

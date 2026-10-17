@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { prefersReducedMotion } from '../../lib/motion';
+import { playOrWaitForTap, prefersReducedMotion } from '../../lib/motion';
 
 // Short clips of me, played as one loop: each clip crossfades into the next a
 // beat before it ends, and the last one hands back to the first. Clips live in
 // public/videos, each with a first-frame still in public/videos/posters.
 //
 // Nothing downloads until the player is on screen, it pauses whenever it
-// scrolls away, and reduced motion or data saver get the still.
+// scrolls away, and reduced motion or data saver get the still. A phone in
+// Low Power Mode starts the clip on the first tap.
 // `stillOnPhones` keeps big background clips off phone data.
 // `idleStart` waits until the browser is idle after loading, so a background
 // clip never competes with the headline for bandwidth, then loops on its own.
@@ -65,14 +66,17 @@ export default function NateVideo({ clips, className = '', objectPosition = 'cen
         };
     }, [enabled, waitForInput, idleStart]);
 
-    // Play the active clip while on screen, pause everything when not.
+    // Play the active clip while on screen, pause everything when not. If the
+    // phone refuses to autoplay, it starts on the first tap.
     useEffect(() => {
         if (!armed) return;
+        const stops = [];
         vidRefs.current.forEach((v, i) => {
             if (!v) return;
-            if (inView && i === active) v.play().catch(() => {});
+            if (inView && i === active) stops.push(playOrWaitForTap(v));
             else if (!inView) v.pause();
         });
+        return () => stops.forEach((stop) => stop());
     }, [armed, inView, active]);
 
     // Hand off to the next clip a beat before this one ends. If a throttled tab
