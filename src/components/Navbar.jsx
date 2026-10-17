@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useCalModal } from '../context/CalModalContext';
 import CTAButton from './motion/CTAButton';
+import RollText from './motion/RollText';
 import MobileMenu from './MobileMenu';
 
 const TABS = [
@@ -52,7 +53,8 @@ export default function Navbar() {
                 AIA KINGS
             </Link>
 
-            {/* The two sides of the business. On a phone they live in the menu. */}
+            {/* The two sides of the business, letters rolling on hover. On a phone
+                they live in the menu. */}
             <div className="hidden md:flex items-center gap-8 font-medium text-sm">
                 {TABS.map(({ to, label }) => {
                     const active = location.pathname.startsWith(to);
@@ -60,9 +62,9 @@ export default function Navbar() {
                         <Link
                             key={to}
                             to={to}
-                            className={`nav-tab relative whitespace-nowrap transition-opacity duration-300 hover:opacity-100 ${active ? 'is-active opacity-100' : 'opacity-70'}`}
+                            className={`nav-tab roll-host relative whitespace-nowrap transition-opacity duration-300 hover:opacity-100 ${active ? 'is-active opacity-100' : 'opacity-70'}`}
                         >
-                            {label}
+                            <RollText text={label} />
                         </Link>
                     );
                 })}
