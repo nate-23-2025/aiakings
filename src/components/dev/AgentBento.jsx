@@ -1,87 +1,121 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Phone, Send, ClipboardList, RotateCcw, FileText, Search, Radar, Inbox } from 'lucide-react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
+import {
+    Phone, Send, ClipboardList, RotateCcw, FileText, Search, Radar, Inbox,
+    PhoneMissed, CalendarCheck, Receipt, MessageSquare, Bell, Users, Star, Clock, Files, MapPin, Handshake,
+} from 'lucide-react';
 import { prefersReducedMotion } from '../../lib/motion';
 import { useInView } from '../../hooks/useInView';
 import { AGENT_USES } from '../../data/agents';
 
-// "What agents can do" as a bento: one large tile where a magnifying lens
-// glides over the jobs an agent can take on (the lens shows a real, enlarged
-// copy of what is under it), and a tile per job. Modeled on the bento grid
-// and "Magnified Bento" components on 21st.dev, built from scratch here.
+// "What agents can do" as a bento: one large tile where rows of jobs drift
+// past in opposite directions and a magnifying lens glides over them, lighting
+// up whatever is under it in gold. The lens can be dragged; once someone moves
+// it, it stays where they leave it. Then a tile per job. From "Magnified
+// Bento" (0xUrvish) on 21st.dev, rebuilt without extra libraries (.mb-* in
+// index.css).
 const ICONS = [Phone, Send, ClipboardList, RotateCcw, FileText, Search, Radar, Inbox];
 
-const CHIPS = [
-    'Missed calls', 'Booking', 'Quotes', 'Follow-ups', 'Reminders', 'Customer records',
-    'Intake forms', 'Win-backs', 'Review asks', 'Reports', 'Scheduling', 'Inbox triage',
-    'Paperwork', 'Listings check', 'Research', 'Hand-offs',
+const ROWS = [
+    [['Missed calls', PhoneMissed], ['Booking', CalendarCheck], ['Quotes', Receipt], ['Follow-ups', MessageSquare], ['Reminders', Bell]],
+    [['Customer records', Users], ['Intake forms', ClipboardList], ['Win-backs', RotateCcw], ['Review asks', Star], ['Reports', FileText]],
+    [['Scheduling', Clock], ['Inbox triage', Inbox], ['Paperwork', Files], ['Listings check', MapPin], ['Research', Search], ['Hand-offs', Handshake]],
 ];
 
-const LENS = 56;   // lens radius in px
-const ZOOM = 1.65;
+const LENS = 46; // lens radius in px
 
-function ChipField({ copy = false }) {
-    return (
-        <div className={`absolute inset-0 flex flex-wrap content-center justify-center gap-2 px-6 ${copy ? '' : 'opacity-70'}`} aria-hidden={copy || undefined}>
-            {CHIPS.map((c) => (
-                <span key={c} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[12px] text-white/70 whitespace-nowrap">
-                    {c}
-                </span>
-            ))}
+// Three copies of each row, so the drift can loop by a third without a seam.
+// Both layers mount together, so their drift stays in step.
+function Rows({ lit = false }) {
+    return ROWS.map((row, r) => (
+        <div key={r} className={`mb-row ${r % 2 ? 'is-rev' : ''}`}>
+            {[...row, ...row, ...row].map(([label, icon], i) => {
+                const Icon = icon;
+                return (
+                    <span key={i} className={`mb-chip ${lit ? 'is-lit' : ''}`}>
+                        <Icon size={13} strokeWidth={1.8} />
+                        {label}
+                    </span>
+                );
+            })}
         </div>
-    );
+    ));
 }
 
 function Magnifier() {
     const wrapRef = useRef(null);
     const lensRef = useRef(null);
-    const innerRef = useRef(null);
-    const [size, setSize] = useState({ w: 0, h: 0 });
+    const size = useRef({ w: 0, h: 0 });
+    const held = useRef(false);
     const [viewRef, inView] = useInView();
+
+    const place = (x, y) => {
+        const wrap = wrapRef.current;
+        if (!wrap) return;
+        const { w, h } = size.current;
+        const cx = Math.min(Math.max(x, LENS), w - LENS);
+        const cy = Math.min(Math.max(y, LENS), h - LENS);
+        wrap.style.setProperty('--x', `${cx}px`);
+        wrap.style.setProperty('--y', `${cy}px`);
+        lensRef.current.style.transform = `translate(${cx - LENS}px, ${cy - LENS}px)`;
+    };
 
     useLayoutEffect(() => {
         const el = wrapRef.current;
-        const measure = () => setSize({ w: el.clientWidth, h: el.clientHeight });
+        const measure = () => {
+            size.current = { w: el.clientWidth, h: el.clientHeight };
+            if (!held.current) place(size.current.w / 2, size.current.h / 2);
+        };
         measure();
         const ro = new ResizeObserver(measure);
         ro.observe(el);
         return () => ro.disconnect();
     }, []);
 
+    // Glide on its own until someone grabs it.
     useEffect(() => {
-        const lens = lensRef.current;
-        const inner = innerRef.current;
-        const { w, h } = size;
-        if (!lens || !inner || !w) return;
-        const place = (x, y) => {
-            lens.style.transform = `translate(${x - LENS}px, ${y - LENS}px)`;
-            inner.style.transform = `translate(${-(x * ZOOM - LENS)}px, ${-(y * ZOOM - LENS)}px) scale(${ZOOM})`;
-        };
-        if (prefersReducedMotion() || !inView) {
-            place(w * 0.5, h * 0.5);
-            return;
-        }
+        if (prefersReducedMotion() || !inView) return;
         let raf = 0;
         const start = performance.now();
         const tick = (now) => {
-            const t = ((now - start) / 11000) * Math.PI * 2;
-            const x = w / 2 + (w / 2 - LENS - 8) * Math.sin(t);
-            const y = h / 2 + (h / 2 - LENS * 0.55) * Math.sin(t * 2) * 0.8;
-            place(x, y);
-            raf = requestAnimationFrame(tick);
+            if (!held.current) {
+                const { w, h } = size.current;
+                const t = ((now - start) / 12000) * Math.PI * 2;
+                place(w / 2 + (w / 2 - LENS - 10) * Math.sin(t), h / 2 + (h / 2 - LENS - 6) * Math.sin(t * 2) * 0.8);
+                raf = requestAnimationFrame(tick);
+            }
         };
         raf = requestAnimationFrame(tick);
         return () => cancelAnimationFrame(raf);
-    }, [size, inView]);
+    }, [inView]);
+
+    const onPointerDown = (e) => {
+        held.current = true;
+        const lens = lensRef.current;
+        lens.setPointerCapture(e.pointerId);
+        const box = wrapRef.current.getBoundingClientRect();
+        const move = (ev) => place(ev.clientX - box.left, ev.clientY - box.top);
+        const up = () => {
+            lens.removeEventListener('pointermove', move);
+            lens.removeEventListener('pointerup', up);
+            lens.removeEventListener('pointercancel', up);
+        };
+        lens.addEventListener('pointermove', move);
+        lens.addEventListener('pointerup', up);
+        lens.addEventListener('pointercancel', up);
+        move(e);
+    };
 
     return (
-        <div ref={(el) => { wrapRef.current = el; viewRef.current = el; }} className="relative h-56 sm:h-64 overflow-hidden rounded-xl" style={{ maskImage: 'radial-gradient(ellipse 90% 85% at 50% 50%, #000 55%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 90% 85% at 50% 50%, #000 55%, transparent 100%)' }}>
-            <ChipField />
-            <div ref={lensRef} className="magnifier-lens" style={{ width: LENS * 2, height: LENS * 2 }} aria-hidden="true">
-                <div ref={innerRef} className="absolute left-0 top-0 origin-top-left" style={{ width: size.w, height: size.h }}>
-                    <ChipField copy />
-                </div>
-                <span className="magnifier-handle" />
-            </div>
+        <div ref={(el) => { wrapRef.current = el; viewRef.current = el; }} className="mb-field" style={{ '--r': `${LENS - 4}px` }}>
+            <div className="mb-layer mb-base" aria-hidden="true"><Rows /></div>
+            <div className="mb-layer mb-lit" aria-hidden="true"><Rows lit /></div>
+            <div
+                ref={lensRef}
+                onPointerDown={onPointerDown}
+                className="magnifier-lens mb-lens"
+                style={{ width: LENS * 2, height: LENS * 2 }}
+                aria-hidden="true"
+            />
         </div>
     );
 }

@@ -7,6 +7,7 @@ import { prefersReducedMotion } from '../lib/motion';
 import SEOHead from '../components/SEOHead';
 import CTAButton from '../components/motion/CTAButton';
 import HeroGlow from '../components/motion/HeroGlow';
+import ParticleField from '../components/motion/ParticleField';
 import CallSteps from '../components/sections/CallSteps';
 import { Rows } from '../components/sections/PanelParts';
 import AnswerEngine from '../components/features/AnswerEngine';
@@ -217,13 +218,18 @@ export default function MarketerPage() {
                          style={{ background: 'radial-gradient(circle, rgba(91,123,213,0.14) 0%, rgba(91,123,213,0.04) 45%, transparent 70%)', bottom: '-25%', left: '-12%' }} />
                 </div>
                 <HeroGlow />
-                {/* A beam of light on the headline, with gold dust drifting up through it */}
-                <div aria-hidden="true" className="hero-beam z-0" />
-                <div aria-hidden="true" className="hero-dust absolute left-[6%] w-[44%] bottom-0 top-0 z-0 pointer-events-none">
-                    {Array.from({ length: 14 }, (_, n) => (
-                        <span key={n} style={{ left: `${(n * 37) % 100}%`, '--d': `${(n * 1.3) % 9}s`, '--t': `${10 + (n % 5) * 2}s` }} />
-                    ))}
+                {/* Three beams of light swaying over the headline, fine light drifting up
+                    through the whole hero, and faint guide lines that draw in after it loads */}
+                <div aria-hidden="true" className="hero-lines z-0">
+                    {['20%', '38%', '68%', '86%'].map((y, n) => <span key={y} className="is-h" style={{ top: y, '--d': `${1.2 + n * 0.15}s` }} />)}
+                    {['7%', '93%'].map((x) => <span key={x} className="is-v" style={{ left: x, '--d': '1s' }} />)}
                 </div>
+                <div aria-hidden="true" className="hero-spots z-0">
+                    <span style={{ '--r': '-18deg', '--t': '17s' }} />
+                    <span style={{ '--r': '16deg', '--t': '14s' }} />
+                    <span style={{ '--r': '0deg', '--t': '21s' }} />
+                </div>
+                <ParticleField className="absolute inset-0 z-0 w-full h-full" />
 
                 <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] gap-14 lg:gap-12 items-center">
                     <div>
