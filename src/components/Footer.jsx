@@ -1,6 +1,59 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import gsap from 'gsap';
 import { useReveal } from '../hooks/useReveal';
+import { canHover, prefersReducedMotion } from '../lib/motion';
+
+// The sign-off wordmark. With a mouse over it, the letters scatter a little,
+// tilt, and drift as if floating, then fall back into line when the pointer
+// leaves. From "Fancy Text Hover" (codegrid) on 21st.dev, rebuilt here with
+// the site's GSAP. Touch screens and reduced motion get the still wordmark.
+const WORD = 'AIA Kings';
+const SCATTER = [
+    { x: -15, y: 60, r: 8 }, { x: -30, y: 30, r: 4 }, { x: -20, y: 40, r: -6 }, null,
+    { x: 0, y: 8, r: -8 }, { x: 0, y: -20, r: 5 }, { x: 0, y: 20, r: -3 }, { x: 0, y: -40, r: -5 }, { x: 0, y: 15, r: 10 },
+];
+
+function FancyWord() {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        const word = ref.current;
+        if (!canHover() || prefersReducedMotion()) return;
+        const letters = Array.from(word.querySelectorAll('.fw-letter'));
+        const floats = letters.map((l) => l.firstElementChild);
+        const enter = () => {
+            letters.forEach((l, i) => {
+                const t = SCATTER[i];
+                if (!t) return;
+                gsap.to(l, { xPercent: t.x, yPercent: t.y, rotation: t.r, duration: 0.3, ease: 'power3.inOut' });
+                gsap.to(floats[i], { yPercent: -6, duration: 2.5, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: (i % 4) * 0.35 });
+            });
+        };
+        const leave = () => {
+            gsap.killTweensOf(floats);
+            gsap.to(letters, { xPercent: 0, yPercent: 0, rotation: 0, duration: 0.4, ease: 'power3.inOut' });
+            gsap.to(floats, { yPercent: 0, duration: 0.4, ease: 'power3.inOut' });
+        };
+        word.addEventListener('mouseenter', enter);
+        word.addEventListener('mouseleave', leave);
+        return () => {
+            word.removeEventListener('mouseenter', enter);
+            word.removeEventListener('mouseleave', leave);
+            gsap.killTweensOf([...letters, ...floats]);
+        };
+    }, []);
+
+    return (
+        <span ref={ref} className="fw-word">
+            {[...WORD].map((c, i) => (
+                <span key={i} className="fw-letter">
+                    <span className="fw-float"><span>{c === ' ' ? '\u00A0' : c}</span></span>
+                </span>
+            ))}
+        </span>
+    );
+}
 
 export default function Footer() {
     const footerRef = useRef(null);
@@ -49,10 +102,11 @@ export default function Footer() {
             </div>
 
             {/* The sign-off. A huge, faint wordmark that rises into place as the
-                page runs out. Decoration only, hidden from screen readers. */}
+                page runs out, and scatters under a mouse (FancyWord). Decoration
+                only, hidden from screen readers. */}
             <div aria-hidden="true" className="relative mt-6 select-none pointer-events-none text-center">
-                <span data-rise="90" className="drama-text inline-block -mb-[0.14em] text-[22vw] md:text-[16vw] leading-[0.9] whitespace-nowrap bg-gradient-to-b from-brand-accent/20 to-brand-accent/0 bg-clip-text text-transparent pr-[0.1em]">
-                    AIA Kings
+                <span data-rise="90" className="drama-text inline-block -mb-[0.14em] text-[22vw] md:text-[16vw] leading-[0.9] whitespace-nowrap pr-[0.1em]">
+                    <FancyWord />
                 </span>
             </div>
         </footer>

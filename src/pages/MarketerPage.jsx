@@ -7,10 +7,11 @@ import { prefersReducedMotion } from '../lib/motion';
 import SEOHead from '../components/SEOHead';
 import CTAButton from '../components/motion/CTAButton';
 import HeroGlow from '../components/motion/HeroGlow';
+import BeamRing from '../components/motion/BeamRing';
 import ParticleField from '../components/motion/ParticleField';
 import CallSteps from '../components/sections/CallSteps';
 import { Rows } from '../components/sections/PanelParts';
-import AnswerEngine from '../components/features/AnswerEngine';
+import MonthlyWork from '../components/sections/MonthlyWork';
 import ReviewLoop from '../components/features/ReviewLoop';
 import WebSearchHero from '../components/features/WebSearchHero';
 import FaqAccordion from '../components/sections/FaqAccordion';
@@ -383,40 +384,20 @@ export default function MarketerPage() {
                 </div>
             </section>
 
-            {/* THE WORK */}
+            {/* THE WORK. The list lights up item by item as it scrolls, with a
+                picture of each piece beside it (MonthlyWork). */}
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
                 <div className="max-w-6xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16 items-start">
-                        <div>
-                            <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-12">
-                                What I actually do <span className="drama-text text-brand-accent">every month.</span>
-                            </h2>
+                    <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-12">
+                        What I actually do <span className="drama-text text-brand-accent">every month.</span>
+                    </h2>
 
-                            <div className="flex flex-col gap-8">
-                                {WORK.map(({ title, body }) => (
-                                    <div key={title} data-reveal data-inview className="flex gap-4">
-                                        <Check className="draw w-5 h-5 text-brand-accent shrink-0 mt-1" strokeWidth={2.5} style={{ '--d': '0.3s' }} />
-                                        <div>
-                                            <h3 className="text-white text-lg font-semibold mb-2">{title}</h3>
-                                            <p className="text-white/50 text-sm sm:text-base leading-relaxed">{body}</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                    <MonthlyWork items={WORK} />
 
-                            <div data-reveal className="mt-12">
-                                <CTAButton size="md" glow={false} onClick={openCalModal} className="w-full sm:w-auto">
-                                    See Where You Show Up Today
-                                </CTAButton>
-                            </div>
-                        </div>
-
-                        <div data-reveal className="hidden lg:block sticky top-28">
-                            <AnswerEngine />
-                            <p className="text-white/25 text-xs mt-4 leading-relaxed">
-                                Illustration, not a live result. Nobody controls what AI says, which is exactly why the work above is the part worth paying for.
-                            </p>
-                        </div>
+                    <div data-reveal className="mt-12">
+                        <CTAButton size="md" glow={false} onClick={openCalModal} className="w-full sm:w-auto">
+                            See Where You Show Up Today
+                        </CTAButton>
                     </div>
                 </div>
             </section>
@@ -514,7 +495,8 @@ export default function MarketerPage() {
 
             {/* CTA */}
             <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 flex justify-center text-center bg-[#0A0A0E]/60">
-                <div className="max-w-3xl flex flex-col items-center w-full">
+                <div className="relative max-w-4xl w-full flex flex-col items-center rounded-[2.5rem] border border-white/[0.06] bg-[#111116]/70 px-5 py-14 sm:px-12 sm:py-16">
+                    <BeamRing />
                     <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans tracking-tight mb-6 text-white leading-tight">
                         Want to see what comes back today?
                     </h2>

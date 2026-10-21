@@ -1215,6 +1215,105 @@ h1, h2, h3, h4, h5, h6 {
 .mb-lens { background: transparent; cursor: grab; touch-action: none; }
 .mb-lens:active { cursor: grabbing; }
 
+/* --- Every month: the list that lights up as it scrolls (MonthlyWork.jsx) --- */
+.fp-item {
+  border-radius: 1rem;
+  border: 1px solid transparent;
+  padding: 14px 16px;
+  transition: border-color 0.4s ease, background-color 0.4s ease;
+}
+.fp-item.is-on { border-color: rgba(201, 168, 76, 0.3); background: rgba(201, 168, 76, 0.04); }
+.fp-num {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  font-weight: 600;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+.fp-item.is-on .fp-num { background: #C9A84C; border-color: #C9A84C; color: #0B0B0F; }
+.fp-title { color: rgba(255, 255, 255, 0.5); transition: color 0.4s ease; }
+.fp-body { color: rgba(255, 255, 255, 0.32); transition: color 0.4s ease; }
+.fp-item.is-on .fp-title { color: #fff; }
+.fp-item.is-on .fp-body { color: rgba(255, 255, 255, 0.6); }
+.fp-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: linear-gradient(180deg, #17150F, #111116);
+  padding: 24px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+}
+.fp-panel .fp-card { min-height: 21rem; padding: 28px; }
+.fp-label { font-family: var(--font-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #C9A84C; }
+.fp-row { display: flex; align-items: center; gap: 10px; }
+.fp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  color: #F1DC9B;
+  font-size: 11px;
+}
+.fp-bubble {
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px 14px 14px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+}
+.fp-live {
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(74, 222, 128, 0.12);
+  color: #86EFAC;
+  font-size: 10px;
+  font-weight: 600;
+}
+.fp-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 40%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(201, 168, 76, 0.08), transparent);
+}
+@keyframes fp-in { from { opacity: 0; transform: translateY(12px) scale(0.98); } }
+@keyframes fp-row-in { from { opacity: 0; transform: translateX(-8px); } }
+@keyframes fp-scan { from { transform: translateY(-100%); } to { transform: translateY(250%); } }
+@media (prefers-reduced-motion: no-preference) {
+  .fp-panel { animation: fp-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .fp-panel .fp-row { animation: fp-row-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; animation-delay: calc(0.12s + var(--i, 0) * 0.08s); }
+  .fp-scan { animation: fp-scan 3.2s ease-in-out infinite; }
+}
+
+/* --- Footer wordmark: letters scatter on hover (Footer.jsx) --- */
+.fw-word { display: inline-flex; pointer-events: auto; cursor: default; }
+.fw-letter, .fw-float { display: inline-block; will-change: transform; }
+.fw-letter > span > span {
+  display: inline-block;
+  background: linear-gradient(to bottom, rgba(201, 168, 76, 0.2), rgba(201, 168, 76, 0));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background 0.4s ease;
+}
+.fw-word:hover .fw-letter > span > span {
+  background: linear-gradient(to bottom, rgba(241, 220, 155, 0.55), rgba(201, 168, 76, 0.05));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 /* --- Build timeline --- */
 .tl-node, .tl-card {
   transition: border-color 0.5s ease, background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.6s ease;

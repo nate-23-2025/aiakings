@@ -565,7 +565,8 @@ export default function DeveloperPage() {
 
             {/* CLOSE. Big line, one ask, a way to email, and a sign-off. */}
             <section className="py-20 sm:py-28 md:py-36 px-5 sm:px-6 md:px-8 text-center">
-                <div className="max-w-4xl mx-auto flex flex-col items-center w-full">
+                <div className="relative max-w-5xl mx-auto flex flex-col items-center w-full rounded-[2.5rem] border border-white/[0.06] bg-[#111116]/70 px-5 py-14 sm:px-12 sm:py-16">
+                    <BeamRing />
                     <h2 data-reveal="lines" className="text-4xl sm:text-5xl md:text-7xl font-sans font-medium tracking-tight text-white leading-[1.02] mb-6">
                         Have a job you want <span className="drama-text text-brand-accent">off your plate?</span>
                     </h2>
