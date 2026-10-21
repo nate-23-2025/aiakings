@@ -357,13 +357,13 @@ export default function DeveloperPage() {
 
                 <div className="relative z-10 max-w-6xl mx-auto">
                     <div className="max-w-3xl">
-                        <ul className="focus-in flex gap-10 sm:gap-14 mb-7 sm:mb-9">
+                        <ul className="focus-in flex gap-7 sm:gap-14 mb-7 sm:mb-9">
                             <li>
-                                <span className="block text-3xl sm:text-4xl font-semibold tracking-tight text-white">One job</span>
+                                <span className="block text-[1.65rem] sm:text-4xl font-semibold tracking-tight text-white whitespace-nowrap">One job</span>
                                 <span className="block text-xs text-white/45 mt-1">to start, proven before it grows</span>
                             </li>
                             <li>
-                                <span className="block text-3xl sm:text-4xl font-semibold tracking-tight text-white">Your <span className="text-brand-accent">OK</span></span>
+                                <span className="block text-[1.65rem] sm:text-4xl font-semibold tracking-tight text-white whitespace-nowrap">Your <span className="text-brand-accent">OK</span></span>
                                 <span className="block text-xs text-white/45 mt-1">on anything risky</span>
                             </li>
                         </ul>
@@ -377,7 +377,7 @@ export default function DeveloperPage() {
                             <CTAButton size="md" glint onClick={openCalModal} className="w-full sm:w-auto">
                                 Talk to Me About an Agent
                             </CTAButton>
-                            <a href="#built" onClick={jumpTo('built')} className="link-underline self-center sm:self-auto text-white/70 hover:text-white text-sm">
+                            <a href="#built" onClick={jumpTo('built')} className="link-underline self-center sm:self-auto py-2 text-white/70 hover:text-white text-sm">
                                 See agents I have built <span className="bob">&darr;</span>
                             </a>
                         </div>
@@ -484,14 +484,14 @@ export default function DeveloperPage() {
                                     type="button"
                                     onClick={() => setOpenAgent(agent)}
                                     aria-haspopup="dialog"
-                                    className="group w-full text-left grid grid-cols-[minmax(0,8.5rem)_minmax(0,1fr)_auto] gap-4 sm:gap-6 py-5 sm:py-6 px-1 rounded-lg transition-colors hover:bg-white/[0.02] focus-visible:outline focus-visible:outline-1 focus-visible:outline-brand-accent/60"
+                                    className="group w-full text-left grid grid-cols-[minmax(0,1fr)_auto] md:grid-cols-[minmax(0,8.5rem)_minmax(0,1fr)_auto] gap-x-4 gap-y-2 sm:gap-x-6 py-5 sm:py-6 px-1 rounded-lg transition-colors hover:bg-white/[0.02] focus-visible:outline focus-visible:outline-1 focus-visible:outline-brand-accent/60"
                                 >
                                     <span>
                                         <span className="block text-white font-medium transition-colors group-hover:text-brand-accent">{agent.name}</span>
                                         <span className="block font-mono text-[9px] uppercase tracking-widest text-brand-accent mt-1.5">{agent.role}</span>
                                     </span>
-                                    <span className="text-white/50 text-sm sm:text-base leading-relaxed">{agent.body}</span>
-                                    <span className={`self-start grid place-items-center w-8 h-8 rounded-full border border-white/15 text-white/50 transition-[color,border-color,background-color,rotate] duration-300 group-hover:border-brand-accent/60 group-hover:text-brand-accent group-hover:bg-brand-accent/10 ${agent.confidential ? '' : 'group-hover:rotate-90'}`}>
+                                    <span className="col-span-2 row-start-2 md:col-span-1 md:row-start-auto text-white/50 text-sm sm:text-base leading-relaxed">{agent.body}</span>
+                                    <span className={`col-start-2 row-start-1 md:col-start-auto md:row-start-auto self-start grid place-items-center w-8 h-8 rounded-full border border-white/15 text-white/50 transition-[color,border-color,background-color,rotate] duration-300 group-hover:border-brand-accent/60 group-hover:text-brand-accent group-hover:bg-brand-accent/10 ${agent.confidential ? '' : 'group-hover:rotate-90'}`}>
                                         {agent.confidential ? <Lock size={13} /> : <Plus size={15} />}
                                         <span className="sr-only">{agent.confidential ? `About ${agent.name}` : `See what ${agent.name} does`}</span>
                                     </span>
@@ -514,7 +514,7 @@ export default function DeveloperPage() {
                             <li key={stat} className="grid grid-cols-1 md:grid-cols-[9rem_minmax(0,1fr)_auto] gap-x-8 gap-y-2 md:items-baseline border-b border-white/[0.07] py-6 sm:py-7">
                                 <NumberTicker value={stat} className="text-4xl sm:text-5xl font-light text-white tracking-tight leading-none" />
                                 <span className="text-white/70 text-base leading-relaxed">{label}</span>
-                                <a href={href} target="_blank" rel="noopener" className="link-underline justify-self-start font-mono text-[10px] uppercase tracking-widest text-white/35 hover:text-white/60">
+                                <a href={href} target="_blank" rel="noopener" className="link-underline justify-self-start py-2 -my-2 font-mono text-[10px] uppercase tracking-widest text-white/35 hover:text-white/60">
                                     {source} &#8599;
                                 </a>
                             </li>
@@ -580,7 +580,7 @@ export default function DeveloperPage() {
                         </CTAButton>
                     </div>
                     <p data-reveal className="mt-6 text-white/40 text-sm">
-                        Or email <a href="mailto:nate@aiautomationkings.com" className="link-underline text-white/65 hover:text-white">nate@aiautomationkings.com</a>
+                        Or email <a href="mailto:nate@aiautomationkings.com" className="link-underline inline-block py-2 text-white/65 hover:text-white">nate@aiautomationkings.com</a>
                     </p>
                     <p data-reveal aria-hidden="true" className="drama-text text-brand-accent text-5xl sm:text-6xl mt-12">
                         Nate

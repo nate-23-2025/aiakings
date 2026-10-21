@@ -84,7 +84,7 @@ export default function Navbar() {
                 aria-label="Open menu"
                 aria-expanded={menuOpen}
                 aria-controls="mobile-menu"
-                className="md:hidden flex items-center gap-2.5 -mr-2 pl-3 pr-2 py-1.5 rounded-full text-[#FAF8F5]/85"
+                className="md:hidden flex items-center gap-2.5 -mr-2 pl-3 pr-2 py-2.5 -my-1 min-h-[44px] rounded-full text-[#FAF8F5]/85"
             >
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em]">Menu</span>
                 <span className="mm-burger" aria-hidden="true"><span /><span /></span>

@@ -106,15 +106,18 @@ export default function WebSearchHero() {
                 <span aria-hidden="true" className="absolute left-[7px] top-1 bottom-1 w-px bg-white/10" />
                 <ul className="flex flex-col gap-2.5">
                     {SITES.map((site, i) => (
-                        <li key={site.title} className="ws-site flex items-center gap-2.5 text-[13px]" data-state={states[i]}>
-                            <span className="ws-bullet relative -ml-[23px] grid place-items-center w-4 h-4 bg-[#111116]">
+                        <li key={site.title} className="ws-site flex items-start sm:items-center gap-2.5 text-[13px]" data-state={states[i]}>
+                            <span className="ws-bullet relative -ml-[23px] mt-px sm:mt-0 grid place-items-center w-4 h-4 bg-[#111116]">
                                 <span className="ws-dots"><Dots /></span>
                                 <span className="ws-globe"><Globe /></span>
                                 <span className="ws-check"><CheckCircle /></span>
                             </span>
-                            <span className="text-white/85 whitespace-nowrap">{site.title}</span>
-                            <span className="text-white/25">&middot;</span>
-                            <span className="text-white/40 truncate">{site.detail}</span>
+                            {/* On a phone the detail goes under the name instead of getting cut off */}
+                            <span className="min-w-0 flex flex-col sm:flex-row sm:items-center sm:gap-2.5">
+                                <span className="text-white/85 whitespace-nowrap">{site.title}</span>
+                                <span className="hidden sm:inline text-white/25">&middot;</span>
+                                <span className="text-white/40 text-[12px] sm:text-[13px] sm:truncate">{site.detail}</span>
+                            </span>
                         </li>
                     ))}
                 </ul>

@@ -50,7 +50,7 @@ export default function MyBuilds({ className = '' }) {
                 {/* Right after the proof is when a visitor is most sold, so the
                     ask sits here instead of waiting for the bottom of the page. */}
                 <div data-reveal className="mt-10 flex flex-col items-center text-center">
-                    <CTAButton onClick={openCalModal} className="w-full sm:w-auto">
+                    <CTAButton onClick={openCalModal} className="w-full sm:w-auto whitespace-nowrap max-sm:px-6 max-sm:text-[15px]">
                         Want One Like These? Book a Call
                     </CTAButton>
                 </div>

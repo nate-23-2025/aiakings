@@ -78,22 +78,22 @@ export default function Footer() {
                     </p>
                     <a
                         href="mailto:nate@aiautomationkings.com"
-                        className="link-underline mt-6 inline-block text-brand-accent hover:opacity-80 data-text"
+                        className="link-underline mt-5 py-2 inline-block text-brand-accent hover:opacity-80 data-text"
                     >
                         nate@aiautomationkings.com
                     </a>
                     <p className="mt-4 opacity-50 text-sm">Houston, Texas.</p>
                 </div>
 
-                <div className="flex flex-col items-start gap-4">
+                <div className="flex flex-col items-start gap-2">
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">What I do</span>
-                    <Link to="/marketer" className="link-underline opacity-70 hover:opacity-100">Nate the Marketer</Link>
-                    <Link to="/developer" className="link-underline opacity-70 hover:opacity-100">Nate the Dev</Link>
+                    <Link to="/marketer" className="link-underline py-1.5 opacity-70 hover:opacity-100">Nate the Marketer</Link>
+                    <Link to="/developer" className="link-underline py-1.5 opacity-70 hover:opacity-100">Nate the Dev</Link>
                 </div>
 
-                <div className="flex flex-col items-start gap-4">
+                <div className="flex flex-col items-start gap-2">
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Company</span>
-                    <a href="mailto:nate@aiautomationkings.com" className="link-underline opacity-70 hover:opacity-100">Contact</a>
+                    <a href="mailto:nate@aiautomationkings.com" className="link-underline py-1.5 opacity-70 hover:opacity-100">Contact</a>
                 </div>
             </div>
 

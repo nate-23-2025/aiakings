@@ -247,7 +247,7 @@ export default function MarketerPage() {
                             <CTAButton size="md" glint onClick={openCalModal} className="w-full sm:w-auto">
                                 Book a 15-Minute Call
                             </CTAButton>
-                            <a href="#builds" onClick={jumpTo('builds')} className="link-underline self-center sm:self-auto text-white/70 hover:text-white text-sm">
+                            <a href="#builds" onClick={jumpTo('builds')} className="link-underline self-center sm:self-auto py-2 text-white/70 hover:text-white text-sm">
                                 Or see sites I have built <span className="bob">&darr;</span>
                             </a>
                         </div>
@@ -315,7 +315,7 @@ export default function MarketerPage() {
                             <p className="text-white/50 text-sm sm:text-base leading-relaxed mb-6">
                                 There is nothing for anything to read yet, so nothing else can start. I build it, and it is live in days.
                             </p>
-                            <a href="#no-website" onClick={jumpTo('no-website')} className="group mt-auto inline-flex items-center gap-1.5 text-brand-accent hover:opacity-80 transition-opacity text-sm font-medium">
+                            <a href="#no-website" onClick={jumpTo('no-website')} className="group mt-auto inline-flex items-center gap-1.5 py-2 -mb-2 text-brand-accent hover:opacity-80 transition-opacity text-sm font-medium">
                                 See how I build it
                                 <span className="inline-block transition-transform duration-300 group-hover:translate-y-0.5">&darr;</span>
                             </a>
@@ -395,7 +395,7 @@ export default function MarketerPage() {
                     <MonthlyWork items={WORK} />
 
                     <div data-reveal className="mt-12">
-                        <CTAButton size="md" glow={false} onClick={openCalModal} className="w-full sm:w-auto">
+                        <CTAButton size="md" glow={false} onClick={openCalModal} className="w-full sm:w-auto whitespace-nowrap max-sm:px-6">
                             See Where You Show Up Today
                         </CTAButton>
                     </div>

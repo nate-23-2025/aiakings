@@ -141,7 +141,7 @@ export default function MonthlyWork({ items }) {
                     const on = active === i;
                     return (
                         <li key={title} data-reveal className={`fp-item ${on ? 'is-on' : ''}`}>
-                            <button type="button" onClick={() => setActive(i)} aria-pressed={on} className="w-full flex items-center gap-4 text-left">
+                            <button type="button" onClick={() => setActive(i)} aria-pressed={on} className="w-full flex items-center gap-4 py-1 text-left">
                                 <span className="fp-num">{i + 1}</span>
                                 <span className="fp-title text-base sm:text-lg font-semibold">{title}</span>
                             </button>

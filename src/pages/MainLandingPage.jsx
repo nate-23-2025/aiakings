@@ -290,7 +290,7 @@ export default function MainLandingPage() {
                             Book a 15-Minute Call
                         </CTAButton>
                     </div>
-                    <a data-reveal href="mailto:nate@aiautomationkings.com" className="link-underline text-white/40 hover:text-white/70 text-sm mt-6 data-text">
+                    <a data-reveal href="mailto:nate@aiautomationkings.com" className="link-underline text-white/40 hover:text-white/70 text-sm mt-4 py-2 data-text">
                         or email nate@aiautomationkings.com
                     </a>
                 </div>

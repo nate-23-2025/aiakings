@@ -38,8 +38,8 @@ export default function BuildList() {
                                     >
                                         <span className="live-dot block w-2 h-2 rounded-full bg-emerald-400 text-emerald-400" aria-label="Live" />
                                         <span className="min-w-0">
-                                            <span className="block text-white text-base sm:text-lg font-medium truncate transition-colors group-hover:text-brand-accent">{b.name}</span>
-                                            <span className="block text-white/40 text-sm truncate">{b.where}</span>
+                                            <span className="block text-white text-base sm:text-lg font-medium sm:truncate transition-colors group-hover:text-brand-accent">{b.name}</span>
+                                            <span className="block text-white/40 text-sm sm:truncate">{b.where}</span>
                                         </span>
                                         <ArrowUpRight className="w-4 h-4 text-white/40 transition-[translate,color] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand-accent" />
                                     </a>
