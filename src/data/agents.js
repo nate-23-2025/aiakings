@@ -14,6 +14,7 @@ export const AGENT_USES = [
 
 // Who the agent work is for. Shared by the home page Dev door and the Dev page.
 export const DEV_FITS = [
+    'You need help with the routine work, but you are not ready to hire another person',
     'You have a team, and the same tasks eat hours every week',
     'Your tools do not talk to each other, so people copy data between them',
     'You have a process that works, and you want it to run without someone remembering every step',

@@ -1,0 +1,57 @@
+{
+  "gmail": {
+    "name": "Gmail",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/gmail.svg",
+    "website": "https://www.gmail.com"
+  },
+  "calendar": {
+    "name": "Google Calendar",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/google-calendar.svg",
+    "website": "https://calendar.google.com/"
+  },
+  "drive": {
+    "name": "Google Drive",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/drive.svg",
+    "website": "https://www.google.com/drive/"
+  },
+  "slack": {
+    "name": "Slack",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/slack.svg",
+    "website": "https://www.slack.com"
+  },
+  "stripe": {
+    "name": "Stripe",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/stripe.svg",
+    "website": "https://stripe.com/"
+  },
+  "google": {
+    "name": "Google",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/google.svg",
+    "website": "https://www.google.com/"
+  },
+  "claude": {
+    "name": "Claude AI",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/claude-ai-icon.svg",
+    "website": "https://claude.ai/"
+  },
+  "perplexity": {
+    "name": "Perplexity AI",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/perplexity.svg",
+    "website": "https://perplexity.ai/"
+  },
+  "twilio": {
+    "name": "Twilio",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/twilio.svg",
+    "website": "https://twilio.com"
+  },
+  "clickup": {
+    "name": "ClickUp",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/clickup.svg",
+    "website": "https://clickup.com/"
+  },
+  "cal": {
+    "name": "Cal.com",
+    "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/cal_dark.svg",
+    "website": "https://cal.com"
+  }
+}

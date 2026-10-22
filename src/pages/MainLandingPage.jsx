@@ -9,6 +9,7 @@ import CTAButton from '../components/motion/CTAButton';
 import BeamRing from '../components/motion/BeamRing';
 import HeroGlow from '../components/motion/HeroGlow';
 import HomeDoors from '../components/sections/HomeDoors';
+import CinemaJourney from '../components/sections/CinemaJourney';
 import MyBuilds from '../components/sections/MyBuilds';
 import MeetNate from '../components/sections/MeetNate';
 import CallSteps from '../components/sections/CallSteps';
@@ -267,6 +268,7 @@ export default function MainLandingPage() {
 
             {/* 2. THE TWO DOORS, each with its guide and who it is for */}
             <HomeDoors door={door} setDoor={setDoor} />
+            <CinemaJourney home />
 
             {/* 3. WHO BUILDS THIS. The person behind both doors */}
             <MeetNate />

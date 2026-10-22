@@ -1,31 +1,30 @@
 import { forwardRef, useCallback, useEffect, useId, useRef, useState } from 'react';
-import { Phone, CalendarDays, MessageSquare, Users, Mail, CreditCard } from 'lucide-react';
+import BrandLogo from '../BrandLogo';
 import Crown from '../intro/Crown';
 
 // The tools an agent works inside, with light flowing from each one into the
 // agent at the center. Adapted from the "Animated Beam Integration" component
 // on 21st.dev: the beam paths are measured from the real node positions (and
 // re-measured on resize), but the light runs on CSS instead of an animation
-// library, in gold and sapphire, with plain tool names instead of brand logos.
+// library. The beams follow AIAK's palette; product logos keep their colors.
 // Reduced motion keeps the connecting lines and drops the moving light.
 const LEFT = [
-    { key: 'phone', label: 'Phone', Icon: Phone },
-    { key: 'calendar', label: 'Calendar', Icon: CalendarDays },
-    { key: 'texts', label: 'Texts', Icon: MessageSquare },
+    { key: 'twilio', label: 'Twilio' },
+    { key: 'calendar', label: 'Google Calendar' },
+    { key: 'slack', label: 'Slack' },
 ];
 const RIGHT = [
-    { key: 'crm', label: 'Customer records', Icon: Users },
-    { key: 'inbox', label: 'Inbox', Icon: Mail },
-    { key: 'payments', label: 'Payments', Icon: CreditCard },
+    { key: 'clickup', label: 'ClickUp' },
+    { key: 'gmail', label: 'Gmail' },
+    { key: 'stripe', label: 'Stripe' },
 ];
 const CURVE = [-60, 0, 60];
 
-const Node = forwardRef(function Node({ label, icon, side }, ref) {
-    const Icon = icon;
+const Node = forwardRef(function Node({ label, brand, side }, ref) {
     return (
         <div className="flex flex-col items-center gap-2" data-side={side}>
             <div ref={ref} className="relative z-10 grid place-items-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl border border-white/10 bg-[#15151A]/90 backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.4)] transition-[border-color,scale] duration-300 hover:scale-105 hover:border-brand-accent/40">
-                <Icon className="w-5 h-5 text-white/80" strokeWidth={1.6} />
+                <BrandLogo name={brand} size={28} />
             </div>
             <span className="font-mono text-[8px] sm:text-[10px] uppercase tracking-[0.14em] text-white/50 text-center max-w-[80px] sm:max-w-none leading-tight">{label}</span>
         </div>
@@ -97,7 +96,7 @@ export default function IntegrationBeams() {
         <div ref={containerRef} className="relative w-full max-w-3xl mx-auto h-[360px] sm:h-[420px] flex items-center justify-center">
             <div className="relative z-10 w-full h-full max-h-[320px] flex items-center justify-between px-1 sm:px-10">
                 <div className="flex flex-col justify-between h-full">
-                    {LEFT.map((n, i) => <Node key={n.key} ref={leftRefs[i]} side="left" label={n.label} icon={n.Icon} />)}
+                    {LEFT.map((n, i) => <Node key={n.key} ref={leftRefs[i]} side="left" label={n.label} brand={n.key} />)}
                 </div>
 
                 <div className="flex flex-col items-center gap-3">
@@ -109,7 +108,7 @@ export default function IntegrationBeams() {
                 </div>
 
                 <div className="flex flex-col justify-between h-full">
-                    {RIGHT.map((n, i) => <Node key={n.key} ref={rightRefs[i]} side="right" label={n.label} icon={n.Icon} />)}
+                    {RIGHT.map((n, i) => <Node key={n.key} ref={rightRefs[i]} side="right" label={n.label} brand={n.key} />)}
                 </div>
             </div>
 

@@ -6,6 +6,7 @@ import DeferredOverlays from './components/DeferredOverlays';
 import ScrollProgress from './components/motion/ScrollProgress';
 import PointerFX from './components/motion/PointerFX';
 import AmbientLight from './components/motion/AmbientLight';
+import CinemaChapters from './components/motion/CinemaChapters';
 import IntroOverlay from './components/intro/IntroOverlay';
 import MainLandingPage from './pages/MainLandingPage';
 import { CalModalProvider } from './context/CalModalContext';
@@ -111,6 +112,7 @@ function App() {
           <Suspense fallback={null}><PageTransitions /></Suspense>
           <IntroOverlay />
           <ScrollProgress />
+          <CinemaChapters />
           <PointerFX />
           <DeferredOverlays />
           <Analytics />

@@ -12,6 +12,7 @@ import ParticleField from '../components/motion/ParticleField';
 import CallSteps from '../components/sections/CallSteps';
 import { Rows } from '../components/sections/PanelParts';
 import MonthlyWork from '../components/sections/MonthlyWork';
+import CinemaJourney from '../components/sections/CinemaJourney';
 import ReviewLoop from '../components/features/ReviewLoop';
 import WebSearchHero from '../components/features/WebSearchHero';
 import FaqAccordion from '../components/sections/FaqAccordion';
@@ -294,6 +295,7 @@ export default function MarketerPage() {
             </section>
 
             {/* START WHERE YOU ARE */}
+            <CinemaJourney />
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8">
                 <div className="max-w-5xl mx-auto">
                     <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-12">

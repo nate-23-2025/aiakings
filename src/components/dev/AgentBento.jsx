@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import {
     Phone, Send, ClipboardList, RotateCcw, FileText, Search, Radar, Inbox,
     PhoneMissed, CalendarCheck, Receipt, MessageSquare, Bell, Users, Star, Clock, Files, MapPin, Handshake,
@@ -14,6 +14,23 @@ import { AGENT_USES } from '../../data/agents';
 // Bento" (0xUrvish) on 21st.dev, rebuilt without extra libraries (.mb-* in
 // index.css).
 const ICONS = [Phone, Send, ClipboardList, RotateCcw, FileText, Search, Radar, Inbox];
+const EXAMPLES = [
+    'A customer calls after hours. The agent answers from your business information and checks your calendar before offering a time.',
+    'A new inquiry comes in. The agent prepares the next reply and keeps track of which quotes still need attention.',
+    'A call ends. The useful details and next steps are saved with the right customer.',
+    'A past customer is due for another service. The agent prepares a relevant follow-up for your review.',
+    'A form arrives. The agent pulls out the details and files them where the next person can find them.',
+    'You ask a question. The agent researches it and returns a summary with the sources beside the findings.',
+    'Something changes on your public site or listings. The agent brings it to your attention.',
+    'A request arrives. The agent routes it, prepares the reply, and keeps the next step from being forgotten.',
+];
+
+function JobVisual({ index }) {
+    if (index === 0) return <div className="job-wave" aria-hidden="true">{Array.from({ length: 22 }, (_, i) => <i key={i} style={{ height: (8 + Math.abs(Math.sin(i * 1.4)) * 34) + 'px' }} />)}</div>;
+    if (index === 2 || index === 4) return <div className="job-document" aria-hidden="true"><span /><span /><span /><i /></div>;
+    if (index === 5 || index === 6) return <div className="job-radar" aria-hidden="true"><span /><span /><i /><b /></div>;
+    return <div className="agent-mini" aria-hidden="true"><span /><span /><span /></div>;
+}
 
 const ROWS = [
     [['Missed calls', PhoneMissed], ['Booking', CalendarCheck], ['Quotes', Receipt], ['Follow-ups', MessageSquare], ['Reminders', Bell]],
@@ -121,6 +138,8 @@ function Magnifier() {
 }
 
 export default function AgentBento() {
+    const [selected, setSelected] = useState(null);
+    const id = useId();
     return (
         <div data-reveal-group className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div data-spotlight className="relative sm:col-span-2 lg:row-span-2 rounded-2xl border border-brand-accent/25 bg-gradient-to-b from-[#17150F] to-[#111116] p-5 sm:p-6 flex flex-col overflow-hidden">
@@ -135,15 +154,18 @@ export default function AgentBento() {
             {AGENT_USES.map(({ title, body }, i) => {
                 const Icon = ICONS[i];
                 return (
-                    <div key={title} data-spotlight className="group relative rounded-2xl border border-white/[0.07] bg-[#15151A] p-5 sm:p-6 transition-colors duration-300 hover:border-white/15">
+                    <div key={title} data-spotlight data-tilt className="agent-job-card group relative rounded-2xl border border-white/[0.07] bg-[#15151A] p-5 sm:p-6 transition-colors duration-300 hover:border-white/15">
                         <div className="flex items-center justify-between">
                             <span className="grid place-items-center w-9 h-9 rounded-xl border border-white/10 bg-white/[0.03] text-brand-accent transition-[background-color,border-color] duration-300 group-hover:border-brand-accent/40 group-hover:bg-brand-accent/10">
                                 <Icon className="w-4 h-4" strokeWidth={1.8} />
                             </span>
                             <span className="font-mono text-[10px] tracking-widest text-white/30">{String(i + 1).padStart(2, '0')}</span>
                         </div>
+                        <JobVisual index={i} />
                         <h4 className="mt-4 text-white font-semibold text-base sm:text-lg">{title}</h4>
                         <p className="mt-2 text-white/50 text-sm leading-relaxed">{body}</p>
+                        <button type="button" className="job-explore" aria-expanded={selected === i} aria-controls={id + '-' + i} onClick={() => setSelected(selected === i ? null : i)}>{selected === i ? 'Close the example' : 'See an example'}<span aria-hidden="true">{selected === i ? '−' : '+'}</span></button>
+                        <div id={id + '-' + i} hidden={selected !== i} className="job-detail">{EXAMPLES[i]}</div>
                     </div>
                 );
             })}

@@ -1,6 +1,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Check, PhoneIncoming, CalendarCheck, ShieldCheck } from 'lucide-react';
 import { prefersReducedMotion } from '../../lib/motion';
+import BrandLogo from '../BrandLogo';
+
+const TOOL_LOGOS = { 'Cal.com': 'cal', Claude: 'claude', Stripe: 'stripe', 'Drive, QuickBooks': 'drive', ClickUp: 'clickup', Gmail: 'gmail' };
 
 // The Allen AI breakdown, drawn. Two builds behind one toggle:
 //   System: a client's whole journey as a track. A gold marker walks it stage
@@ -130,6 +133,7 @@ function SystemTrack() {
                                     {s.name}
                                 </span>
                                 <span className="flex items-center gap-2 shrink-0">
+                                    {TOOL_LOGOS[s.tool] && <BrandLogo name={TOOL_LOGOS[s.tool]} size={15} />}
                                     <span className={`font-mono text-[9px] uppercase tracking-wider transition-colors duration-500 ${now || done ? 'text-white/45' : 'text-white/20'}`}>
                                         {s.tool}
                                     </span>

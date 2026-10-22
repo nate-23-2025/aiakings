@@ -357,16 +357,6 @@ export default function DeveloperPage() {
 
                 <div className="relative z-10 max-w-6xl mx-auto">
                     <div className="max-w-3xl">
-                        <ul className="focus-in flex gap-7 sm:gap-14 mb-7 sm:mb-9">
-                            <li>
-                                <span className="block text-[1.65rem] sm:text-4xl font-semibold tracking-tight text-white whitespace-nowrap">One job</span>
-                                <span className="block text-xs text-white/45 mt-1">to start, proven before it grows</span>
-                            </li>
-                            <li>
-                                <span className="block text-[1.65rem] sm:text-4xl font-semibold tracking-tight text-white whitespace-nowrap">Your <span className="text-brand-accent">OK</span></span>
-                                <span className="block text-xs text-white/45 mt-1">on anything risky</span>
-                            </li>
-                        </ul>
                         <h1 className="focus-in text-[2.4rem] leading-[1.04] sm:text-6xl lg:text-[4.25rem] font-sans font-medium tracking-tight text-white mb-6" style={{ '--d': '0.06s' }}>
                             AI agents that do the work. <span className="gold-gradient-text again-sweep drama-text">And the system that runs them.</span>
                         </h1>
@@ -465,7 +455,7 @@ export default function DeveloperPage() {
                     <div data-reveal="scale">
                         <IntegrationBeams />
                     </div>
-                    <p data-reveal className="mt-6 text-center text-white/35 text-sm">And the other software you already pay for.</p>
+                    <p data-reveal className="mt-6 text-center text-white/35 text-sm">Examples of tools I can connect. The right ones depend on the job.</p>
                 </div>
             </section>
 
@@ -530,8 +520,13 @@ export default function DeveloperPage() {
                         <div>
                             <p data-reveal className={`${EYEBROW} mb-5`}>Who this is for</p>
                             <h2 data-reveal="lines" className={H3}>
-                                This works if <span className="drama-text text-brand-accent">you have a system to run.</span>
+                                More work than <span className="drama-text text-brand-accent">hours in the day?</span>
                             </h2>
+                            <div data-reveal className="digital-employee">
+                                <span className="cinema-eyebrow">Room to grow</span>
+                                <h3>Not ready to hire?<br /><span className="drama-text text-brand-accent">Start with a digital employee.</span></h3>
+                                <p>I can build an agent to take on a clear role: answering calls, following up, handling paperwork, or keeping your records current. You choose the work. I build it around how your business runs.</p>
+                            </div>
                         </div>
                         <div>
                             <ul data-reveal-group data-inview className="flex flex-col gap-4 border-t border-white/[0.07] pt-6">

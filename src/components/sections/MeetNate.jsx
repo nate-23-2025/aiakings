@@ -74,7 +74,7 @@ export default function MeetNate() {
                             I am Nate Mamo, and I am based in Houston. I build the websites, run the AI SEO, and set up the reviews for local service businesses. For teams ready for more, I build the AI agents and the systems that run them.
                         </p>
                         <p data-reveal>
-                            I am also co-founder and CTO at Allen AI, building custom AI for law firms, and the lead developer on HealthCo&apos;s AI agent architecture. Same standard of work, brought to your business.
+                            I am the lead developer and handle IT support for HealthCo, one of Houston&apos;s best specialty pharmacies.
                         </p>
                         <p data-reveal className="text-white text-lg sm:text-xl">
                             When you call, you get me. Not an account manager, not a ticket number.
