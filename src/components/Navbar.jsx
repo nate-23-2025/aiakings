@@ -4,11 +4,7 @@ import { useCalModal } from '../context/CalModalContext';
 import CTAButton from './motion/CTAButton';
 import RollText from './motion/RollText';
 import MobileMenu from './MobileMenu';
-
-const TABS = [
-    { to: '/marketer', label: 'Nate the Marketer' },
-    { to: '/developer', label: 'Nate the Dev' },
-];
+import { SITE_LINKS, COMPANY_LINKS } from '../data/siteNavigation';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -53,21 +49,22 @@ export default function Navbar() {
                 AIA KINGS
             </Link>
 
-            {/* The two sides of the business, letters rolling on hover. On a phone
-                they live in the menu. */}
-            <div className="hidden md:flex items-center gap-8 font-medium text-sm">
-                {TABS.map(({ to, label }) => {
-                    const active = location.pathname.startsWith(to);
+            {/* The same independent pages appear in the phone menu and footer. */}
+            <div className="hidden md:flex items-center gap-3 lg:gap-5 font-medium text-[11px] lg:text-xs">
+                {SITE_LINKS.map(({ to, label }) => {
+                    const active = location.pathname === to;
                     return (
                         <Link
                             key={to}
                             to={to}
+                            aria-current={active ? 'page' : undefined}
                             className={`nav-tab roll-host relative whitespace-nowrap transition-opacity duration-300 hover:opacity-100 ${active ? 'is-active opacity-100' : 'opacity-70'}`}
                         >
                             <RollText text={label} />
                         </Link>
                     );
                 })}
+                {COMPANY_LINKS.map(link => <Link key={link.to} to={link.to} className="hidden lg:block py-2 opacity-70 hover:opacity-100">{link.label}</Link>)}
             </div>
 
             {/* Desktop only. On a phone the hero button and the sticky bottom bar

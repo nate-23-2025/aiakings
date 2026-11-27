@@ -1,0 +1,21 @@
+{
+  "_note": "Original brand artwork, used to name tools businesses already use. No partnership is implied. SVGL: github.com/pheralb/svgl. Simple Icons (CC0, recolored with each brand's listed hex): simpleicons.org. Others are the app icons published on each company's own website, downloaded 2026-11-04.",
+  "openai": { "name": "ChatGPT", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/openai.svg" },
+  "gemini": { "name": "Gemini", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/gemini.svg" },
+  "copilot": { "name": "Microsoft Copilot", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/microsoft-copilot.svg" },
+  "n8n": { "name": "n8n", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/n8n.svg" },
+  "notion": { "name": "Notion AI", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/notion.svg" },
+  "runway": { "name": "Runway", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/runway.svg" },
+  "midjourney": { "name": "Midjourney", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/midjourney.svg" },
+  "canva": { "name": "Canva", "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/canva.svg" },
+  "zapier": { "name": "Zapier", "source": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/zapier.svg", "color": "#FF4F00" },
+  "make": { "name": "Make", "source": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/make.svg", "color": "#6D00CC" },
+  "elevenlabs": { "name": "ElevenLabs", "source": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/elevenlabs.svg", "color": "#000000" },
+  "grammarly": { "name": "Grammarly", "source": "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/grammarly.svg", "color": "#027E6F" },
+  "fathom": { "name": "Fathom", "source": "https://fathom.video (site app icon)" },
+  "otter": { "name": "Otter.ai", "source": "https://otter.ai (site app icon)" },
+  "scribe": { "name": "Scribe", "source": "https://scribehow.com (site app icon)" },
+  "synthesia": { "name": "Synthesia", "source": "https://www.synthesia.io (site app icon)" },
+  "heygen": { "name": "HeyGen", "source": "https://www.heygen.com/images/heygen-logo.png" },
+  "gamma": { "name": "Gamma", "source": "https://static.gamma.app/favicons/favicon_light.svg" }
+}

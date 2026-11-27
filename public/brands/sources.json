@@ -53,5 +53,53 @@
     "name": "Cal.com",
     "source": "https://raw.githubusercontent.com/pheralb/svgl/main/static/library/cal_dark.svg",
     "website": "https://cal.com"
+  },
+  "clio": {
+    "name": "clio",
+    "file": "clio.png",
+    "source": "https://cdn.sanity.io/images/actcjxs1/production/9b6faf81c99183a562d00d36d2c5ed3be3c6aa35-1200x630.png?auto=format&w=1200",
+    "website": "https://www.clio.com/about/brand-assets/",
+    "sha256": "ef173caf4eece998edec38ab1982a29485bd3e681b9845243803fe8a8fa8bdb4",
+    "usage": "Illustrative software example, no endorsement or client claim"
+  },
+  "quickbooks": {
+    "name": "quickbooks",
+    "file": "quickbooks.svg",
+    "source": "https://cdn.simpleicons.org/quickbooks/2CA01C",
+    "website": "https://quickbooks.intuit.com/",
+    "sha256": "d5a398a718e8cc41d8c4deaef430ba3db881351bc89b38cefb66046c0f42ded9",
+    "usage": "Illustrative software example, no endorsement or client claim"
+  },
+  "simplepractice": {
+    "name": "simplepractice",
+    "file": "simplepractice.png",
+    "source": "https://www.simplepractice.com/icon-192x192.png",
+    "website": "https://www.simplepractice.com/",
+    "sha256": "f06a3505cb3d95622b9fbc73825b1da73075d4785a8df00ef6a9d2259f6e0f5d",
+    "usage": "Illustrative software example, no endorsement or client claim"
+  },
+  "docusign": {
+    "name": "docusign",
+    "file": "docusign.png",
+    "source": "https://www.docusign.com/assets/images/apple-touch-icon-180x180.png",
+    "website": "https://www.docusign.com/",
+    "sha256": "7360eb96959a6338f8ebcb5f87cbef750c0c4793b62d51336e49e316894a737b",
+    "usage": "Illustrative software example, no endorsement or client claim"
+  },
+  "outlook": {
+    "name": "outlook",
+    "file": "outlook.svg",
+    "source": "https://res.cdn.office.net/files/fabric-cdn-prod_20230815.002/assets/brand-icons/product/svg/outlook_48x1.svg",
+    "website": "https://www.microsoft.com/microsoft-365/outlook/",
+    "sha256": "0884e0478f7e073163febe67eaff20be97ae38373b0866c9668f81c2f6bd26c2",
+    "usage": "Illustrative software example, no endorsement or client claim"
+  },
+  "excel": {
+    "name": "excel",
+    "file": "excel.svg",
+    "source": "https://res.cdn.office.net/files/fabric-cdn-prod_20230815.002/assets/brand-icons/product/svg/excel_48x1.svg",
+    "website": "https://www.microsoft.com/microsoft-365/excel/",
+    "sha256": "da91a550409ab355e664188a00135bc93603e5a8f53df3eeed8abc2ab3db8d71",
+    "usage": "Illustrative software example, no endorsement or client claim"
   }
 }

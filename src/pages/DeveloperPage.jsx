@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Check, Plus, Lock } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
@@ -8,8 +8,8 @@ import { PANEL, WRAP, H2, H3, EYEBROW, LEDE } from '../lib/ui';
 import SEOHead from '../components/SEOHead';
 import CTAButton from '../components/motion/CTAButton';
 import HeroGlow from '../components/motion/HeroGlow';
-import NateVideo from '../components/motion/NateVideo';
 import CallSteps from '../components/sections/CallSteps';
+import PartnerProof from '../components/partnership/PartnerProof';
 import { PanelHead, Rows } from '../components/sections/PanelParts';
 import AgentDetail from '../components/dev/AgentDetail';
 import AgentPipeline from '../components/dev/AgentPipeline';
@@ -20,9 +20,6 @@ import NumberTicker from '../components/motion/NumberTicker';
 import BeamRing from '../components/motion/BeamRing';
 import FaqAccordion from '../components/sections/FaqAccordion';
 import { DEV_FITS } from '../data/agents';
-
-// Also used inside the HQ popup, so it loads as its own small chunk.
-const HQVisual = lazy(() => import('../components/features/HQVisual'));
 
 // Nate the Dev: AI agents and AI operating systems, for teams ready for
 // systems and for clients whose site, reviews, and rankings already run.
@@ -327,7 +324,7 @@ export default function DeveloperPage() {
     return (
         <div ref={rootRef} className="min-h-screen text-brand-background overflow-x-clip">
             <SEOHead
-                title="AI Agents and AI Operating Systems | AIA Kings"
+                title="Custom AI Development | AIA Kings"
                 description="I build AI agents and AI operating systems that answer calls, follow up, keep records straight, and run the back office inside the tools you already use, with your OK on anything risky. Houston, Texas."
                 canonical="https://aiautomationkings.com/developer"
                 jsonLd={PAGE_JSONLD}
@@ -335,18 +332,6 @@ export default function DeveloperPage() {
 
             {/* HERO. Two facts where a personal page would put follower counts. */}
             <section id="agents" className="relative pt-32 pb-14 sm:pt-40 sm:pb-20 px-5 sm:px-6 md:px-8 overflow-hidden">
-                {/* Me at the monitors, faint, behind everything, looping. It starts
-                    once the page is idle so the headline paints first, and there is
-                    no still image competing with it. Off for data saver and
-                    reduced motion. */}
-                <div
-                    aria-hidden="true"
-                    className="absolute inset-0 z-0 pointer-events-none opacity-30"
-                    style={{ maskImage: 'radial-gradient(ellipse 60% 70% at 72% 45%, black 25%, transparent 75%)', WebkitMaskImage: 'radial-gradient(ellipse 60% 70% at 72% 45%, black 25%, transparent 75%)' }}
-                >
-                    <NateVideo clips={['nate-command-physical', 'nate-dive-physical']} className="absolute inset-0" objectPosition="60% 40%" idleStart poster={false} />
-                    <div className="absolute inset-0 bg-brand-primary/35" />
-                </div>
                 <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
                     <div className="aurora-blob aurora-blob-1 absolute w-[500px] h-[500px] rounded-full"
                          style={{ background: 'radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%)', top: '-20%', right: '-10%' }} />
@@ -358,10 +343,10 @@ export default function DeveloperPage() {
                 <div className="relative z-10 max-w-6xl mx-auto">
                     <div className="max-w-3xl">
                         <h1 className="focus-in text-[2.4rem] leading-[1.04] sm:text-6xl lg:text-[4.25rem] font-sans font-medium tracking-tight text-white mb-6" style={{ '--d': '0.06s' }}>
-                            AI agents that do the work. <span className="gold-gradient-text again-sweep drama-text">And the system that runs them.</span>
+                            AI built for the work <span className="gold-gradient-text again-sweep drama-text">your team repeats.</span>
                         </h1>
                         <p className="focus-in text-white/60 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-9 leading-relaxed" style={{ '--d': '0.14s' }}>
-                            I build AI agents and AI operating systems that answer, follow up, keep your records straight, and run the back office, inside the tools you already use. Every one starts with a single job and waits for your OK on anything risky.
+                            I build an AI agent for a specific job, such as follow-ups, document preparation, or research. It works inside the tools you already use, with clear instructions and your approval where it matters.
                         </p>
                         <div className="focus-in flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-7" style={{ '--d': '0.22s' }}>
                             <CTAButton size="md" glint onClick={openCalModal} className="w-full sm:w-auto">
@@ -372,90 +357,10 @@ export default function DeveloperPage() {
                             </a>
                         </div>
                         <Link to="/marketer" className="focus-in group mt-8 inline-flex items-center gap-2 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] text-white/40 hover:text-brand-accent transition-colors" style={{ '--d': '0.3s' }}>
-                            Need a website or more customers first? Nate the Marketer
+                            Need a website or help getting found? Explore Websites & Search
                             <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                         </Link>
                     </div>
-                </div>
-            </section>
-
-            <section className={WRAP}>
-                <div className={PANEL}>
-                    <PanelHead
-                        as="h2"
-                        size={H2}
-                        title={<>What an agent <span className="drama-text text-brand-accent">actually is.</span></>}
-                        lede="Not a chatbot. A chatbot answers questions. An agent finishes the job, and every one I build has the same three parts."
-                    />
-                    <div data-reveal="scale" className="mb-10 sm:mb-14">
-                        <AgentPipeline />
-                    </div>
-                    <Rows items={AGENT_PARTS} />
-                </div>
-            </section>
-
-            <section className={WRAP}>
-                <div className={PANEL}>
-                    <PanelHead
-                        title={<>What agents can do <span className="drama-text text-brand-accent">for a business.</span></>}
-                        lede="The jobs that eat your day, handled at any hour, inside the tools you already run."
-                    />
-                    <AgentBento />
-                </div>
-            </section>
-
-            {/* AI OPERATING SYSTEMS. A full-width band over clips of me at the
-                command center, with the layers diagram beside the copy. */}
-            <section className="relative my-4 sm:my-6 overflow-hidden">
-                <div aria-hidden="true" className="absolute inset-0">
-                    <NateVideo clips={['nate-command', 'nate-command-dive']} className="absolute inset-0" objectPosition="50% 40%" stillOnPhones />
-                    <div className="absolute inset-0 bg-[#0D0D12]/40" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#0D0D12] via-[#0D0D12]/70 to-[#0D0D12]/10" />
-                    <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, #0D0D12 0%, transparent 18%), linear-gradient(to top, #0D0D12 0%, transparent 18%)' }} />
-                </div>
-                <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-6 md:px-8 py-20 sm:py-28 lg:py-32 grid lg:grid-cols-[minmax(0,1fr)_420px] gap-12 lg:gap-14 items-center">
-                    <div>
-                        <p data-reveal className={`${EYEBROW} mb-5`}>AI operating systems</p>
-                        <h3 data-reveal="lines" className={`${H3} mb-6`}>
-                            Several agents. <span className="drama-text text-brand-accent">One system.</span>
-                        </h3>
-                        <p data-reveal className="text-white/70 text-base sm:text-lg font-light leading-relaxed mb-5">
-                            An AI operating system is a team of agents working from the same memory and the same rules. Each one owns a job, they hand work to each other, and you oversee all of it.
-                        </p>
-                        <p data-reveal className="text-white/70 text-base sm:text-lg font-light leading-relaxed">
-                            I run my own business this way. Written playbooks say what to do, tested code does the predictable parts, and agents make the calls in between.
-                        </p>
-                    </div>
-                    <div data-reveal="scale">
-                        <Suspense fallback={<div className="h-[560px] rounded-[1.5rem] border border-white/[0.08] bg-[#0F0F14]" />}>
-                            <HQVisual />
-                        </Suspense>
-                    </div>
-                </div>
-            </section>
-
-            <section className={WRAP}>
-                <div className={PANEL}>
-                    <PanelHead
-                        title={<>How I build <span className="drama-text text-brand-accent">them.</span></>}
-                        lede="Small first, proven, then bigger."
-                    />
-                    <BuildTimeline items={AGENT_STEPS} />
-                    <p data-reveal className="mt-8 text-white/30 text-xs italic">Built with Claude Code and Codex.</p>
-                </div>
-            </section>
-
-            {/* CONNECTED. The tools an agent works inside, with light flowing in. */}
-            <section className={WRAP}>
-                <div className={PANEL}>
-                    <PanelHead
-                        title={<>Connected to the tools <span className="drama-text text-brand-accent">you already run.</span></>}
-                        lede="No new software to learn. Your agent works inside your phone, calendar, customer records, inbox, and payments. Connecting things is the part I specialize in."
-                    />
-                    <div data-reveal="scale">
-                        <IntegrationBeams />
-                    </div>
-                    <p data-reveal className="mt-6 text-center text-white/35 text-sm">Examples of tools I can connect. The right ones depend on the job.</p>
                 </div>
             </section>
 
@@ -492,6 +397,67 @@ export default function DeveloperPage() {
                     <p data-reveal className="mt-5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">Tap any of them for the breakdown</p>
                 </div>
             </section>
+
+            <PartnerProof compact />
+
+            <section className={WRAP}>
+                <div className={PANEL}>
+                    <PanelHead
+                        as="h2"
+                        size={H2}
+                        title={<>What an agent <span className="drama-text text-brand-accent">actually is.</span></>}
+                        lede="Not a chatbot. A chatbot answers questions. An agent finishes the job, and every one I build has the same three parts."
+                    />
+                    <div data-reveal="scale" className="mb-10 sm:mb-14">
+                        <AgentPipeline />
+                    </div>
+                    <Rows items={AGENT_PARTS} />
+                </div>
+            </section>
+
+            <section className={WRAP}>
+                <div className={PANEL}>
+                    <PanelHead
+                        title={<>What agents can do <span className="drama-text text-brand-accent">for a business.</span></>}
+                        lede="The jobs that eat your day, handled at any hour, inside the tools you already run."
+                    />
+                    <AgentBento />
+                </div>
+            </section>
+
+            <section className={WRAP} aria-labelledby="connected-system-title">
+                <div className="ux-ai-gateway">
+                    <div><span className="ux-eyebrow">NEED THE WHOLE BUSINESS CONNECTED?</span><h2 id="connected-system-title">Explore One Brain.</h2><p>For work that spans your tools, team, and business knowledge, I build one connected system. See the full experience on its own page.</p></div>
+                    <Link to="/one-brain" className="ux-text-link">Experience One Brain <span aria-hidden="true">→</span></Link>
+                </div>
+            </section>
+
+            <section className={WRAP}>
+                <div className={PANEL}>
+                    <PanelHead
+                        title={<>How I build <span className="drama-text text-brand-accent">them.</span></>}
+                        lede="Small first, proven, then bigger."
+                    />
+                    <BuildTimeline items={AGENT_STEPS} />
+                    <p data-reveal className="mt-8 text-white/30 text-xs italic">Built with Claude Code and Codex.</p>
+                </div>
+            </section>
+
+            {/* CONNECTED. The tools an agent works inside, with light flowing in. */}
+            <section className={WRAP}>
+                <div className={PANEL}>
+                    <PanelHead
+                        title={<>Connected to the tools <span className="drama-text text-brand-accent">you already run.</span></>}
+                        lede="No new software to learn. Your agent works inside your phone, calendar, customer records, inbox, and payments. Connecting things is the part I specialize in."
+                    />
+                    <div data-reveal="scale">
+                        <IntegrationBeams />
+                    </div>
+                    <p data-reveal className="mt-6 text-center text-white/35 text-sm">Examples of tools I can connect. The right ones depend on the job.</p>
+                </div>
+            </section>
+
+
 
             <section className={WRAP}>
                 <div className={PANEL}>
@@ -539,7 +505,7 @@ export default function DeveloperPage() {
                             </ul>
                             <p data-reveal className="mt-7 text-white/45 text-sm sm:text-base leading-relaxed">
                                 Need more customers first?{' '}
-                                <Link to="/marketer" className="link-underline text-white/70 hover:text-white">Start with the marketing side.</Link>
+                                <Link to="/marketer" className="link-underline text-white/70 hover:text-white">Explore Websites & Search.</Link>
                             </p>
                         </div>
                     </div>

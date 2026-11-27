@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { useCalModal } from '../../context/CalModalContext';
 import CTAButton from '../motion/CTAButton';
-import { Play } from 'lucide-react';
 
 // The signature path is large and sits below the fold, so it loads on its own.
 const SignatureDraw = lazy(() => import('../features/SignatureDraw'));
@@ -11,33 +10,8 @@ import { prefersReducedMotion } from '../../lib/motion';
 // Who builds this. The person behind both doors, right after the doors and
 // before the proof: a real photo of me in a tall frame (a slow push-in keeps
 // it alive), a few lines in my own voice, and my signature writing itself in.
-// A smaller landscape video card overlaps the portrait's lower left, covering
-// the wrist, taped off as coming soon. When the video exists, swap the taped
-// box for a <video> with a poster.
 // Scroll motion comes from the page's useReveal through the data attributes.
 
-const TAPE = Array.from({ length: 8 }, () => 'Coming soon');
-
-function CautionTape({ className, reverse = false, active = false }) {
-    const row = (dupe) => (
-        <span className="flex shrink-0" aria-hidden={dupe || undefined}>
-            {TAPE.map((t, i) => (
-                <span key={i} className="caution-word">{t}<span className="caution-dot">&bull;</span></span>
-            ))}
-        </span>
-    );
-    return (
-        <div className={`caution-tape ${className}`}>
-            <div
-                className={`caution-track ${reverse ? 'caution-track-reverse' : ''}`}
-                style={{ animationPlayState: active ? 'running' : 'paused' }}
-            >
-                {row(false)}
-                {row(true)}
-            </div>
-        </div>
-    );
-}
 export default function MeetNate() {
     const { openCalModal } = useCalModal();
     const sigRef = useRef(null);
@@ -88,12 +62,8 @@ export default function MeetNate() {
                 </div>
 
                 <div ref={sigRef} data-reveal="scale" className="nate-media mx-auto w-full max-w-[760px]">
-                    {/* The frame places the video card over the lower left of the
-                        photo, covering the wrist. Only the photo tilts on hover; the
-                        card stays put. The numbers in .nate-teaser-at (index.css)
-                        are measured against this photo; re-check them if it changes. */}
                     <div className="nate-frame">
-                        <div data-tilt className="nate-portrait">
+                        <div ref={mediaRef} data-tilt className="nate-portrait">
                             <picture>
                                 <source srcSet="/images/nate-suit-900.webp" type="image/webp" />
                                 <img
@@ -112,27 +82,6 @@ export default function MeetNate() {
                                 <span aria-hidden="true" className="mb-3 ml-auto block h-px w-6 bg-brand-accent/70" />
                                 <p className="text-white font-medium text-sm sm:text-lg tracking-tight">Nate Mamo</p>
                                 <p className="mt-1 font-mono text-[8px] sm:text-[9px] uppercase tracking-[0.22em] text-brand-accent/90">Houston, Texas</p>
-                            </div>
-                        </div>
-
-                        <div className="nate-teaser-at">
-                            <div
-                                ref={mediaRef}
-                                role="img"
-                                aria-label="A video from Nate, coming soon"
-                                className="nate-teaser"
-                            >
-                                <span aria-hidden="true" className="nate-teaser-label">
-                                    <span className="h-1 w-1 shrink-0 rounded-full bg-brand-accent" />
-                                    A minute from me
-                                </span>
-                                <div aria-hidden="true" className="absolute inset-0 grid place-items-center">
-                                    <span className="grid place-items-center w-10 h-10 sm:w-14 sm:h-14 rounded-full border border-brand-accent/30 bg-brand-accent/[0.06] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-                                        <Play className="w-4 h-4 sm:w-5 sm:h-5 text-brand-accent/80 ml-0.5" strokeWidth={1.25} />
-                                    </span>
-                                </div>
-                                <CautionTape className="top-[39%] -rotate-[12deg]" active={mediaInView} />
-                                <CautionTape className="top-[59%] rotate-[9deg]" reverse active={mediaInView} />
                             </div>
                         </div>
 

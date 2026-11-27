@@ -1,65 +1,61 @@
 # AI Automation Kings (AIAK)
 
-> Websites and AI SEO for local service businesses. If a business has no website, I build one. If it has one, I get it found on Google and in AI answers. Every call gets answered, and every job ends with a review request. I also build AI agents and AI operating systems for bigger operations, and as the next step for clients.
+> I build websites and search visibility for local businesses, custom AI agents for specific jobs, and One Brain to connect a team's tools and knowledge.
 
-Founded by Nathan Mamo. Based in Houston, Texas. One person, two sides of the work, shown on the site as two tabs.
+Founded by Nathan Mamo. Based in Houston, Texas. The site has a shared homepage and three separate pages: Websites & Search, Custom AI Development, and One Brain. One Brain is its own complete experience at `/one-brain`.
 
-## Nate the Marketer
+## One Brain
 
-For local service businesses: everything that gets them found, called, and picked.
+- **AI automation.** I map how work moves through your business and automate repetitive steps within an agreed process.
+- **Custom AI agents.** Each agent has a clear job, shared business context, and only the access its job needs.
+- **CRM and sales automation.** I connect inquiries, follow-up, conversation history, and customer records around your existing sales process.
+- **Connections.** I connect the tools and information the work needs, so your team can reduce repeated handoffs and copying between systems.
+- **AI workshops and training.** I train your team on its real tasks and the system built around them.
 
-- **The website.** For a business with none: a fast site with one job, get someone to call. Live in days, not months. Built from the first line so Google and AI answer tools can read it properly. Every build gets a second review before it goes live. It works the way the business works rather than bending the business to a template.
-- **AI SEO.** For a business that has a site: no rebuild for the sake of one. The site gets checked for what Google and AI cannot read or trust, that gets fixed, then every service, service area, and common customer question becomes a page that answers it. Listings are made to agree on name, address, phone, and hours, and the Google profile is kept current. A monthly report in plain English.
-- **The phone.** Every inbound call gets answered, the usual questions get handled, and the job goes on the calendar, nights and weekends included.
-- **Reviews.** Every finished job ends with a review request. Same ask to every customer, no filtering by how happy they seem, and no incentives. Fresh reviews are part of what keeps a business getting found.
-- **The account.** Calls, texts, reviews, and bookings in one place the owner can open on a phone, billed monthly.
+These five services come together in one business brain. I scope the first useful workflow, its sources, permissions, approval points, ownership, maintenance, and full costs before building.
 
-## Recent builds
+## How it works
 
-Live client sites, among many more.
+I connect your tools and business knowledge so AI can prepare repetitive work, such as client follow-up, documents, and team handoffs. Your team sets the instructions, access, and approval rules. I start with one useful workflow, test it with your team, then train your team to use it.
 
-- [Father & Son's Mobile Detailing](https://www.fathersonsmobiledetailinghouston.com/): Mobile detailing and ceramic coating, Richmond, TX.
-- [HealthCo Center](https://www.healthcopharmacy.com/): Pharmacy, infusion, and wellness, Houston, TX.
-- [Rapunzel Salon & Barbershop](https://rapunzel-salon-ga.com/): Salon and barbershop, Warner Robins, GA.
-
-## Nate the Dev
-
-For teams ready for systems, and the next step for clients whose site, reviews, and rankings are running.
-
-- **AI agents.** Custom agents that answer calls, follow up on leads, keep customer records current, handle paperwork, research and report, and run back-office work inside the tools a business already uses.
-- **AI operating systems.** Several agents sharing one memory and one set of rules, each owning a job, with a person overseeing all of it.
-- **How they are built.** One clearly scoped job first, proven before it expands. Each agent gets only the access its job needs, anything risky waits for a person's approval, and every action is logged. Checked twice and tested before it touches a real customer. Built with Claude Code and Codex. Specialty: connecting agents to the tools a business already runs.
-
-## AI agent work
-
-- HealthCo: lead developer building their AI agent architecture.
-- Allen AI: co-founder and CTO, custom AI for law firms. Built the system the business runs on, from first inquiry to referral, and a phone receptionist for law firms.
-- Phone agents that pick up, answer questions, and book the job.
-- Solomon, a research agent that pulls sourced stats and writes the report. Daniel, an SEO audit agent that checks a site against what Google and AI need and writes the owner a report.
-- AIAK HQ, the AI operating system the business itself runs on.
-
-## Who this is for
-
-Local service businesses that do the work in one city or metro, where one more job a week is worth real money, where customers find them by searching rather than only by referral, and that are owner operated or close to it. Mobile detailing, plumbing and HVAC, roofing, lawn and landscaping, cleaning, and similar trades.
-
-The agent work (Nate the Dev) is for teams where the same tasks eat hours every week, tools do not talk to each other, or a working process should run without someone remembering every step. It is also the next step for clients whose site, reviews, and rankings are already running.
-
-## What is not offered
-
-B2B lead generation, cold email as a service, social media management, and paid ads management.
-
-## Claims and limits
-
-No ranking position or placement in an AI answer is ever guaranteed, because nobody controls what Google or an AI tool says. What is controlled is whether the business is findable, readable, consistent, current, and backed by a live review profile. Reviews are never gated, filtered, or incentivized. Pricing is scoped on a call and is not published anywhere. AI agent work starts with one clearly scoped job, proven before it expands, and no business result is promised.
+The One Brain page follows a task through source information, draft preparation, and human review. Visitors can choose law firms, accountants, healthcare practices, or consulting, then explore follow-ups, documents, and team handoffs. Each example includes relevant software, source notes, and an editable draft. These are fictional administrative examples, not client case studies. More workflow examples are available in an optional explorer. The page also includes a simplified 3D illustration of how I use AI in my own business: managing client work, coordinating projects with Ken at CompuSolutionX, and research. These examples do not connect real accounts or send messages. Tool logos identify software a business may use; they do not imply a partnership or endorsement.
 
 ## Main
 
-- [Home](https://aiautomationkings.com/): Two ways in. Websites, reviews, and AI SEO for local service businesses, and AI agents and AI operating systems for teams ready for more, each with how it works and who it is for.
-- [Nate the Dev](https://aiautomationkings.com/developer): AI agents and AI operating systems. What an agent is, what agents can do for a business, how they get built safely, agent work done with breakdowns, the research with sources, and who it is for.
-- [Nate the Marketer](https://aiautomationkings.com/marketer): Websites, AI SEO, every call answered, and reviews for local service businesses. Live client sites, why WordPress costs a small business more than it looks, what gets done every month, and straight answers on what can and cannot be promised.
+- [Home](https://aiautomationkings.com/): Service overview, live website examples, a short illustrative AI workflow, and links to the three separate pages. General booking asks which service the visitor needs.
+- [Websites & Search](https://aiautomationkings.com/marketer): Websites, AI SEO, reviews, and phone answering for local service businesses.
+- [Custom AI Development](https://aiautomationkings.com/developer): Custom AI agents and development, with prior work and background.
+- [One Brain](https://aiautomationkings.com/one-brain): The complete interactive experience of tools, business knowledge, and daily work connected in one AI brain.
+- [What connects](https://aiautomationkings.com/one-brain#services): Five parts of the One Brain scroll sequence.
+- [How it works](https://aiautomationkings.com/one-brain#crown-system): Connected tools, business knowledge, AI assistants, and human review.
+- [Try an example](https://aiautomationkings.com/one-brain#crown-workflow): An interactive scroll story with editable drafts and a human approval step.
+- [My own workflow](https://aiautomationkings.com/one-brain#work): How I use AI to manage client work, coordinate projects with Ken, and run research. I review what AI prepares and make the decisions.
+- [The build process](https://aiautomationkings.com/one-brain#crown-build): Map the work, build and test the workflow, then train the team.
+- [CompuSolutionX partnership](https://aiautomationkings.com/one-brain#partnership): Partner background, public founder profile, client-side website credit, and technology references.
+- [Questions](https://aiautomationkings.com/one-brain#crown-questions): Access, ownership, maintenance, tools, and approvals.
+
+## Working with CompuSolutionX
+
+Ken (Kenneth) Akiri at CompuSolutionX is my partner in AI consulting and implementation. He is an IT expert with the technical understanding behind the work, and he now uses AI to build robust systems faster. CompuSolutionX's public company history dates its founding to 2002. The partnership section links to Ken's October 2021 SHOUTOUT HTX founder interview and a Diamond Dialysis website support credit. These describe CompuSolutionX experience, not AIA Kings client results. Platform artwork identifies technology referenced on CompuSolutionX's website and does not establish an AIA Kings certification or endorsement.
+
+CompuSolutionX displays a 2022 Forbes Business Council membership badge, a Microsoft Gold Partner badge, and an Intel Technology Provider badge on its own website. The section attributes these references to CompuSolutionX and links to its awards and partnerships pages. These references have not been independently confirmed as current credentials and are not AIA Kings credentials or endorsements.
+
+## Policies
+
+- [Privacy Policy](https://aiautomationkings.com/privacy-policy): Information collection, scheduling, analytics, communications, and privacy choices.
+- [Terms of Service](https://aiautomationkings.com/terms-of-service): Website use, services, and communication terms.
 
 ## Contact
 
 - Email: nate@aiautomationkings.com
-- Book a 15 minute call: https://api.aiautomationkings.com/widget/booking/qwkWGz8DTsKfVRuLkn88
+- Book a 15-minute call about an AI system: https://cal.com/nate-mamo/ai-agent-call
 - Location: Houston, Texas.
+- Pricing is scoped on a call and is not published.
+
+## Limits
+
+No business result, ranking position, or placement in an AI answer is guaranteed. No outbound lead generation, cold email service, social media management, or paid ads management is offered. Work starts with one scoped job, tested before it expands. Customer-facing messages and other consequential actions follow the approval rules agreed for that workflow.
+
+## Optional
+
+- Website and search calls use its existing booking calendar: https://api.aiautomationkings.com/widget/booking/qwkWGz8DTsKfVRuLkn88

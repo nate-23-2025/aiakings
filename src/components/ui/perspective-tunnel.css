@@ -1,0 +1,22 @@
+.perspective-tunnel {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    perspective: 1200px;
+    perspective-origin: 50% calc(50% + var(--tunnel-y, 0px));
+    transform-style: preserve-3d;
+}
+.perspective-tunnel-atmosphere { position: absolute; inset: 0; visibility: hidden; opacity: 0; }
+.perspective-tunnel-grid {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(142,165,238,.2) .7px, transparent .7px);
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 60% 65% at 50% 40%, #000, transparent 75%);
+    opacity: .55;
+}
+.perspective-tunnel-guide {
+    position: absolute; left: 50%; top: calc(50% + var(--tunnel-y, 0px));
+    width: 48vmin; height: 48vmin; border: 1px solid rgba(201,168,76,.13);
+    border-radius: 50%; transform: translate(-50%, -50%);
+    box-shadow: 0 0 90px rgba(91,123,213,.06), inset 0 0 90px rgba(91,123,213,.06);
+}
+.perspective-tunnel-guide.is-outer { width: 78vmin; height: 78vmin; border-style: dashed; border-color: rgba(142,165,238,.12); }
+@media (prefers-reduced-motion: reduce) { .perspective-tunnel { display: none; } }

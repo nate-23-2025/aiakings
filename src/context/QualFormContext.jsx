@@ -20,6 +20,8 @@ export function QualFormProvider({ children }) {
     );
 }
 
+// The provider and consumer hook intentionally share this module.
+// eslint-disable-next-line react-refresh/only-export-components
 export function useQualForm() {
     return useContext(QualFormContext);
 }

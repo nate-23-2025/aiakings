@@ -230,7 +230,7 @@ export default function HomeDoors({ door, setDoor }) {
                                     </button>
                                 </p>
                                 <div className="door-in mt-8 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6" style={{ '--d': '0.65s' }}>
-                                    <CTAButton size="md" onClick={openCalModal} className="w-full sm:w-auto">Talk to Me About an Agent</CTAButton>
+                                    <CTAButton size="md" onClick={() => openCalModal('developer')} className="w-full sm:w-auto">Talk to Me About an Agent</CTAButton>
                                     <Link to="/developer" className="group link-underline self-center sm:self-auto text-white/70 hover:text-white text-sm">
                                         Explore Nate the Dev <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                                     </Link>

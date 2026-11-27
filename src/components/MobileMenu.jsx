@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
@@ -6,22 +6,16 @@ import { ArrowUpRight, Mail } from 'lucide-react';
 import { useCalModal } from '../context/CalModalContext';
 import { lockScroll, unlockScroll } from '../lib/scrollLock';
 import { prefersReducedMotion } from '../lib/motion';
-import { BUILDS } from '../data/builds';
+import { SITE_LINKS, COMPANY_LINKS } from '../data/siteNavigation';
 
 // The phone menu: a full-screen panel that wipes down over the page like a
 // curtain and, on close, keeps going out through the bottom. Behind the wipe
-// the header drops in, the links rise one after another, and the live builds
-// scale up. Escape or the close button shuts it, focus moves in and stays in
+// the header drops in and the section links rise one after another.
+// Escape or the close button shuts it, focus moves in and stays in
 // while it is open, then goes back to the button, and the page behind stops
 // scrolling. It closes on its own when the route changes (the page transition
 // plays over it). From "Immersive Full Screen Navigation" (hyperiux) on
 // 21st.dev, rebuilt with GSAP and the site's own styles (.mm-* in index.css).
-const LINKS = [
-    { to: '/', label: 'Home', note: 'Two ways I work' },
-    { to: '/marketer', label: 'Nate the Marketer', note: 'Website, reviews, AI SEO' },
-    { to: '/developer', label: 'Nate the Dev', note: 'AI agents and AI systems' },
-];
-
 // Before it opens the panel is clipped to a line along the top, and once it
 // has closed, to a line along the bottom, so it always travels downward.
 const CLIP_TOP = 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)';
@@ -36,10 +30,6 @@ export default function MobileMenu({ open, onClose, returnFocusTo }) {
     const tlRef = useRef(null);
     const wasOpen = useRef(false);
     const pathAtOpen = useRef(pathname);
-
-    // The build thumbnails only download once someone opens the menu.
-    const [opened, setOpened] = useState(false);
-    if (open && !opened) setOpened(true);
 
     // Close when the route changes underneath.
     useEffect(() => {
@@ -69,12 +59,10 @@ export default function MobileMenu({ open, onClose, returnFocusTo }) {
                 .set(panel, { visibility: 'visible', clipPath: CLIP_TOP, opacity: 1 })
                 .set(q('[data-mm="head"]'), { y: -12, opacity: 0 })
                 .set(q('[data-mm="link"]'), { y: 34, opacity: 0 })
-                .set(q('[data-mm="shot"]'), { scale: 0.8, opacity: 0 })
                 .set(q('[data-mm="foot"]'), { y: 14, opacity: 0 })
                 .to(panel, { clipPath: CLIP_OPEN, duration: 0.9, ease: 'power4.inOut' })
                 .to(q('[data-mm="head"]'), { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.5)
                 .to(q('[data-mm="link"]'), { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', stagger: 0.07 }, 0.5)
-                .to(q('[data-mm="shot"]'), { scale: 1, opacity: 1, duration: 0.9, ease: 'power3.out', stagger: 0.05 }, 0.65)
                 .to(q('[data-mm="foot"]'), { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', stagger: 0.06 }, 0.75);
             return;
         }
@@ -147,46 +135,36 @@ export default function MobileMenu({ open, onClose, returnFocusTo }) {
                 </div>
 
                 <nav className="relative flex-grow flex flex-col justify-center px-6 py-6 gap-1">
-                    {LINKS.map((l) => {
-                        const active = l.to === '/' ? pathname === '/' : pathname.startsWith(l.to);
+                    {SITE_LINKS.map((l) => {
+                        const active = pathname === l.to;
                         return (
                             <Link
                                 key={l.to}
                                 to={l.to}
+                                aria-current={active ? 'page' : undefined}
                                 onClick={onClose}
                                 data-mm="link"
                                 className="flex items-end justify-between gap-4 border-b border-white/[0.08] py-3.5"
                             >
                                 <span>
                                     <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-white/35 mb-1">{l.note}</span>
-                                    <span className={`block drama-text text-[2.35rem] leading-none ${active ? 'text-brand-accent' : 'text-white'}`}>{l.label}</span>
+                                    <span className={`block text-[1.65rem] sm:text-[2rem] tracking-tight leading-tight ${active ? 'text-brand-accent' : 'text-white'}`}>{l.label}</span>
                                 </span>
                                 <ArrowUpRight className="w-5 h-5 mb-1 text-brand-accent/80 shrink-0" />
                             </Link>
                         );
                     })}
+                    <div className="flex flex-wrap gap-7 mt-5" data-mm="link">
+                        <Link to="/" onClick={onClose} className="py-2 text-white/75">Home</Link>
+                        {COMPANY_LINKS.map(link => <Link key={link.to} to={link.to} onClick={onClose} className="py-2 text-white/75">{link.label}</Link>)}
+                    </div>
                 </nav>
 
-                {/* Proof in the menu too: the live sites, one tap away */}
-                <div className="relative px-6 pb-6">
-                    <p data-mm="foot" className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40 mb-3">Live builds</p>
-                    <div className="grid grid-cols-3 gap-2.5">
-                        {opened && BUILDS.map((b) => (
-                            <a key={b.url} href={b.url} target="_blank" rel="noopener" data-mm="shot" className="mm-shot">
-                                <img src={`/work/thumbs/${b.img}.webp`} alt={`${b.name} website`} width="360" height="225" decoding="async" />
-                                <span className="mt-1.5 flex items-center gap-1 text-[11px] text-white/60">
-                                    {b.short}
-                                    <ArrowUpRight size={10} className="text-brand-accent/80" />
-                                </span>
-                            </a>
-                        ))}
-                    </div>
-                </div>
-
                 <div className="relative px-6 pb-10 flex flex-col gap-4">
+                    <p data-mm="foot" className="text-sm leading-relaxed text-white/65">Tell me what you need. I will help you find a useful place to start.</p>
                     <button data-mm="foot" type="button" onClick={book} className="cta-gold cta-glint relative isolate overflow-hidden w-full rounded-[2rem] bg-brand-accent text-brand-primary py-4 font-semibold text-base">
                         <span aria-hidden="true" className="cta-sheen" />
-                        <span className="relative z-10">Book a 15-Minute Call</span>
+                        <span className="relative z-10">Book a Call</span>
                     </button>
                     <div data-mm="foot" className="flex items-center justify-between gap-3 text-sm text-white/50">
                         <a href="mailto:nate@aiautomationkings.com" className="flex items-center gap-2 py-1">

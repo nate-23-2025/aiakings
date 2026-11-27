@@ -21,6 +21,7 @@ import Crown from './Crown';
 const LOADERS = {
     '/marketer': () => import('../../pages/MarketerPage'),
     '/developer': () => import('../../pages/DeveloperPage'),
+    '/one-brain': () => import('../../pages/OnePage'),
 };
 
 const kindFor = (path) => {
@@ -155,14 +156,14 @@ export default function PageTransitions() {
                         <span className="pt-check"><Check size={14} strokeWidth={3.2} /></span>
                         Your business
                     </div>
-                    <span className="pt-label-marketer drama-text">Nate the Marketer</span>
+                    <span className="pt-label-marketer drama-text">Websites &amp; Search</span>
                 </div>
             </div>
             {/* to Nate the Dev */}
             <div className="pt-boot">
                 <div className="pt-boot-grid" />
                 <span className="pt-label-dev">
-                    &gt; Nate the Dev<span className="caret">_</span>
+                    &gt; Custom AI Development<span className="caret">_</span>
                 </span>
             </div>
             {/* back home */}

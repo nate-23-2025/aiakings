@@ -24,9 +24,11 @@ export default function DeferredOverlays() {
         if (prefetched) return;
         // Only the booking modal gets warmed. The qualification form pulls in
         // the Supabase client, and nothing on the home page reaches for it.
+        // On the developer page the Cal.com booker gets warmed too.
         const warm = () => {
             setPrefetched(true);
             import('./CalModal');
+            if (window.location.pathname.startsWith('/developer')) import('./AgentCallBooking');
         };
         const idle = window.requestIdleCallback
             ? window.requestIdleCallback(warm, { timeout: 4000 })

@@ -4,7 +4,7 @@
 const STEPS = [
     { n: '1', title: 'Pick a time', body: 'Whatever works for you. Booking takes about a minute.' },
     { n: '2', title: 'I look you up first', body: 'Before we talk, I search for your business the way your customers do.' },
-    { n: '3', title: 'You see what they see', body: 'Fifteen minutes. If I cannot help, I will tell you straight.' },
+    { n: '3', title: 'You see what they see', body: 'A short call. If I cannot help, I will tell you straight.' },
 ];
 
 export default function CallSteps({ className = '', steps = STEPS }) {

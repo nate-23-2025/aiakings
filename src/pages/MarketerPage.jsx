@@ -236,17 +236,17 @@ export default function MarketerPage() {
                 <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_440px] gap-14 lg:gap-12 items-center">
                     <div>
                         <p className="focus-in text-brand-accent uppercase tracking-[0.2em] font-mono text-[10px] sm:text-xs mb-5">
-                            Nate the Marketer
+                            Websites & Search
                         </p>
                         <h1 className="focus-in text-[2rem] leading-[1.1] sm:text-4xl md:text-6xl font-sans font-medium tracking-tight text-white mb-5 text-balance" style={{ '--d': '0.06s' }}>
-                            Be the business it names.
+                            Help customers find you. Make it easy to call.
                         </h1>
                         <p className="focus-in text-white/60 text-base sm:text-lg md:text-xl font-light max-w-2xl mb-10 leading-relaxed" style={{ '--d': '0.14s' }}>
                             No website? I build one, live in days. Have one? I make it something Google and AI can read, trust, and name. Then every call gets answered, and every job ends with a review request.
                         </p>
                         <div className="focus-in flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-7" style={{ '--d': '0.22s' }}>
                             <CTAButton size="md" glint onClick={openCalModal} className="w-full sm:w-auto">
-                                Book a 15-Minute Call
+                                Book a Call
                             </CTAButton>
                             <a href="#builds" onClick={jumpTo('builds')} className="link-underline self-center sm:self-auto py-2 text-white/70 hover:text-white text-sm">
                                 Or see sites I have built <span className="bob">&darr;</span>
@@ -260,6 +260,8 @@ export default function MarketerPage() {
             </section>
 
             {/* WHAT CHANGED */}
+            <ScreenGallery onBook={openCalModal} />
+
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]/60">
                 <div className="max-w-5xl mx-auto">
                     <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-4">
@@ -347,7 +349,7 @@ export default function MarketerPage() {
                     <div data-reveal className="mt-8 flex flex-col items-start gap-5">
                         <p className="text-white/30 text-xs italic">Hosted on Vercel or Netlify. Larger custom builds run on AWS.</p>
                         <CTAButton size="md" onClick={openCalModal} className="w-full sm:w-auto">
-                            Book a 15-Minute Call
+                            Book a Call
                         </CTAButton>
                     </div>
                 </div>
@@ -356,7 +358,7 @@ export default function MarketerPage() {
             {/* PROOF. Who it is for, the live sites, and every one on desktop and phone */}
             <TradeMarquee />
             <BuildList />
-            <ScreenGallery onBook={openCalModal} />
+
 
             {/* WORDPRESS. Hit the platform, never the owner who bought it */}
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]/60">
@@ -468,7 +470,7 @@ export default function MarketerPage() {
             <section className="py-20 sm:py-28 px-5 sm:px-6 md:px-8 bg-[#0A0A0E]/60">
                 <div className="max-w-4xl mx-auto">
                     <h2 data-reveal="lines" className="text-3xl sm:text-4xl md:text-5xl font-sans font-light text-white leading-tight mb-6">
-                        Running smooth and want your time back? <span className="drama-text text-brand-accent">That is the Dev side.</span>
+                        Running smooth and want your time back? <span className="drama-text text-brand-accent">Explore custom AI development.</span>
                     </h2>
                     <p data-reveal className="text-white/50 text-base sm:text-lg md:text-xl font-light leading-relaxed mb-8">
                         Once the site, the reviews, and the rankings are running, AI agents can take the busywork off your plate: following up on quotes, keeping your records straight, and bringing back past customers.
@@ -478,7 +480,7 @@ export default function MarketerPage() {
                             to="/developer"
                             className="group inline-flex items-center gap-2 border border-white/20 text-white/80 hover:border-brand-accent/40 hover:text-white hover:bg-white/[0.03] px-8 py-4 rounded-[2rem] font-medium tracking-wide transition-[color,background-color,border-color,scale] active:scale-[0.97] duration-300 min-h-[48px]"
                         >
-                            See Nate the Dev
+                            Explore Custom AI Development
                             <span className="inline-block text-brand-accent transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                         </Link>
                     </div>
@@ -508,7 +510,7 @@ export default function MarketerPage() {
                     <CallSteps className="mb-10" />
                     <div data-reveal className="w-full sm:w-auto">
                         <CTAButton size="xl" halo glint onClick={openCalModal} className="w-full sm:w-auto">
-                            Book a 15-Minute Call
+                            Book a Call
                         </CTAButton>
                     </div>
                 </div>

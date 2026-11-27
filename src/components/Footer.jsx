@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import gsap from 'gsap';
 import { useReveal } from '../hooks/useReveal';
 import { canHover, prefersReducedMotion } from '../lib/motion';
+import { SITE_LINKS, COMPANY_LINKS } from '../data/siteNavigation';
 
 // The sign-off wordmark. With a mouse over it, the letters scatter a little,
 // tilt, and drift as if floating, then fall back into line when the pointer
@@ -57,6 +58,8 @@ function FancyWord() {
 
 export default function Footer() {
     const footerRef = useRef(null);
+    const { pathname } = useLocation();
+    const onePage = pathname === '/one-brain';
     useReveal(footerRef);
 
     return (
@@ -74,7 +77,9 @@ export default function Footer() {
                         AIA KINGS
                     </Link>
                     <p className="opacity-70 max-w-sm font-light">
-                        I build websites for local service businesses, get them found when customers search and ask AI, make sure every call gets answered, and end every job with a review request. For teams ready for more, I build AI agents that do the work.
+                        {onePage
+                            ? 'I connect your automations, agents, customer records, tools, and team around one AI brain for your business.'
+                            : 'I build websites for local service businesses, get them found when customers search and ask AI, make sure every call gets answered, and end every job with a review request. For teams ready for more, I build AI agents that do the work.'}
                     </p>
                     <a
                         href="mailto:nate@aiautomationkings.com"
@@ -86,19 +91,29 @@ export default function Footer() {
                 </div>
 
                 <div className="flex flex-col items-start gap-2">
-                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">What I do</span>
-                    <Link to="/marketer" className="link-underline py-1.5 opacity-70 hover:opacity-100">Nate the Marketer</Link>
-                    <Link to="/developer" className="link-underline py-1.5 opacity-70 hover:opacity-100">Nate the Dev</Link>
+                    <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Explore</span>
+                    {SITE_LINKS.map(link => <Link key={link.to} to={link.to} className="link-underline py-1.5 opacity-70 hover:opacity-100">{link.label}</Link>)}
                 </div>
 
                 <div className="flex flex-col items-start gap-2">
                     <span className="font-semibold text-brand-accent tracking-wide text-sm uppercase">Company</span>
+                    <Link to="/one-brain#partnership" className="link-underline py-1.5 opacity-70 hover:opacity-100">CompuSolutionX partnership</Link>
+                    <Link to="/" className="link-underline py-1.5 opacity-70 hover:opacity-100">Home</Link>
+                    {COMPANY_LINKS.map(link => <Link key={link.to} to={link.to} className="link-underline py-1.5 opacity-70 hover:opacity-100">{link.label}</Link>)}
+                    {onePage && <>
+                        <Link to="/one-brain#crown-build" className="link-underline py-1.5 opacity-70 hover:opacity-100">The build process</Link>
+                        <Link to="/one-brain#crown-questions" className="link-underline py-1.5 opacity-70 hover:opacity-100">Questions</Link>
+                    </>}
                     <a href="mailto:nate@aiautomationkings.com" className="link-underline py-1.5 opacity-70 hover:opacity-100">Contact</a>
                 </div>
             </div>
 
             <div className="relative z-10 max-w-6xl mx-auto mt-16 pt-8 border-t border-white/10 text-center opacity-40 text-sm data-text">
                 &copy; {new Date().getFullYear()} AIA Kings. All Rights Reserved.
+                <nav aria-label="Legal" className="flex justify-center flex-wrap gap-6 mt-4 pb-8">
+                    <Link to="/privacy-policy" className="underline underline-offset-4 hover:text-white">Privacy Policy</Link>
+                    <Link to="/terms-of-service" className="underline underline-offset-4 hover:text-white">Terms of Service</Link>
+                </nav>
             </div>
 
             {/* The sign-off. A huge, faint wordmark that rises into place as the
