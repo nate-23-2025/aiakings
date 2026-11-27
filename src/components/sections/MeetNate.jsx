@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { useCalModal } from '../../context/CalModalContext';
 import CTAButton from '../motion/CTAButton';
+import { Instagram } from 'lucide-react';
+import { NATE_INSTAGRAM } from '../../data/socialLinks';
 
 // The signature path is large and sits below the fold, so it loads on its own.
 const SignatureDraw = lazy(() => import('../features/SignatureDraw'));
@@ -58,6 +60,9 @@ export default function MeetNate() {
                         <CTAButton size="md" onClick={openCalModal} className="w-full sm:w-auto">
                             Book a Call With Me
                         </CTAButton>
+                        <a href={NATE_INSTAGRAM.href} target="_blank" rel="noopener noreferrer" aria-label={`Nate Mamo on Instagram, ${NATE_INSTAGRAM.handle}`} className="site-social-link mt-4">
+                            <Instagram size={18} aria-hidden="true" />{NATE_INSTAGRAM.handle}
+                        </a>
                     </div>
                 </div>
 

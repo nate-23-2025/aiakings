@@ -5,6 +5,7 @@ import { ArrowDown, ArrowRight } from 'lucide-react';
 import { track } from '@vercel/analytics';
 import { useCalModal } from '../context/CalModalContext';
 import { useReveal } from '../hooks/useReveal';
+import { useHomeMotion } from '../hooks/useHomeMotion';
 import { prefersReducedMotion } from '../lib/motion';
 import SEOHead from '../components/SEOHead';
 import CTAButton from '../components/motion/CTAButton';
@@ -27,12 +28,12 @@ export default function MainLandingPage() {
     const heroRef = useRef(null);
     const { openCalModal } = useCalModal();
     useReveal(rootRef);
+    useHomeMotion(rootRef);
 
     useEffect(() => {
         const mm = gsap.matchMedia();
         mm.add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
             const st = { trigger: heroRef.current, start: 'top top', end: 'bottom top', scrub: true };
-            gsap.to('[data-hero-content]', { y: 60, opacity: 0.3, scale: 0.98, ease: 'none', scrollTrigger: st });
             gsap.to('[data-hero-bg]', { y: 120, ease: 'none', scrollTrigger: st });
         });
         return () => mm.revert();

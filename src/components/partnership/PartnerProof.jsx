@@ -1,7 +1,8 @@
 import { useLayoutEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
-import { ArrowRight, ArrowUpRight, Cloud, Network, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Cloud, Instagram, Network, ShieldCheck } from 'lucide-react';
+import { KEN_INSTAGRAM } from '../../data/socialLinks';
 import { PARTNER, PARTNER_REFERENCES, PARTNER_TECHNOLOGIES } from '../../data/partnerProof';
 import { useCalModal } from '../../context/CalModalContext';
 import './partner-proof.css';
@@ -39,7 +40,7 @@ export default function PartnerProof({ compact = false }) {
                 <div className="pp-connection" aria-hidden="true"><span /><div><Network size={25} strokeWidth={1.2} /></div><span /></div>
                 <div className="pp-identity pp-compux"><span className="pp-identity-label">COMPUSOLUTIONX</span><SourceLink href={PARTNER.website} className="pp-partner-logo"><img src="/brands/partners/compusolutionx.png" alt="CompuSolutionX" width="400" height="90" loading="lazy" decoding="async" /></SourceLink><p>IT expertise &amp; AI implementation</p></div>
             </div>
-            <div className="pp-credentials"><a href={PARTNER.history} target="_blank" rel="noopener noreferrer"><b>2002</b><span>CompuSolutionX founded<ArrowUpRight size={12} /></span></a><div><b>Ken Akiri</b><span>Founder, CompuSolutionX</span></div><div className="pp-capabilities"><span><Cloud size={16} />Cloud</span><span><ShieldCheck size={16} />Security</span><span><Network size={16} />Connected tools</span></div></div>
+            <div className="pp-credentials"><a href={PARTNER.history} target="_blank" rel="noopener noreferrer"><b>2002</b><span>CompuSolutionX founded<ArrowUpRight size={12} /></span></a><div><b>Ken Akiri</b><span>Founder, CompuSolutionX</span><a href={KEN_INSTAGRAM.href} target="_blank" rel="noopener noreferrer" aria-label={`Ken Akiri on Instagram, ${KEN_INSTAGRAM.handle}`} className="site-social-link pp-social-link"><Instagram size={16} aria-hidden="true" />{KEN_INSTAGRAM.handle}</a></div><div className="pp-capabilities"><span><Cloud size={16} />Cloud</span><span><ShieldCheck size={16} />Security</span><span><Network size={16} />Connected tools</span></div></div>
         </div>
 
         <div className="pp-recognition" aria-labelledby="partner-recognition-title">

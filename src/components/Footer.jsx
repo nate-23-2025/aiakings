@@ -4,6 +4,8 @@ import gsap from 'gsap';
 import { useReveal } from '../hooks/useReveal';
 import { canHover, prefersReducedMotion } from '../lib/motion';
 import { SITE_LINKS, COMPANY_LINKS } from '../data/siteNavigation';
+import { Instagram } from 'lucide-react';
+import { NATE_INSTAGRAM } from '../data/socialLinks';
 
 // The sign-off wordmark. With a mouse over it, the letters scatter a little,
 // tilt, and drift as if floating, then fall back into line when the pointer
@@ -88,6 +90,9 @@ export default function Footer() {
                         nate@aiautomationkings.com
                     </a>
                     <p className="mt-4 opacity-50 text-sm">Houston, Texas.</p>
+                    <a href={NATE_INSTAGRAM.href} target="_blank" rel="noopener noreferrer" aria-label={`Nate Mamo on Instagram, ${NATE_INSTAGRAM.handle}`} className="site-social-link mt-4">
+                        <Instagram size={18} aria-hidden="true" />{NATE_INSTAGRAM.handle}
+                    </a>
                 </div>
 
                 <div className="flex flex-col items-start gap-2">
@@ -108,11 +113,11 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="relative z-10 max-w-6xl mx-auto mt-16 pt-8 border-t border-white/10 text-center opacity-40 text-sm data-text">
+            <div className="relative z-10 max-w-6xl mx-auto mt-16 pt-8 border-t border-white/10 text-center text-white/65 text-sm data-text">
                 &copy; {new Date().getFullYear()} AIA Kings. All Rights Reserved.
                 <nav aria-label="Legal" className="flex justify-center flex-wrap gap-6 mt-4 pb-8">
-                    <Link to="/privacy-policy" className="underline underline-offset-4 hover:text-white">Privacy Policy</Link>
-                    <Link to="/terms-of-service" className="underline underline-offset-4 hover:text-white">Terms of Service</Link>
+                    <Link to="/privacy-policy" className="inline-flex items-center min-h-11 underline underline-offset-4 hover:text-white">Privacy Policy</Link>
+                    <Link to="/terms-of-service" className="inline-flex items-center min-h-11 underline underline-offset-4 hover:text-white">Terms of Service</Link>
                 </nav>
             </div>
 

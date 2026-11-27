@@ -10,6 +10,7 @@ export function HomeProof() {
     return <section id="builds" className="ux-section ux-proof" aria-labelledby="home-proof-title">
         <div className="ux-section-head"><div><span className="ux-eyebrow">WEBSITES I HAVE BUILT</span><h2 id="home-proof-title">See the work <span className="drama-text">for yourself.</span></h2></div><p>Live client websites. Open any build to explore it.</p></div>
         <ul className="ux-proof-grid">{BUILDS.map(b => <li key={b.img}><a href={b.url} target="_blank" rel="noopener noreferrer" onClick={() => track('work_view', { project: b.img, page: '/' })}>
+            <svg className="ux-proof-trace" aria-hidden="true" focusable="false"><rect x="1" y="1" rx="17" pathLength="1" /></svg>
             <div className="ux-proof-image"><img src={`/work/${b.img}.jpg`} alt={`${b.name} website`} width="1440" height="900" loading="lazy" decoding="async" /><span>View live site<ArrowUpRight size={15} /></span></div>
             <div className="ux-proof-copy"><small>{b.where}</small><h3>{b.short}<ArrowUpRight size={16} /></h3><p>{b.line}</p></div>
         </a></li>)}</ul>
@@ -30,7 +31,7 @@ export function HomeServices() {
         <div className="ux-section-head"><div><span className="ux-eyebrow">HOW I CAN HELP</span><h2 id="home-services-title">Start with what <span className="drama-text">you need.</span></h2></div><p>Choose a service to see what I build, who it is for, and how to get started.</p></div>
         <div className="ux-service-grid">{SITE_LINKS.map((service, i) => {
             const { Icon, need, body, examples, action } = SERVICE_DETAILS[i];
-            return <Link key={service.to} to={service.to} className={`ux-service-card ux-service-${i}`} onClick={() => track('service_select', { service: service.label, placement: 'homepage' })} data-spotlight>
+            return <Link key={service.to} to={service.to} className={`ux-service-card ux-service-${i}`} style={{ '--stack-order': i }} onClick={() => track('service_select', { service: service.label, placement: 'homepage' })} data-spotlight>
                 <div className="ux-service-top"><span><Icon size={25} strokeWidth={1.4} /></span><small>0{i + 1}</small></div>
                 <p className="ux-service-need">{need}</p><h3>{service.label}</h3><p>{body}</p>
                 <ul>{examples.map(example => <li key={example}><Check size={13} />{example}</li>)}</ul>
